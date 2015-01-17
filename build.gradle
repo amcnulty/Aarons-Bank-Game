@@ -10,7 +10,7 @@
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = "bank.Game"
+mainClassName = 'bank.Game'
 jar {
 	manifest {
 		attributes 'Main-Class' : 'bank.Game'
@@ -36,4 +36,8 @@ dependencies {
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
     // testCompile 'junit:junit:4.11'
+}
+
+if (!hasProperty('mainClass')) { 
+	ext.mainClass = 'bank.Game' 
 }
