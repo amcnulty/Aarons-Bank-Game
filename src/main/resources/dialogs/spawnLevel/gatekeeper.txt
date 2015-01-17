@@ -1,0 +1,10 @@
+2
+1
+3
+GateKeeper: Beyond here is Townsville.
+We don't allow any travelers in unless they are with a local resident.
+If you know someone in town perhaps you should try contacting them.
+
+2
+1
+GateKeeper: Enjoy your stay in Townsville!
