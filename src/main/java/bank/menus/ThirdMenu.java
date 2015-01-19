@@ -32,6 +32,8 @@ public class ThirdMenu extends Menu {
         buttons.add(new ClickableButton(61, xloc, 25, yloc, "ARMOR", 4));
         // adding button to show bobbie
         buttons.add(new ClickableButton(100, xloc, 25, yloc, "ITEMS", 5));
+        // adding referals button
+        buttons.add(new ClickableButton(18, xloc, 51, yloc, "ADD-REFERRAL", 15));
         // adding unequip weapon button
         unequipWeaponButton = new ClickableButton(28, xloc, 189, yloc, "UNEQUIP", 11);
         for (int i = 0; i < 3; i++) {
@@ -96,9 +98,16 @@ public class ThirdMenu extends Menu {
     public void render(Screen screen) {
         super.render(screen);
         font.renderSmallCharacters(27, 9, "Inventory", screen);
-        font.renderSmallCharacters(20, 30, "Equiped Items", screen);
+        font.renderSmallCharacters(20, 34, "Equiped Items", screen);
         font.renderSmallCharacters(15, 49, "Weapon", screen);
         font.renderSmallCharacters(45, 49, "Armor", screen);
+        font.renderSmallCharacters(26, 18, "Referrals", screen);
+        font.renderSuperSmallCharacters2(115, 68, "TOTAL-", screen);
+        font.renderSuperSmallCharacters2(155, 68, Integer.toString(player.totalReferrals), screen);
+        font.renderSuperSmallCharacters2(35, 85, "AVAILABLE-", screen);
+        font.renderSuperSmallCharacters2(100, 85, Integer.toString(player.availableReferrals), screen);
+        font.renderSuperSmallCharacters2(130, 85, "USED-", screen);
+        font.renderSuperSmallCharacters2(165, 85, Integer.toString(player.usedReferrals), screen);
         for (int i = 0; i < 3; i ++) {
             if (player.equipedArmor[i] != null) {
                 screen.renderSprite(133, 162 + (18 * i), player.equipedArmor[i].itemSprite, false);
@@ -117,7 +126,7 @@ public class ThirdMenu extends Menu {
             font.renderSuperSmallCharacters2(36, 191, player.equipedWeapon.itemName, screen);
             unequipWeaponButton.render(screen);
         }
-        screen.renderSprite(97, 107, player.getPlayerMenuSprite(player.playerNum), false);
+        screen.renderSprite(97, 111, player.getPlayerMenuSprite(player.playerNum), false);
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).render(screen);
         }

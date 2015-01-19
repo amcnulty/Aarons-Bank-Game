@@ -33,6 +33,7 @@ public class CrazyLevel extends Level {
                 crazyLevelNpcs.add(new FemaleNpcClerk(56 * 16, 55 * 16, 2));
                 crazyLevelNpcs.add(new MaleNpc(34 * 16, 52 * 16, "/dialogs/crazyLevel/Cody.txt"));
                 crazyLevelNpcs.add(new FemaleNpc(37 * 16, 52 * 16, "/dialogs/crazyLevel/Kali.txt"));
+                crazyLevelNpcs.add(new FemaleNpc(10 * 16, 31 * 16, "/dialogs/crazyLevel/Bobbie.txt"));
 	}
 	
 	protected void loadLevel(String path) {

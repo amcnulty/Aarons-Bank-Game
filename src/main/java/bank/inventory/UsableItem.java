@@ -65,5 +65,9 @@ public class UsableItem extends Items {
     public int getDefenceChange() {
         return defenceChange;
     }
+    
+    public int getLevelChange() {
+        return levelChange;
+    }
 
 }

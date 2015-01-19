@@ -7,6 +7,7 @@ package bank.menus;
 
 import bank.graphics.Screen;
 import bank.graphics.Sprite;
+import bank.input.Keyboard;
 
 /**
  *
@@ -24,6 +25,13 @@ public class SeventhMenu extends Menu {
     public void setItemSpriteAndName(Sprite itemSprite, String itemName) {
         this.itemSprite = itemSprite;
         this.itemName = itemName;
+    }
+    
+    public void update() {
+        super.update();
+        if (!key.checked && key.space) {
+            isOpen = false;
+        }
     }
     
     public void render(Screen screen) {

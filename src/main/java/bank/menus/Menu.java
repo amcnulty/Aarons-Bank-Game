@@ -9,6 +9,7 @@ import bank.entity.mob.Player;
 import bank.graphics.Font;
 import bank.graphics.Screen;
 import bank.graphics.Sprite;
+import bank.input.Keyboard;
 import bank.input.Mouse;
 import bank.inventory.Items;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Menu {
     protected Sprite menuBackground;
     protected Font font = new Font();
     private Mouse mouse;
+    protected Keyboard key;
     
     private int width, height;
     protected int xloc, yloc;
@@ -46,6 +48,7 @@ public class Menu {
     public static Menu armorMenu = new FifthMenu(200, 215, 15, 15);
     public static Menu itemsMenu = new SixthMenu(200, 215, 15, 15);
     public static Menu chestMenu = new SeventhMenu(160, 50, 115, 15);
+    public static Menu yesNoMenu = new YesNoMenu(190, 110, 120, 70);
     
     private ArrayList<ClickableButton> buttons = new ArrayList<>();
     
@@ -116,6 +119,9 @@ public class Menu {
         }
         
     }
+     public void initKeyboard(Keyboard key) {
+         this.key = key;
+     }
     
     public void setItemSpriteAndName(Sprite itemSprite, String itemName) {
     }

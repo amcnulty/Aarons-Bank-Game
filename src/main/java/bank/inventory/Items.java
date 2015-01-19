@@ -144,6 +144,10 @@ public class Items {
         return 0;
     }
     
+    public int getLevelChange() {
+        return 0;
+    }
+    
     public void setAmount(int amount) {
         this.amount = amount;
     }

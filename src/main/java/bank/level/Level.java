@@ -7,6 +7,7 @@ package bank.level;
 
 import bank.entity.chests.Chest;
 import bank.entity.mob.Npc.Npc;
+import bank.entity.signs.Signs;
 import bank.graphics.Screen;
 import bank.level.tile.Tile;
 import java.io.FileNotFoundException;
@@ -90,6 +91,10 @@ public class Level implements Serializable {
             return false;
         }
         
+        public boolean signHere(int x, int y) {
+            return false;
+        }
+        
         public boolean chestHere(int xp, int yp) {
             return false;
         }
@@ -99,6 +104,10 @@ public class Level implements Serializable {
         }
         
         public Chest getChest(int xp, int yp) {
+            return null;
+        }
+        
+        public Signs getSign(int xp, int yp) {
             return null;
         }
         

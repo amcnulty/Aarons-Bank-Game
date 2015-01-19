@@ -241,7 +241,7 @@ public class ClickableButton {
     }
     
     public void update() {
-        //System.out.println("From the clickable button class X: " + Mouse.getX() + "  Y: " + Mouse.getY());
+        System.out.println("From the clickable button class X: " + Mouse.getX() + "  Y: " + Mouse.getY());
         if (startAction) {
             timer++;
             if (timer == 10) {

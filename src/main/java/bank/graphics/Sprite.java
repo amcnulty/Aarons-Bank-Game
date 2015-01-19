@@ -327,6 +327,8 @@ public class Sprite {
 	public static Sprite mudSignII = new Sprite(16, 0, 8, SpriteSheet.tiles);
 	public static Sprite mudSignIII = new Sprite(16, 0, 9, SpriteSheet.tiles);
 	public static Sprite mudSignIV = new Sprite(16, 1, 9, SpriteSheet.tiles);
+        
+        public static Sprite signSprite = new Sprite(32, 7, 5, SpriteSheet.tiles);
 	
 	// ToolBar sprites
 	public static Sprite toolBar1 = new Sprite(true, 130, 55, SpriteSheet.toolBar);

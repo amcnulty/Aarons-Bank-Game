@@ -9,6 +9,7 @@ import bank.entity.chests.Chest;
 import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.FemaleNpc;
 import bank.entity.mob.Npc.Npc;
+import bank.entity.signs.Signs;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -31,11 +32,13 @@ public class SpawnLevel extends Level {
     
     private ArrayList<Chest> spawnLevelChests = new ArrayList<>();
     private ArrayList<Npc> spawnLevelNpcs = new ArrayList<>();
+    private ArrayList<Signs> spawnLevelSigns = new ArrayList<>();
 
     public SpawnLevel(String path) {
         super(path);
         addNpcs();
         addChests();
+        addSigns();
     }
     
     private void addChests() {
@@ -73,6 +76,10 @@ public class SpawnLevel extends Level {
         spawnLevelNpcs.add(new MaleNpc(90, 330));
         spawnLevelNpcs.add(new FemaleNpc(152, 450));
         spawnLevelNpcs.add(new FemaleNpc(250, 400));
+    }
+    
+    private void addSigns() {
+        spawnLevelSigns.add(new Signs(162 / 3, 166 / 3));
     }
 
     protected void loadLevel(String path) {
@@ -167,6 +174,14 @@ public class SpawnLevel extends Level {
         return npcHere;
     }
     
+    public boolean signHere(int xp, int yp) {
+        boolean signHere = false;
+        for (int i = 0; i < spawnLevelSigns.size(); i++) {
+            if (spawnLevelSigns.get(i).signHere(xp, yp)) signHere = true;
+        }
+        return signHere;
+    }
+    
     public boolean chestHere(int xp, int yp) {
         boolean chestHere = false;
         for (int i = 0; i < spawnLevelChests.size(); i++) {
@@ -191,6 +206,17 @@ public class SpawnLevel extends Level {
             int xx = spawnLevelChests.get(i).x;
             int yy = spawnLevelChests.get(i).y;
             if (xx <= xp && xx + 32 >= xp && yy <= yp && yy + 32 >= yp) return spawnLevelChests.get(i);
+        }
+        return null;
+    }
+    
+    public Signs getSign(int xp, int yp) {
+        for (int i = 0; i < spawnLevelSigns.size(); i++) {
+            int xx = spawnLevelSigns.get(i).x;
+            int yy = spawnLevelSigns.get(i).y;
+            if (xx <= xp - 4 && xx + 28 >= xp && yy <= yp && yy + 28 >= yp) {
+                return spawnLevelSigns.get(i);
+            }
         }
         return null;
     }
@@ -222,6 +248,9 @@ public class SpawnLevel extends Level {
         for (int i = 0; i < spawnLevelChests.size(); i++) {
             spawnLevelChests.get(i).update();
         }
+        for (int i = 0; i < spawnLevelSigns.size(); i++) {
+            spawnLevelSigns.get(i).update();
+        }
     }
 
     public void render(Screen screen) {
@@ -230,6 +259,9 @@ public class SpawnLevel extends Level {
         }
         for (int i = 0; i < spawnLevelChests.size(); i++) {
             spawnLevelChests.get(i).render(screen);
+        }
+        for (int i = 0; i < spawnLevelSigns.size(); i++) {
+            spawnLevelSigns.get(i).render(screen);
         }
     }
 

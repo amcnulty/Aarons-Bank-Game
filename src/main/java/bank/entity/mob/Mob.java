@@ -53,6 +53,7 @@ public abstract class Mob extends Entity {
 			if (level.getTile(xt, yt).solid()) solid = true;
                         else if (level.npcHere(nx, ny)) solid = true;
                         else if (level.chestHere(nx, ny)) solid = true;
+                        else if (level.signHere(nx, ny)) solid = true;
 		}
 		return solid;
 	}

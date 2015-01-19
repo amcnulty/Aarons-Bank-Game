@@ -54,6 +54,9 @@ public class Player extends Mob {
     public int defence = 15;
     public int speed = 10;
     public String name;
+    public int totalReferrals;
+    public int availableReferrals;
+    public int usedReferrals;
     
     // Player Inventory
     public ArrayList<ArmorItem> armorInventory = new ArrayList<>();
@@ -67,6 +70,7 @@ public class Player extends Mob {
     
 	
     public Player(int x, int y, Keyboard input, Dialog dialog, int playerNum, CutScenes cut) {
+        this.input = input;
         this.x = x;
         this.y = y;
         this.playerNum = playerNum;
@@ -75,7 +79,6 @@ public class Player extends Mob {
         setPlayerToMenus();
         item = UsableItem.drinkingWater;
         invButton = new ClickableButton(300, 0, 28, 0, "INVENTORY", 1);
-        this.input = input;
         this.cut = cut;
         switch (playerNum) {
             case 1:
@@ -102,13 +105,13 @@ public class Player extends Mob {
     }
     
     public Player(Keyboard input, Dialog dialog, int playerNum, CutScenes cut) {
+        this.input = input;
         this.playerNum = playerNum;
         this.dialog = dialog;
         menu = Menu.inventoryMenu;
         setPlayerToMenus();
         item = UsableItem.drinkingWater;
         invButton = new ClickableButton(300, 0, 28, 0, "INVENTORY", 1);
-        this.input = input;
         this.cut = cut;
         switch (playerNum) {
             case 1:
@@ -142,6 +145,8 @@ public class Player extends Mob {
         menu.setPlayer(this);
         menu = Menu.itemsMenu;
         menu.setPlayer(this);
+        menu = Menu.chestMenu;
+        menu.initKeyboard(input);
     }
 	
     public void changeLocation(int x, int y) {
@@ -297,11 +302,17 @@ public class Player extends Mob {
             case 7: // using an item from inventory
                 if (inventory.get(inventory.indexOf(item)).amount > 1) {
                     setStats(inventory.get(inventory.indexOf(item)).getHealthPoints(), inventory.get(inventory.indexOf(item)).getAttackChange(), inventory.get(inventory.indexOf(item)).getDefenceChange(), inventory.get(inventory.indexOf(item)).getSpeedChange());
+                    if (inventory.get(inventory.indexOf(item)).getLevelChange() != 0) {
+                        changeLevel(item.getLevelChange());
+                    }
                     inventory.get(inventory.indexOf(item)).decrementAmount();
                     menu.setPanes();
                 }
                 else {
                     setStats(inventory.get(inventory.indexOf(item)).getHealthPoints(), inventory.get(inventory.indexOf(item)).getAttackChange(), inventory.get(inventory.indexOf(item)).getDefenceChange(), inventory.get(inventory.indexOf(item)).getSpeedChange());
+                    if (inventory.get(inventory.indexOf(item)).getLevelChange() != 0) {
+                        changeLevel(item.getLevelChange());
+                    }
                     inventory.remove(inventory.indexOf(item));
                     menu.setPanes();
                 }
@@ -392,8 +403,27 @@ public class Player extends Mob {
             case 14: // unequip armor slot 3
                 equipedArmor[2] = null;
                 break;
+            case 15:
+                menu = Menu.yesNoMenu;
+                menu.isOpen = true;
+                break;
+            case 16:
+                menu = Menu.inventoryMenu;
+                totalReferrals++;
+                availableReferrals++;
+                break;
+            case 17:
+                menu = Menu.inventoryMenu;
+                break;
             default:
                 System.err.println("ERROR! YOU HAVE NOT MADE A CASE FOR THIS; From doAction in player class");
+        }
+    }
+    
+    private void changeLevel(int levelChange) {
+        for (int i = 0; i < levelChange; i++) {
+            playerLevel++;
+            setStats(25, 5, 5, 2);
         }
     }
     
@@ -445,7 +475,17 @@ public class Player extends Mob {
     }
 	
     public void readSign() {
-        if (dir == 0) {
+       if (dir == 0) {
+           for (int yp = y; yp >= y - 8; yp--) {
+               if (level.signHere(x, yp)) {
+                   dialog.isOpen = true;
+                   dialog.setMessage(level.getSign(x, yp).getSignDialog());
+               }
+           }
+       }
+        
+        
+        /**if (dir == 0) {
             for (int yp = y; yp >= y - 8; yp--) {
                 if (level.getTile(x >> 4, yp >> 4).dialog() == true) {
                     // Open dialog box here
@@ -459,7 +499,7 @@ public class Player extends Mob {
                     break;
                 }
             }
-        }
+        }*/
     }
     
     private void openChest() {
@@ -857,11 +897,6 @@ public class Player extends Mob {
         if (!onCutscene) invButton.render(screen);
         if (menu.isOpen) {
             menu.render(screen);
-            if (menu == Menu.inventoryMenu) {
-                String numOfItems = "TOTAL NUMBER OF ITEMS - ";
-                numOfItems = numOfItems + inventory.size();
-                font.renderSuperSmallCharacters2(25, 65, numOfItems, screen);
-            }
         }
     }
 }
