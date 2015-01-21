@@ -192,6 +192,24 @@ public class Game extends Canvas implements Runnable {
             case 5:
                 level = Level.biggerHouseUpstairsLevel;
                 break;
+            case 6:
+                level = Level.mazeLevel;
+                break;
+            case 7:
+                level = Level.house2SubLevel;
+                break;
+            case 8:
+                level = Level.storeOneLevel;
+                break;
+            case 9:
+                level = Level.baitShopLevel;
+                break;
+            case 10:
+                level = Level.scottHouseLevel;
+                break;
+            case 11:
+                level = Level.sidewaysHouseLevel;
+                break;
         }
         player.init(level);
         Level.spawnLevel.setChests(save.spawnLevelChests);

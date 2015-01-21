@@ -173,6 +173,17 @@ public class Sprite {
         
         // Armor name box sprite
         public static Sprite nameBoxSprite = new Sprite(100, 11, 0xffFF384B);
+        
+        // Furniture sprites
+        public static Sprite big_couch = new Sprite(32, 0, 0, SpriteSheet.furniture);
+        public static Sprite small_couch = new Sprite(32, 1, 0, SpriteSheet.furniture);
+        public static Sprite oven = new Sprite(32, 2, 0, SpriteSheet.furniture);
+        public static Sprite fridge_one = new Sprite(32, 0, 1, SpriteSheet.furniture);
+        public static Sprite dresser = new Sprite(32, 1, 1, SpriteSheet.furniture);
+        public static Sprite air_compressor = new Sprite(32, 2, 1, SpriteSheet.furniture);
+        public static Sprite office_chair = new Sprite(32, 0, 2, SpriteSheet.furniture);
+        public static Sprite barrel = new Sprite(32, 1, 2, SpriteSheet.furniture);
+        public static Sprite fridge_two = new Sprite(32, 2, 2, SpriteSheet.furniture);
 	
         // Treasure Chest Sprites
         public static Sprite chest1_open = new Sprite(32, 5, 5, SpriteSheet.tiles);

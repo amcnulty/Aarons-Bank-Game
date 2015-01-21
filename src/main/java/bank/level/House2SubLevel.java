@@ -18,26 +18,34 @@ import javax.imageio.ImageIO;
  *
  * @author Aaron
  */
-public class BiggerHouseLevel extends Level {
+class House2SubLevel extends Level {
+
+    private final int LEVELNUM = 7;
     
-    private final int LEVELNUM = 4;
-    
-    private ArrayList<Npc> biggerHouseLevelNpcs = new ArrayList<>();
     private ArrayList<Furniture> furniture = new ArrayList<>();
+    private ArrayList<Npc> npcs = new ArrayList<>();
     
-    public BiggerHouseLevel(String path) {
+    public House2SubLevel(String path) {
         super(path);
         addFurniture();
-        biggerHouseLevelNpcs.add(new MaleNpc(5 * 16, 14 * 16, "/dialogs/biggerHouseLevel/Ed Gone.txt"));
-        biggerHouseLevelNpcs.add(new MaleNpc(13 * 16, 15 * 16, "/dialogs/biggerHouseLevel/Night Owl.txt"));
+        addNPCs();
+    }
+    
+    private void addNPCs() {
+        npcs.add(new MaleNpc(136, 88, "/dialogs/crazyLevel/Anthony.txt"));
     }
     
     private void addFurniture() {
-        furniture.add(new Furniture(28, 192, Furniture.FRIDGE_ONE));
-        furniture.add(new Furniture(46, 192, Furniture.FRIDGE_TWO));
-        furniture.add(new Furniture(66, 192, Furniture.OVEN));
-        furniture.add(new Furniture(206, 144, Furniture.DRESSER));
-        furniture.add(new Furniture(206, 178, Furniture.OFFICE_CHAIR));
+        // Left Room
+        furniture.add(new Furniture(27, 32, Furniture.FRIDGE_ONE));
+        furniture.add(new Furniture(67, 32, Furniture.OVEN));
+        furniture.add(new Furniture(46, 31, Furniture.FRIDGE_TWO));
+        furniture.add(new Furniture(25, 66, Furniture.BARREL));
+        // Right Room
+        furniture.add(new Furniture(115, 34, Furniture.BIG_COUCH));
+        furniture.add(new Furniture(149, 33, Furniture.SMALL_COUCH));
+        furniture.add(new Furniture(164, 80, Furniture.DRESSER));
+        furniture.add(new Furniture(164, 99, Furniture.OFFICE_CHAIR));
     }
     
     protected void loadLevel(String path) {
@@ -63,42 +71,32 @@ public class BiggerHouseLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
-        
-        destinations[7 + 18 * width][0] = destinations[8 + 18 * width][0] = 2;
-        destinations[7 + 18 * width][1] = destinations[8 + 18 * width][1] = 34 * 16;
-        destinations[7 + 18 * width][2] = destinations[8 + 18 * width][2] = 46 * 16;
-        
-        destinations[14 + 6 * width][0] = 5;
-        destinations[14 + 6 * width][1] = 7 * 16;
-        destinations[14 + 6 * width][2] = 4 * 16;
+        setDestinations(6, 10, 2, 53, false, 40, false);
+        setDestinations(7, 10, 2, 53, false, 40, false);
     }
     
     public boolean checkExit(int x, int y) {
-		if ((y == 98 || y == 99) && x >= 224 && x <= 239) return true;
-                else if ((y == 302 || y == 301) && x >= 112 && x <= 143) return true;
-		//else if ((y == 785 || y == 786) && x >= 896 && x <= 927) return true;
-		//else if ((x == 382 || x == 383) && y >= 160 && y <= 207) return true;
-		return false;
-	}
+        return (bottomOf(y, 10) && inXRangeOf(x, 6, 7));
+    }
     
     public int getLevelNum() {
-            return LEVELNUM;
-        }
-        
+        return LEVELNUM;
+    }
+    
     public boolean npcHere(int x, int y) {
         boolean npcHere = false;
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            if (biggerHouseLevelNpcs.get(i).npcHere(x, y)) npcHere = true;
+        for (int i = 0; i < npcs.size(); i++) {
+            if (npcs.get(i).npcHere(x, y)) npcHere = true;
         }
         return npcHere;
     }
     
     public Npc getNpc(int x, int y) {
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            int xx = biggerHouseLevelNpcs.get(i).x;
-            int yy = biggerHouseLevelNpcs.get(i).y;
+        for (int i = 0; i < npcs.size(); i++) {
+            int xx = npcs.get(i).x;
+            int yy = npcs.get(i).y;
             if (xx + 3 <= x && x <= xx + 28 && yy + 2 <= y && y <= yy + 32) {
-                return biggerHouseLevelNpcs.get(i);
+                return npcs.get(i);
             }
         }
         return null;
@@ -113,17 +111,18 @@ public class BiggerHouseLevel extends Level {
     }
     
     public void update() {
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            biggerHouseLevelNpcs.get(i).update();
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).update();
         }
+        
     }
-
+    
     public void render(Screen screen) {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
         }
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            biggerHouseLevelNpcs.get(i).render(screen);
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).render(screen);
         }
     }
     

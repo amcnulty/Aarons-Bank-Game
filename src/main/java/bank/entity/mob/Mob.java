@@ -54,6 +54,7 @@ public abstract class Mob extends Entity {
                         else if (level.npcHere(nx, ny)) solid = true;
                         else if (level.chestHere(nx, ny)) solid = true;
                         else if (level.signHere(nx, ny)) solid = true;
+                        else if (level.furnitureHere(nx, ny)) solid = true;
 		}
 		return solid;
 	}

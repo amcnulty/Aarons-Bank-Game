@@ -156,7 +156,7 @@ public class Player extends Mob {
     }
 	
     public void update() {
-        //System.out.println("X:  " + x + "  Y:  " + y);
+        System.out.println("X:  " + x + "  Y:  " + y + "  X Tile:  " + x / 16 + "  Y Tile:  " + y / 16);
         int xa = 0, ya = 0;
         if (anim < 7500) anim++;
         else anim = 0;
@@ -564,7 +564,7 @@ public class Player extends Mob {
     private void talk() {
         switch (dir) {
             case 0:
-                for (int yp = y; yp >= y - 16; yp--) {
+                for (int yp = y; yp >= y - 19; yp--) {
                     if (level.npcHere(x, yp)) {
                         dialog.openDialog();
                         lastX = x;
@@ -580,7 +580,7 @@ public class Player extends Mob {
                 }
                 break;
             case 1:
-                for (int xp = x; xp <= x + 22; xp++) {
+                for (int xp = x; xp <= x + 27; xp++) {
                     if (level.npcHere(xp, y)) {
                         dialog.openDialog();
                         lastX = xp;
@@ -596,7 +596,7 @@ public class Player extends Mob {
                 }
                 break;
             case 2:
-                for (int yp = y; yp <= y + 25; yp++) {
+                for (int yp = y; yp <= y + 30; yp++) {
                     if (level.npcHere(x, yp)) {
                         dialog.openDialog();
                         lastX = x;
@@ -612,7 +612,7 @@ public class Player extends Mob {
                 }
                 break;
             case 3:
-                for (int xp = x; xp >= x - 22; xp--) {
+                for (int xp = x; xp >= x - 27; xp--) {
                     if (level.npcHere(xp, y)) {
                         dialog.openDialog();
                         lastX = xp;

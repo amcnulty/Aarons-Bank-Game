@@ -6,6 +6,8 @@
 package bank.level;
 
 import bank.entity.furniture.Furniture;
+import bank.entity.mob.Npc.FemaleNpc;
+import bank.entity.mob.Npc.FemaleNpcClerk;
 import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
@@ -18,26 +20,33 @@ import javax.imageio.ImageIO;
  *
  * @author Aaron
  */
-public class BiggerHouseLevel extends Level {
+class SidewaysHouseLevel extends Level {
+
+    private final int LEVELNUM = 11;
     
-    private final int LEVELNUM = 4;
-    
-    private ArrayList<Npc> biggerHouseLevelNpcs = new ArrayList<>();
     private ArrayList<Furniture> furniture = new ArrayList<>();
+    private ArrayList<Npc> npcs = new ArrayList<>();
     
-    public BiggerHouseLevel(String path) {
+    public SidewaysHouseLevel(String path) {
         super(path);
-        addFurniture();
-        biggerHouseLevelNpcs.add(new MaleNpc(5 * 16, 14 * 16, "/dialogs/biggerHouseLevel/Ed Gone.txt"));
-        biggerHouseLevelNpcs.add(new MaleNpc(13 * 16, 15 * 16, "/dialogs/biggerHouseLevel/Night Owl.txt"));
+        //addNpcs();
+        //addFurniture();
+    }
+
+    private void addNpcs() {
+        npcs.add(new FemaleNpcClerk(160, 94, 1, "/dialogs/houseSubLevel/clerk.txt"));
+        npcs.add(new MaleNpc(51-16, 89-16));
+        npcs.add(new FemaleNpc(106-16, 67-16));
     }
     
     private void addFurniture() {
-        furniture.add(new Furniture(28, 192, Furniture.FRIDGE_ONE));
-        furniture.add(new Furniture(46, 192, Furniture.FRIDGE_TWO));
-        furniture.add(new Furniture(66, 192, Furniture.OVEN));
-        furniture.add(new Furniture(206, 144, Furniture.DRESSER));
-        furniture.add(new Furniture(206, 178, Furniture.OFFICE_CHAIR));
+        furniture.add(new Furniture(83, 256, Furniture.OVEN));
+        furniture.add(new Furniture(26, 208, Furniture.FRIDGE_ONE));
+        furniture.add(new Furniture(44, 208, Furniture.FRIDGE_TWO));
+        furniture.add(new Furniture(238, 178, Furniture.BIG_COUCH));
+        furniture.add(new Furniture(208, 176, Furniture.SMALL_COUCH));
+        furniture.add(new Furniture(180, 176, Furniture.DRESSER));
+        furniture.add(new Furniture(159, 176, Furniture.DRESSER));
     }
     
     protected void loadLevel(String path) {
@@ -63,42 +72,32 @@ public class BiggerHouseLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
-        
-        destinations[7 + 18 * width][0] = destinations[8 + 18 * width][0] = 2;
-        destinations[7 + 18 * width][1] = destinations[8 + 18 * width][1] = 34 * 16;
-        destinations[7 + 18 * width][2] = destinations[8 + 18 * width][2] = 46 * 16;
-        
-        destinations[14 + 6 * width][0] = 5;
-        destinations[14 + 6 * width][1] = 7 * 16;
-        destinations[14 + 6 * width][2] = 4 * 16;
+        setDestinations(1, 5, Level.CRAZY_LEVEL, 58, false, 63, false);
+        setDestinations(1, 6, Level.CRAZY_LEVEL, 58, false, 63, false);
     }
     
     public boolean checkExit(int x, int y) {
-		if ((y == 98 || y == 99) && x >= 224 && x <= 239) return true;
-                else if ((y == 302 || y == 301) && x >= 112 && x <= 143) return true;
-		//else if ((y == 785 || y == 786) && x >= 896 && x <= 927) return true;
-		//else if ((x == 382 || x == 383) && y >= 160 && y <= 207) return true;
-		return false;
-	}
+        return (leftOf(x, 1) && inYRangeOf(y, 5, 6));
+    }
     
     public int getLevelNum() {
-            return LEVELNUM;
-        }
-        
+        return LEVELNUM;
+    }
+    
     public boolean npcHere(int x, int y) {
         boolean npcHere = false;
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            if (biggerHouseLevelNpcs.get(i).npcHere(x, y)) npcHere = true;
+        for (int i = 0; i < npcs.size(); i++) {
+            if (npcs.get(i).npcHere(x, y)) npcHere = true;
         }
         return npcHere;
     }
     
     public Npc getNpc(int x, int y) {
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            int xx = biggerHouseLevelNpcs.get(i).x;
-            int yy = biggerHouseLevelNpcs.get(i).y;
+        for (int i = 0; i < npcs.size(); i++) {
+            int xx = npcs.get(i).x;
+            int yy = npcs.get(i).y;
             if (xx + 3 <= x && x <= xx + 28 && yy + 2 <= y && y <= yy + 32) {
-                return biggerHouseLevelNpcs.get(i);
+                return npcs.get(i);
             }
         }
         return null;
@@ -113,18 +112,18 @@ public class BiggerHouseLevel extends Level {
     }
     
     public void update() {
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            biggerHouseLevelNpcs.get(i).update();
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).update();
         }
+        
     }
-
+    
     public void render(Screen screen) {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
         }
-        for (int i = 0; i < biggerHouseLevelNpcs.size(); i++) {
-            biggerHouseLevelNpcs.get(i).render(screen);
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).render(screen);
         }
-    }
-    
+    }    
 }

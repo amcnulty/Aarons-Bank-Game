@@ -6,6 +6,7 @@
 package bank.level;
 
 import bank.entity.chests.Chest;
+import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.FemaleNpc;
 import bank.entity.mob.Npc.Npc;
@@ -33,12 +34,14 @@ public class SpawnLevel extends Level {
     private ArrayList<Chest> spawnLevelChests = new ArrayList<>();
     private ArrayList<Npc> spawnLevelNpcs = new ArrayList<>();
     private ArrayList<Signs> spawnLevelSigns = new ArrayList<>();
+    private ArrayList<Furniture> spawnLevelFurniture = new ArrayList<>();
 
     public SpawnLevel(String path) {
         super(path);
         addNpcs();
         addChests();
         addSigns();
+        addFurniture();
     }
     
     private void addChests() {
@@ -80,6 +83,11 @@ public class SpawnLevel extends Level {
     
     private void addSigns() {
         spawnLevelSigns.add(new Signs(162 / 3, 166 / 3));
+    }
+    
+    private void addFurniture() {
+        //spawnLevelFurniture.add(new Furniture(160, 30, Furniture.OFFICE_CHAIR));
+        spawnLevelFurniture.add(new Furniture(160, 95, Furniture.FRIDGE_TWO));
     }
 
     protected void loadLevel(String path) {
@@ -156,7 +164,7 @@ public class SpawnLevel extends Level {
     }
 
     public boolean checkExit(int x, int y) {
-        if ((x == 1 || x == 2) && y >= 64 && y <= 111) return true;
+        if ((x == 0 || x == 1) && y >= 64 && y <= 111) return true;
         else if ((y == 1 || y == 2) && x >= 160 && x <= 207) return true;
         else if ((x == 382 || x == 383) && y >= 160 && y <= 207) return true;
         return false;
@@ -188,6 +196,14 @@ public class SpawnLevel extends Level {
             if (spawnLevelChests.get(i).chestHere(xp, yp)) chestHere = true;
         }
         return chestHere;
+    }
+    
+    public boolean furnitureHere(int xp, int yp) {
+        boolean furnitureHere = false;
+        for (int i = 0; i < spawnLevelFurniture.size(); i++) {
+            if (spawnLevelFurniture.get(i).furnitureHere(xp, yp)) furnitureHere = true;
+        }
+        return furnitureHere;
     }
 
     public Npc getNpc(int x, int y) {
@@ -262,6 +278,9 @@ public class SpawnLevel extends Level {
         }
         for (int i = 0; i < spawnLevelSigns.size(); i++) {
             spawnLevelSigns.get(i).render(screen);
+        }
+        for (int i = 0; i < spawnLevelFurniture.size(); i++) {
+            spawnLevelFurniture.get(i).render(screen);
         }
     }
 

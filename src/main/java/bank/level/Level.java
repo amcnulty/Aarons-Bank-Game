@@ -30,11 +30,30 @@ public class Level implements Serializable {
 	
 	public int[][] destinations;
 	
-	public static Level spawnLevel = new SpawnLevel("/levels/spawn_level.png");
+        public static int SPAWN_LEVEL = 1;
+        public static int CRAZY_LEVEL = 2;
+        public static int HOUSE1_SUBLEVEL = 3;
+        public static int BIGGER_HOUSE_LEVEL = 4;
+        public static int BIGGER_HOUSE_UPSTAIRS_LEVEL = 5;
+        public static int MAZE_LEVEL = 6;
+        public static int HOUSE2_SUBLEVEL = 7;
+        public static int STOREONE_LEVEL = 8;
+        public static int BAITSHOP_LEVEL = 9;
+        public static int SCOOT_HOUSE_LEVEL = 10;
+        public static int SIDEWAYS_HOUSE_LEVEL = 11;
+
+        
+        public static Level spawnLevel = new SpawnLevel("/levels/spawn_level.png");
 	public static Level crazyLevel = new CrazyLevel("/levels/crazy_level.png");
-	public static Level house1SubLevel = new house1SubLevel("/levels/house1_sublevel.png");
-        public static Level biggerHouseLevel = new BiggerHouseLevel("/levels/bigger_house_level.png");
-        public static Level biggerHouseUpstairsLevel = new BiggerHouseUpstairsLevel("/levels/bigger_house_upstairs_level.png");
+	public static Level house1SubLevel = new house1SubLevel("/levels/crazyLevel/house1_sublevel.png");
+        public static Level biggerHouseLevel = new BiggerHouseLevel("/levels/crazyLevel/bigger_house_level.png");
+        public static Level biggerHouseUpstairsLevel = new BiggerHouseUpstairsLevel("/levels/crazyLevel/bigger_house_upstairs_level.png");
+        public static Level mazeLevel = new MazeLevel("/levels/maze_level.png");
+        public static Level house2SubLevel = new House2SubLevel("/levels/crazyLevel/house2_sublevel.png");
+        public static Level storeOneLevel = new StoreOneLevel("/levels/crazyLevel/store_one.png");
+        public static Level baitShopLevel = new BaitShopLevel("/levels/crazyLevel/bait_shop_level.png");
+        public static Level scottHouseLevel = new ScottHouseLevel("/levels/crazyLevel/scott_house_level.png");
+        public static Level sidewaysHouseLevel = new SidewaysHouseLevel("/levels/crazyLevel/sideways_house_level.png");
 	
 	public Level(String path) {
 		loadLevel(path);
@@ -46,6 +65,41 @@ public class Level implements Serializable {
 	
 	protected void loadLevel(String path) {
 	}
+        
+        protected void setDestinations(int xTile, int yTile, int levelNum, int xDestTile, boolean xMid, int yDestTile, boolean yMid) {
+                    int i2 = 0;
+                    int addEightX = 0;
+                    int addEightY = 0;
+                    if (xMid) addEightX = 8;
+                    if (yMid) addEightY = 8;
+                    destinations[xTile + yTile * width][i2++] = levelNum;
+                    destinations[xTile + yTile * width][i2++] = (xDestTile << 4) + addEightX;
+                    destinations[xTile + yTile * width][i2] = (yDestTile << 4) + addEightY;
+        }
+        
+        protected boolean topOf(int playerY, int tileY) {
+            return playerY == ((tileY << 4) + 1) || playerY == ((tileY << 4) + 2);
+        }
+        
+        protected boolean bottomOf(int playerY, int tileY) {
+            return playerY == ((tileY + 1) << 4) - 2 || playerY == ((tileY + 1) << 4) - 3;
+        }
+        
+        protected boolean rightOf(int playerX, int tileX) {
+            return playerX == ((tileX + 1) << 4) - 1 || playerX == ((tileX + 1) << 4) - 2;
+        }
+        
+        protected boolean leftOf(int playerX, int tileX) {
+            return playerX == (tileX << 4) || playerX == (tileX << 4) + 1;
+        }
+        
+        protected boolean inXRangeOf(int playerX, int begXTile, int endXTile) {
+            return playerX >= (begXTile << 4) && playerX <= ((endXTile + 1) << 4) - 1;
+        }
+        
+        protected boolean inYRangeOf(int playerY, int begYTile, int endYTile) {
+            return playerY >= (begYTile << 4) && playerY <= ((endYTile + 1) << 4) - 1;
+        }
         
 	public static Level getDestination(int levelNum) {
             switch (levelNum) {
@@ -59,6 +113,18 @@ public class Level implements Serializable {
                 return Level.biggerHouseLevel;
             case 5:
                 return Level.biggerHouseUpstairsLevel;
+            case 6:
+                return Level.mazeLevel;
+            case 7:
+                return Level.house2SubLevel;
+            case 8:
+                return Level.storeOneLevel;
+            case 9:
+                return Level.baitShopLevel;
+            case 10:
+                return Level.scottHouseLevel;
+            case 11:
+                return Level.sidewaysHouseLevel;
             }
             return Level.spawnLevel;
 	}
@@ -96,6 +162,10 @@ public class Level implements Serializable {
         }
         
         public boolean chestHere(int xp, int yp) {
+            return false;
+        }
+        
+        public boolean furnitureHere(int xp, int yp) {
             return false;
         }
         

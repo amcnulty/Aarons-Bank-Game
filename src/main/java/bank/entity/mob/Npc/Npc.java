@@ -144,6 +144,7 @@ public class Npc extends Mob {
     }
 
     public void render(Screen screen) {
+        //System.out.println("RENDERING FROM NPC");
         screen.renderSprite(x, y, sprite, true);
     }
 
