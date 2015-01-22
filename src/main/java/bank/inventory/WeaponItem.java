@@ -36,4 +36,8 @@ public class WeaponItem extends Items {
         this.attackChange = attackChange;
     }
     
+    public int getAttackChange() {
+        return attackChange;
+    }
+    
 }

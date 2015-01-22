@@ -39,8 +39,9 @@ public class Level implements Serializable {
         public static int HOUSE2_SUBLEVEL = 7;
         public static int STOREONE_LEVEL = 8;
         public static int BAITSHOP_LEVEL = 9;
-        public static int SCOOT_HOUSE_LEVEL = 10;
+        public static int SCOTT_HOUSE_LEVEL = 10;
         public static int SIDEWAYS_HOUSE_LEVEL = 11;
+        public static int UNDERGROUND_CRAZY_LEVEL = 12;
 
         
         public static Level spawnLevel = new SpawnLevel("/levels/spawn_level.png");
@@ -54,6 +55,7 @@ public class Level implements Serializable {
         public static Level baitShopLevel = new BaitShopLevel("/levels/crazyLevel/bait_shop_level.png");
         public static Level scottHouseLevel = new ScottHouseLevel("/levels/crazyLevel/scott_house_level.png");
         public static Level sidewaysHouseLevel = new SidewaysHouseLevel("/levels/crazyLevel/sideways_house_level.png");
+        public static Level underGroundCrazyLevel = new UnderGroundCrazyLevel("/levels/crazyLevel/underground_crazy_level.png");
 	
 	public Level(String path) {
 		loadLevel(path);
@@ -125,6 +127,8 @@ public class Level implements Serializable {
                 return Level.scottHouseLevel;
             case 11:
                 return Level.sidewaysHouseLevel;
+            case 12:
+                return Level.underGroundCrazyLevel;
             }
             return Level.spawnLevel;
 	}
@@ -281,6 +285,8 @@ public class Level implements Serializable {
 		if (tiles[x + y * width] == Tile.col_window_tile) return Tile.window_tile;
 		if (tiles[x + y * width] == Tile.col_woodLog1_tile) return Tile.woodLog1_tile;
 		if (tiles[x + y * width] == Tile.col_woodLog2_tile) return Tile.woodLog2_tile;
+                if (tiles[x + y * width] == Tile.col_darkWall_tile) return Tile.darkWall_tile;
+                if (tiles[x + y * width] == Tile.col_dirt3_withRocks_tile) return Tile.dirt3_withRocks_tile;
 		
 		return Tile.voidTile;
 	}

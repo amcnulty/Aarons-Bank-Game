@@ -29,14 +29,12 @@ class SidewaysHouseLevel extends Level {
     
     public SidewaysHouseLevel(String path) {
         super(path);
-        //addNpcs();
+        addNpcs();
         //addFurniture();
     }
 
     private void addNpcs() {
-        npcs.add(new FemaleNpcClerk(160, 94, 1, "/dialogs/houseSubLevel/clerk.txt"));
-        npcs.add(new MaleNpc(51-16, 89-16));
-        npcs.add(new FemaleNpc(106-16, 67-16));
+        npcs.add(new MaleNpc(127-16, 78-16));
     }
     
     private void addFurniture() {
@@ -72,12 +70,17 @@ class SidewaysHouseLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
+        // to crazy level
         setDestinations(1, 5, Level.CRAZY_LEVEL, 58, false, 63, false);
         setDestinations(1, 6, Level.CRAZY_LEVEL, 58, false, 63, false);
+        // to underground
+        setDestinations(8, 2, Level.UNDERGROUND_CRAZY_LEVEL, 25, true, 42, true);
     }
     
     public boolean checkExit(int x, int y) {
-        return (leftOf(x, 1) && inYRangeOf(y, 5, 6));
+        if (leftOf(x, 1) && inYRangeOf(y, 5, 6)) return true;
+        else if(topOf(y, 2) && inXRangeOf(x, 8, 8)) return true;
+        return false;
     }
     
     public int getLevelNum() {

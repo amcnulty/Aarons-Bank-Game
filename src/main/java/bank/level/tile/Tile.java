@@ -71,6 +71,9 @@ public class Tile {
 			
 	public static Tile dirt_tile3 = new Tile(Sprite.dirt3);
 	public static int col_dirt_tile3 = 0xff554E32;
+        
+        public static Tile dirt3_withRocks_tile = new Tile(Sprite.dirt3_withRocks);
+        public static int col_dirt3_withRocks_tile = 0xff5A6569;
 	
 	
 	// Flower Tiles
@@ -111,6 +114,9 @@ public class Tile {
 	
 	public static Tile cobbleStone3_tile = new Tile(Sprite.cobbleStone3);
 	public static int col_cobbleStone3_tile = 0xff8F8E84;
+        
+        public static Tile darkWall_tile = new SolidTile(Sprite.darkWall);
+        public static int col_darkWall_tile = 0xff302010;
 	
 	
 	// Hedge Tiles

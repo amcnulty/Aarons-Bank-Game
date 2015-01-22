@@ -38,4 +38,12 @@ public class ArmorItem extends Items {
         this.speedChange = speedChange;
     }
     
+    public int getDefenceChange() {
+        return protection;
+    }
+    
+    public int getSpeedChange() {
+        return speedChange;
+    }
+    
 }

@@ -35,12 +35,20 @@ public class Save implements Serializable{
     public int speed;
     public int levelNum;
     public boolean[] spawnLevelChests;
+    public boolean[] underGroundCrazyLevelChests;
+    public int equipedWeapon;
+    public int[] equipedArmor;
     public int[] inventoryIDS;
     public int[] inventoryAmounts;
-
+    
+    // main json object that saves to the user.home\bank_save_games directory
     private JSONObject json = new JSONObject();
-    // array for chests
-    private JSONArray jsonArray = new JSONArray();
+    // array for spawnlevel chests
+    private JSONArray spawnLevelChestsJsonArray = new JSONArray();
+    // array for underground crazy level chests
+    private JSONArray underGroundCrazyLevelChestsJsonArray = new JSONArray();
+    // array for equiped armor
+    private JSONArray eJsonArray = new JSONArray();
     // array for inventory ids
     private JSONArray inventoryJsonArray = new JSONArray();
     // array for inventory amounts
@@ -60,9 +68,21 @@ public class Save implements Serializable{
         defence = player.defence;
         speed = player.speed;
         levelNum = level.getLevelNum();
+        if (player.equipedWeapon == null) {
+            equipedWeapon = 0;
+        }
+        else equipedWeapon = player.equipedWeapon.itemID;
+        equipedArmor = new int[3];
+        for (int i = 0; i < 3; i++) {
+            if (player.equipedArmor[i] == null) {
+                equipedArmor[i] = 0;
+            }
+            else equipedArmor[i] = player.equipedArmor[i].itemID;
+        }
         inventoryIDS = player.getInventoryIDS();
         inventoryAmounts = player.getInventoryAmount();
         spawnLevelChests = Level.spawnLevel.getChestsOnLevel();
+        underGroundCrazyLevelChests = Level.underGroundCrazyLevel.getChestsOnLevel();
         encode();
         switch (player.playerNum) {
         case 1:
@@ -109,9 +129,15 @@ public class Save implements Serializable{
         json.put("defence", defence);
         json.put("speed", speed);
         json.put("levelNum", levelNum);
-        jsonArray.clear();
+        json.put("equipedWeapon", equipedWeapon);
+        spawnLevelChestsJsonArray.clear();
+        underGroundCrazyLevelChestsJsonArray.clear();
+        eJsonArray.clear();
         inventoryJsonArray.clear();
         inventoryAmountJsonArray.clear();
+        for (int i = 0; i < equipedArmor.length; i++) {
+            eJsonArray.add(equipedArmor[i]);
+        }
         for (int i = 0; i < inventoryIDS.length; i++) {
             inventoryJsonArray.add(inventoryIDS[i]);
         }
@@ -119,11 +145,17 @@ public class Save implements Serializable{
             inventoryAmountJsonArray.add(inventoryAmounts[i]);
         }
         for (int i = 0; i < spawnLevelChests.length; i++) {
-            jsonArray.add(spawnLevelChests[i]);
+            spawnLevelChestsJsonArray.add(spawnLevelChests[i]);
         }
+        for (int i = 0; i < underGroundCrazyLevelChests.length; i++) {
+            underGroundCrazyLevelChestsJsonArray.add(underGroundCrazyLevelChests[i]);
+        }
+        json.put("equipedArmor", eJsonArray);
         json.put("inventoryIDS", inventoryJsonArray);
         json.put("inventoryAmounts", inventoryAmountJsonArray);
-        json.put("chests", jsonArray);
+        json.put("spawnLevelChests", spawnLevelChestsJsonArray);
+        json.put("underGroundCrazyLevelChests", underGroundCrazyLevelChestsJsonArray);
+        
     }
     
     public void decode(int playerNum) {
@@ -171,6 +203,13 @@ public class Save implements Serializable{
         defence = Integer.parseInt(json.get("defence").toString());
         speed = Integer.parseInt(json.get("speed").toString());
         levelNum = Integer.parseInt(json.get("levelNum").toString());
+        equipedWeapon = Integer.parseInt(json.get("equipedWeapon").toString());
+        
+        eJsonArray = (JSONArray) json.get("equipedArmor");
+        equipedArmor = new int[eJsonArray.size()];
+        for (int i = 0; i < eJsonArray.size(); i++) {
+            equipedArmor[i] = Integer.parseInt(eJsonArray.get(i).toString());
+        }
         
         inventoryJsonArray = (JSONArray) json.get("inventoryIDS");
         inventoryIDS = new int[inventoryJsonArray.size()];
@@ -184,13 +223,22 @@ public class Save implements Serializable{
             inventoryAmounts[i] = Integer.parseInt(inventoryAmountJsonArray.get(i).toString());
         }
         
-        jsonArray = (JSONArray) json.get("chests");
-        spawnLevelChests = new boolean[jsonArray.size()];
-        for (int i = 0; i < jsonArray.size(); i++) {
-            if (jsonArray.get(i).toString().equals("true")) {
+        spawnLevelChestsJsonArray = (JSONArray) json.get("spawnLevelChests");
+        spawnLevelChests = new boolean[spawnLevelChestsJsonArray.size()];
+        for (int i = 0; i < spawnLevelChestsJsonArray.size(); i++) {
+            if (spawnLevelChestsJsonArray.get(i).toString().equals("true")) {
                 spawnLevelChests[i] = true;
             }
             else spawnLevelChests[i] = false;
+        }
+        
+        underGroundCrazyLevelChestsJsonArray = (JSONArray) json.get("underGroundCrazyLevelChests");
+        underGroundCrazyLevelChests = new boolean[underGroundCrazyLevelChestsJsonArray.size()];
+        for (int i = 0; i < underGroundCrazyLevelChestsJsonArray.size(); i++) {
+            if (underGroundCrazyLevelChestsJsonArray.get(i).toString().equals("true")) {
+                underGroundCrazyLevelChests[i] = true;
+            }
+            else underGroundCrazyLevelChests[i] = false;
         }
     }
 }

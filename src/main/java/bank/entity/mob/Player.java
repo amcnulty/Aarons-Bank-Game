@@ -50,13 +50,21 @@ public class Player extends Mob {
     public int cash = 500;
     public int playerLevel = 1;
     public int health = 50;
+    public int equipedHealth = health;
     public int attack = 20;
+    public int equipedAttack = attack;
     public int defence = 15;
+    public int equipedDefence = defence;
     public int speed = 10;
+    public int equipedSpeed = speed;
     public String name;
     public int totalReferrals;
     public int availableReferrals;
     public int usedReferrals;
+    
+    // Player equiped items
+    public Items equipedWeapon;
+    public Items[] equipedArmor = new Items[3];
     
     // Player Inventory
     public ArrayList<ArmorItem> armorInventory = new ArrayList<>();
@@ -64,9 +72,6 @@ public class Player extends Mob {
     public ArrayList<UsableItem> usableItemInventory = new ArrayList<>();
     public ArrayList<Items> inventory = new ArrayList<>();
     
-    // Player equiped items
-    public Items equipedWeapon;
-    public Items[] equipedArmor = new Items[3];
     
 	
     public Player(int x, int y, Keyboard input, Dialog dialog, int playerNum, CutScenes cut) {
@@ -192,6 +197,7 @@ public class Player extends Mob {
         }
         else if (menu.isOpen) {
             walking = false;
+            setItemEffectToStats();
             menu.update();
             if (menu.doAction) {
                 int action = menu.currentAction;
@@ -433,6 +439,21 @@ public class Player extends Mob {
         this.defence += defence;
         this.speed += speed;
     }
+    
+    public void setItemEffectToStats() {
+        if (equipedWeapon != null) equipedAttack = attack + equipedWeapon.getAttackChange();
+        else equipedAttack = attack;
+        int defenceChange = 0;
+        int speedChange = 0;
+        for (int i = 0; i < 3; i++) {
+            if (equipedArmor[i] != null) {
+                defenceChange += equipedArmor[i].getDefenceChange();
+                speedChange += equipedArmor[i].getSpeedChange();
+            }
+        }
+        equipedSpeed = speed + speedChange;
+        equipedDefence = defence + defenceChange;
+    }
 	
     public int getLevelDestination() {
         return level.destinations[(x >> 4) + (y >> 4) * level.getLevelTileWidth()][0];
@@ -461,7 +482,7 @@ public class Player extends Mob {
         }
         return itemAmounts;
     }
-
+    
     private void setExited(boolean exited) {
         this.exited = exited;
     }

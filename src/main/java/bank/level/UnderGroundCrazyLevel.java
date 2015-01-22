@@ -5,12 +5,10 @@
  */
 package bank.level;
 
+import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
-import bank.entity.mob.Npc.FemaleNpc;
-import bank.entity.mob.Npc.FemaleNpcClerk;
-import bank.entity.mob.Npc.MaleNpc;
-import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
+import bank.inventory.Items;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,23 +18,22 @@ import javax.imageio.ImageIO;
  *
  * @author Aaron
  */
-class ScottHouseLevel extends Level {
+class UnderGroundCrazyLevel extends Level {
 
-    private final int LEVELNUM = 10;
+    private final int LEVELNUM = 12;
     
     private ArrayList<Furniture> furniture = new ArrayList<>();
-    private ArrayList<Npc> npcs = new ArrayList<>();
+    private ArrayList<Chest> chests = new ArrayList<>();
     
-    public ScottHouseLevel(String path) {
+    public UnderGroundCrazyLevel(String path) {
         super(path);
-        //addNpcs();
-        addFurniture();
+        //addFurniture();
+        addChests();
     }
-
-    private void addNpcs() {
-        npcs.add(new FemaleNpcClerk(160, 94, 1, "/dialogs/houseSubLevel/clerk.txt"));
-        npcs.add(new MaleNpc(51-16, 89-16));
-        npcs.add(new FemaleNpc(106-16, 67-16));
+    
+    private void addChests() {
+        chests.add(new Chest(2,19, 2, Items.BLACK_DAGGER));
+        chests.add(new Chest(19, 27, 3, Items.LEATHER_TUNIC));
     }
     
     private void addFurniture() {
@@ -72,16 +69,14 @@ class ScottHouseLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
-        // crazy level
-        setDestinations(9, 18, 2, 60, false, 27, false);
-        setDestinations(10, 18, 2, 60, false, 27, false);
-        // to underground
-        setDestinations(2, 4, Level.UNDERGROUND_CRAZY_LEVEL, 2, true, 3, true);
+        setDestinations(25, 43, Level.SIDEWAYS_HOUSE_LEVEL, 8, true, 3, false);
+        setDestinations(2, 4, Level.SCOTT_HOUSE_LEVEL, 2, true, 6, true);
     }
     
     public boolean checkExit(int x, int y) {
-        if (bottomOf(y, 18) && inXRangeOf(x, 9, 10)) return true;
-        else if (topOf(y, 4) && inXRangeOf(x, 2, 2)) return true;
+        if (leftOf(x, 1) && inYRangeOf(y, 5, 6)) return true;
+        else if (bottomOf(y, 43) && inXRangeOf(x, 25, 25)) return true;
+        else if (bottomOf(y, 4) && inXRangeOf(x, 2, 2)) return true;
         return false;
     }
     
@@ -89,24 +84,6 @@ class ScottHouseLevel extends Level {
         return LEVELNUM;
     }
     
-    public boolean npcHere(int x, int y) {
-        boolean npcHere = false;
-        for (int i = 0; i < npcs.size(); i++) {
-            if (npcs.get(i).npcHere(x, y)) npcHere = true;
-        }
-        return npcHere;
-    }
-    
-    public Npc getNpc(int x, int y) {
-        for (int i = 0; i < npcs.size(); i++) {
-            int xx = npcs.get(i).x;
-            int yy = npcs.get(i).y;
-            if (xx + 3 <= x && x <= xx + 28 && yy + 2 <= y && y <= yy + 32) {
-                return npcs.get(i);
-            }
-        }
-        return null;
-    }
     
     public boolean furnitureHere(int xp, int yp) {
         boolean furnitureHere = false;
@@ -116,19 +93,50 @@ class ScottHouseLevel extends Level {
         return furnitureHere;
     }
     
-    public void update() {
-        for (int i = 0; i < npcs.size(); i++) {
-            npcs.get(i).update();
+    public boolean chestHere(int xp, int yp) {
+        boolean chestHere = false;
+        for (int i = 0; i < chests.size(); i++) {
+            if (chests.get(i).chestHere(xp, yp)) chestHere = true;
         }
-        
+        return chestHere;
+    }
+    
+    public Chest getChest(int xp, int yp) {
+        for (int i = 0; i < chests.size(); i++) {
+            int xx = chests.get(i).x;
+            int yy = chests.get(i).y;
+            if (xx <= xp && xx + 32 >= xp && yy <= yp && yy + 32 >= yp) return chests.get(i);
+        }
+        return null;
+    }
+    
+    public boolean[] getChestsOnLevel() {
+        boolean[] chestStatus = new boolean[chests.size()];
+        for (int i = 0; i < chests.size(); i++) {
+            chestStatus[i] = (chests.get(i).isOpen());
+        }
+        return chestStatus;
+    }
+    
+    public void setChests(boolean[] chestStatus) {
+        for (int i = 0; i < chests.size(); i++) {
+            if (chestStatus[i]) chests.get(i).opened = true;
+            else chests.get(i).opened = false;
+        }
+    }
+    
+    public void update() {
+        for (int i = 0; i < chests.size(); i++) {
+            chests.get(i).update();
+        }
     }
     
     public void render(Screen screen) {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
         }
-        for (int i = 0; i < npcs.size(); i++) {
-            npcs.get(i).render(screen);
+        for (int i = 0; i < chests.size(); i++) {
+            chests.get(i).render(screen);
         }
     }
     

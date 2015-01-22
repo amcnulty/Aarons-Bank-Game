@@ -265,6 +265,7 @@ public class Sprite {
 	public static Sprite dirt1 = new Sprite(16, 0, 3, SpriteSheet.tiles);
 	public static Sprite dirt2 = new Sprite(16, 0, 4, SpriteSheet.tiles);
 	public static Sprite dirt3 = new Sprite(16, 0, 5, SpriteSheet.tiles);
+        public static Sprite dirt3_withRocks = new Sprite(16, 1, 5, SpriteSheet.tiles);
 	
 	// Flower sprites
 	public static Sprite flower = new Sprite(16, 1, 0, SpriteSheet.tiles);
@@ -280,6 +281,7 @@ public class Sprite {
 	public static Sprite small_brick = new Sprite(16, 2, 7, SpriteSheet.tiles);
 	public static Sprite cobbleStone2 = new Sprite(16, 2, 8, SpriteSheet.tiles);
 	public static Sprite cobbleStone3 = new Sprite(16, 2, 9, SpriteSheet.tiles);
+        public static Sprite darkWall = new Sprite(16, 4, 5, SpriteSheet.tiles);
 	
 	// Hedge sprites
 	public static Sprite hedge1 = new Sprite(16, 3, 0, SpriteSheet.tiles);

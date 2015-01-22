@@ -86,8 +86,8 @@ public class CrazyLevel extends Level {
         setDestinations(63, 38, Level.STOREONE_LEVEL, 7, false, 9, false);
         setDestinations(64, 38, Level.STOREONE_LEVEL, 7, false, 9, false);
         
-        setDestinations(59, 25, Level.SCOOT_HOUSE_LEVEL, 10, false, 17, false);
-        setDestinations(60, 25, Level.SCOOT_HOUSE_LEVEL, 10, false, 17, false);
+        setDestinations(59, 25, Level.SCOTT_HOUSE_LEVEL, 10, false, 17, false);
+        setDestinations(60, 25, Level.SCOTT_HOUSE_LEVEL, 10, false, 17, false);
         
         setDestinations(58, 63, Level.SIDEWAYS_HOUSE_LEVEL, 3, false, 5, true);
         setDestinations(58, 64, Level.SIDEWAYS_HOUSE_LEVEL, 3, false, 5, true);

@@ -166,10 +166,10 @@ public class ToolBar {
         font.renderSuperSmallCharacters2(299, 11, player.name, screen);
         font.renderSuperSmallCharacters(334, 40, Integer.toString(player.cash), screen);
         font.renderSuperSmallCharacters(320, 20, Integer.toString(player.playerLevel), screen);
-        font.renderSuperSmallCharacters(392, 11, Integer.toString(player.health), screen);
-        font.renderSuperSmallCharacters(398, 21, Integer.toString(player.attack), screen);
-        font.renderSuperSmallCharacters(398, 31, Integer.toString(player.defence), screen);
-        font.renderSuperSmallCharacters(398, 41, Integer.toString(player.speed), screen);
+        font.renderSuperSmallCharacters(392, 11, Integer.toString(player.equipedHealth), screen);
+        font.renderSuperSmallCharacters(398, 21, Integer.toString(player.equipedAttack), screen);
+        font.renderSuperSmallCharacters(398, 31, Integer.toString(player.equipedDefence), screen);
+        font.renderSuperSmallCharacters(398, 41, Integer.toString(player.equipedSpeed), screen);
         if (showingInv) {
             screen.renderSprite(screen.width / 2 - Sprite.invMenu1.getWidth() / 2, screen.height / 2 - Sprite.invMenu1.getHeight() / 2, inventoryMenuSprite, false);
         }

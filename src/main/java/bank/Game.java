@@ -166,11 +166,16 @@ public class Game extends Canvas implements Runnable {
         player.health = save.health;
         player.speed = save.speed;
         player.playerLevel = save.playerLevel;
+        player.equipedWeapon = items.getItemFromID(save.equipedWeapon);
         player.inventory.clear();
         for (int i = 0; i < save.inventoryIDS.length; i++) {
             player.inventory.add(items.getItemFromID(save.inventoryIDS[i]));
             player.inventory.get(i).setAmount(save.inventoryAmounts[i]);
         }
+        for (int i = 0; i < 3; i++) {
+            player.equipedArmor[i] = items.getItemFromID(save.equipedArmor[i]);
+        }
+        player.setItemEffectToStats();
         player.init(level);
         toolBar.initPlayer(player);
     }
@@ -210,9 +215,13 @@ public class Game extends Canvas implements Runnable {
             case 11:
                 level = Level.sidewaysHouseLevel;
                 break;
+            case 12:
+                level = Level.underGroundCrazyLevel;
+                break;
         }
         player.init(level);
         Level.spawnLevel.setChests(save.spawnLevelChests);
+        Level.underGroundCrazyLevel.setChests(save.underGroundCrazyLevelChests);
     }
 
     public void update() {
