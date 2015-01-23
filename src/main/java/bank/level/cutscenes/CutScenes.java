@@ -19,33 +19,41 @@ import java.util.Scanner;
  */
 public class CutScenes {
     
+    public static int LEFT100STEPS = 1;
+    public static int LEFT40STEPS = 2;
+    
     //private static String introDialogPath = CutScenes.class.getResource("/dialogs/intro_scene_dialog.txt").getPath();
     private static String introDialogPath = "/dialogs/intro_scene_dialog.txt";
     //private static InputStream introDialogPath = CutScenes.class.getClassLoader().getResourceAsStream("/dialogs/intro_scene_dialog.txt");
     
     public boolean introScenePlaying = false;
     private byte[][] introScene = new byte[0][3];
+    private byte[][] left100 = new byte[0][3];
+    private byte[][] left40 = new byte[0][3];
     public int index;
     private int messageGroup = 1;
 
     public CutScenes() {
-        buildIntroScene(2, 120, false);
+        buildIntroScene(2, 9 * 16, false);
         //buildIntroScene(1, 60, false);
         //buildIntroScene(2, 120, false);
         
         buildIntroScene(8, 0, false);       // Dialog attempt
         
-        buildIntroScene(2, 30, false);
-        buildIntroScene(1, 30, true);
-        buildIntroScene(2, 30, false);
+        buildIntroScene(0, 7 * 16, true);
+        buildIntroScene(1, 4 * 16, false);
+        buildIntroScene(2, 1, false);
         //buildIntroScene(2, 1, false);
         
         buildIntroScene(8, 0, false);       // Dialog
-        
-       // buildIntroScene(3, 60, false);
-        buildIntroScene(2, 60, true);
+        buildIntroScene(1, 2 * 20, true);
+        buildIntroScene(0, 6 * 16, true);
+        buildIntroScene(3, 2 * 16, false);
+        buildIntroScene(2, 1, false);
         
         buildIntroScene(8, 0, false);       // Dialog
+        left100 = west(100, false, left100);
+        left40 = west(40, false, left40);
     }
     
     private void buildIntroScene(int dir, int clicks, boolean running) {
@@ -113,7 +121,7 @@ public class CutScenes {
         }
         
     }
-
+    
     private byte[][] north(int clicks, boolean running, byte[][] array) {
         byte[][] copyArray = new byte[clicks + array.length][3];
         
@@ -230,6 +238,16 @@ public class CutScenes {
         }
         inputFile.close();
         return array;
+    }
+    
+    public byte[][] getRoute(int routeNum) {
+        switch (routeNum) {
+            case 1:
+                return left100;
+            case 2:
+                return left40;
+        }
+        return null;
     }
     
     public byte checkForDialog() {

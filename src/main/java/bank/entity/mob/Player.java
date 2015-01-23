@@ -45,12 +45,13 @@ public class Player extends Mob {
     private int playerSpeed = 1;
     private int lastX;
     private int lastY;
+    private boolean movingForNpc;
+    private int moveToX, moveToY;
     
     // Player Stats
     public int cash = 500;
     public int playerLevel = 1;
     public int health = 50;
-    public int equipedHealth = health;
     public int attack = 20;
     public int equipedAttack = attack;
     public int defence = 15;
@@ -161,10 +162,13 @@ public class Player extends Mob {
     }
 	
     public void update() {
-        System.out.println("X:  " + x + "  Y:  " + y + "  X Tile:  " + x / 16 + "  Y Tile:  " + y / 16);
+        //System.out.println("X:  " + x + "  Y:  " + y + "  X Tile:  " + x / 16 + "  Y Tile:  " + y / 16);
         int xa = 0, ya = 0;
         if (anim < 7500) anim++;
         else anim = 0;
+        if (movingForNpc) {
+            moveForNpc(moveToX, moveToY);
+        }
         if (onCutscene) {
             if (!dialog.isOpen && cut.checkForDialog() == 1) {
                 dialog.openDialog();
@@ -206,9 +210,10 @@ public class Player extends Mob {
             }
             if (input.space && !input.checked && dialog.isOpen) {
                 dialog.advanceDialog();
+                input.checked = true;
             }
         }
-        else {
+        else if (!movingForNpc) {
             invButton.setButton(Mouse.getX(), Mouse.getY(), Mouse.getButton());
             invButton.update();
             if (invButton.doAction()) {
@@ -239,13 +244,16 @@ public class Player extends Mob {
                 if (!dialog.isOpen) {
                     try {
                         level.getNpc(lastX, lastY).talking = false;
-                        if (level.getNpc(lastX, lastY).openShoppingMenu()) {
+                        if (level.getNpc(lastX, lastY).openShoppingMenu() && !level.getNpc(lastX, lastY).movedOutOfWay) {
                             switch (level.getNpc(lastX, lastY).menuNum) {
                                 case 1:
                                     menu = Menu.firstMenu;
                                     break;
                                 case 2:
                                     menu = Menu.secondMenu;
+                                    break;
+                                case 9:
+                                    menu = Menu.favoriteFoodMenu;
                                     break;
                                 default:
                                     break;
@@ -421,8 +429,192 @@ public class Player extends Mob {
             case 17:
                 menu = Menu.inventoryMenu;
                 break;
+            case 18: // yes on second menu
+                System.out.println("yes");
+                level.getNpc(lastX, lastY).initCut(cut);
+                level.getNpc(lastX, lastY).setRoute(CutScenes.LEFT40STEPS);
+                moveToX = 70;
+                moveToY = 117;
+                movingForNpc = true;
+                moveForNpc(moveToX, moveToY);
+                menu.isOpen = false;
+                if (level.getNpc(lastX, lastY) == null);
+                else level.getNpc(lastX, lastY).talking = false;
+                break;
+            case 19: // no on second menu
+                System.out.println("no");
+                menu.isOpen = false;
+                if (level.getNpc(lastX, lastY) == null);
+                else level.getNpc(lastX, lastY).talking = false;
+                break;
+            case 20:
+                boolean gaveItem = false;
+                for (int i = 0; i < inventory.size(); i++) {
+                    if (inventory.get(i).equals(UsableItem.cookie)) {
+                        if (inventory.get(i).amount > 1) {
+                            inventory.get(i).decrementAmount();
+                            gaveItem = true;
+                            break;
+                        }
+                        else {
+                            inventory.remove(inventory.get(i));
+                            gaveItem = true;
+                            break;
+                        }
+                    }
+                }
+                if (gaveItem) {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "That is not my favorite food sorry.";
+                    dialog.setMessage(array);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                }
+                else {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "You don't have any cookies!";
+                    dialog.setMessage(array);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                }
+                break;
+            case 21:
+                boolean gaveItem2 = false;
+                for (int i = 0; i < inventory.size(); i++) {
+                    if (inventory.get(i).equals(UsableItem.cherries)) {
+                        if (inventory.get(i).amount > 1) {
+                            inventory.get(i).decrementAmount();
+                            gaveItem2 = true;
+                            break;
+                        }
+                        else {
+                            inventory.remove(inventory.get(i));
+                            gaveItem2 = true;
+                            break;
+                        }
+                    }
+                }
+                if (gaveItem2) {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "That is not my favorite food sorry.";
+                    dialog.setMessage(array);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                }
+                else {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "You don't have any cherries!";
+                    dialog.setMessage(array);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                }
+                break;
+            case 22:
+                boolean gaveItem3 = false;
+                for (int i = 0; i < inventory.size(); i++) {
+                    if (inventory.get(i).equals(UsableItem.cheese)) {
+                        if (inventory.get(i).amount > 1) {
+                            inventory.get(i).decrementAmount();
+                            gaveItem3 = true;
+                            break;
+                        }
+                        else {
+                            inventory.remove(inventory.get(i));
+                            gaveItem3 = true;
+                            break;
+                        }
+                    }
+                }
+                if (gaveItem3) {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "That is not my favorite food sorry.";
+                    dialog.setMessage(array);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                }
+                else {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "You don't have any cheese";
+                    dialog.setMessage(array);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                }
+                break;
+            case 23:
+                boolean gaveItem4 = false;
+                for (int i = 0; i < inventory.size(); i++) {
+                    if (inventory.get(i).equals(UsableItem.egg)) {
+                        if (inventory.get(i).amount > 1) {
+                            inventory.get(i).decrementAmount();
+                            gaveItem4 = true;
+                            break;
+                        }
+                        else {
+                            inventory.remove(inventory.get(i));
+                            gaveItem4 = true;
+                            break;
+                        }
+                    }
+                }
+                if (gaveItem4) {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "Yum that was tasty!";
+                    dialog.setMessage(array);
+                    level.getNpc(lastX, lastY).initialConversation = false;
+                    level.getNpc(lastX, lastY).closeShop();
+                    inventory.add(WeaponItem.speedSword);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                    menu = Menu.chestMenu;
+                    menu.isOpen = true;
+                }
+                else {
+                    dialog.isOpen = true;
+                    String[] array = new String[1];
+                    array[0] = "You don't have any eggs!";
+                    dialog.setMessage(array);
+                    menu.isOpen = false;
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                }
+                break;
             default:
                 System.err.println("ERROR! YOU HAVE NOT MADE A CASE FOR THIS; From doAction in player class");
+        }
+    }
+    
+    private void moveForNpc(int moveToX, int moveToY) {
+        boolean atX = false;
+        boolean atY = false;
+        int xa = 0;
+        int ya = 0;
+        if (x < moveToX) xa = 1;
+        else if (x > moveToX) xa = -1;
+        else if (x == moveToX) atX = true;
+        if (y < moveToY) ya = 1;
+        else if (y > moveToY) ya = -1;
+        else if (y == moveToY) atY = true;
+        if (atX && atY) {
+            movingForNpc = false;
+            level.getNpc(lastX, lastY).moveAlongRoute = true;
+        }
+        else {
+            move(xa, ya);
+            walking = true;
         }
     }
     

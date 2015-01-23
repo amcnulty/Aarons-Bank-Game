@@ -7,8 +7,6 @@ package bank.level;
 
 import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
-import bank.entity.mob.Npc.MaleNpc;
-import bank.entity.mob.Npc.FemaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.entity.signs.Signs;
 import bank.graphics.Screen;
@@ -38,7 +36,7 @@ public class SpawnLevel extends Level {
 
     public SpawnLevel(String path) {
         super(path);
-        addNpcs();
+        //addNpcs();
         addChests();
         addSigns();
         addFurniture();
@@ -72,17 +70,10 @@ public class SpawnLevel extends Level {
     }
     
     private void addNpcs() {
-        spawnLevelNpcs.add(new FemaleNpc(250, 100, "/dialogs/spawnLevel/gatekeeper.txt"));
-        spawnLevelNpcs.add(new MaleNpc(100, 110, "/dialogs/spawnLevel/jeb.txt"));
-        spawnLevelNpcs.add(new FemaleNpc(160, 270));
-        spawnLevelNpcs.add(new FemaleNpc(125, 330));
-        spawnLevelNpcs.add(new MaleNpc(90, 330));
-        spawnLevelNpcs.add(new FemaleNpc(152, 450));
-        spawnLevelNpcs.add(new FemaleNpc(250, 400));
     }
     
     private void addSigns() {
-        spawnLevelSigns.add(new Signs(162 / 3, 166 / 3));
+        spawnLevelSigns.add(new Signs(162 / 3, 166 / 3, "If you are reading this sign you are a fag!", "You must have read every sign to get to this one", "ok now im done"));
     }
     
     private void addFurniture() {

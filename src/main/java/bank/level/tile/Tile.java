@@ -84,6 +84,9 @@ public class Tile {
 	// Rock/Brick/Stone Tiles
 	public static Tile rock_on_grass_tile = new SolidTile(Sprite.rock_on_grass);
 	public static int col_rock_on_grass_tile = 0xff807854;
+        
+        public static Tile rock_on_dirt1_tile = new SolidTile(Sprite.rock_on_dirt1);
+        public static int col_rock_on_dirt1_tile = 0xff6D433C;
 	
 	public static Tile large_brick1_tile = new SolidTile(Sprite.large_brick1);
 	public static int col_large_brick1_tile = 0xff9D5F39;
@@ -155,7 +158,7 @@ public class Tile {
 	public static Tile water1_tile = new Tile(Sprite.water1);
 	public static int col_water1_tile = 0xff8CBBEC;
 	
-	public static Tile water2_tile = new Tile(Sprite.water2);
+	public static Tile water2_tile = new SolidTile(Sprite.water2);
 	public static int col_water2_tile = 0xff527CE2;
 	
 	public static Tile water3_tile = new Tile(Sprite.water3);

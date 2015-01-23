@@ -6,7 +6,6 @@
 package bank.level;
 
 import bank.entity.furniture.Furniture;
-import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
@@ -28,11 +27,10 @@ class House2SubLevel extends Level {
     public House2SubLevel(String path) {
         super(path);
         addFurniture();
-        addNPCs();
+        //addNPCs();
     }
     
     private void addNPCs() {
-        npcs.add(new MaleNpc(136, 88, "/dialogs/crazyLevel/Anthony.txt"));
     }
     
     private void addFurniture() {

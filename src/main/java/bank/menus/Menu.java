@@ -42,13 +42,14 @@ public class Menu {
     public int currentAction;
     
     public static Menu firstMenu = new FirstMenu(100, 150, 20, 20);
-    public static Menu secondMenu = new Menu(100, 200, 15, 25);
+    public static Menu secondMenu = new YesNoMenu(80, 45, 180, 80);
     public static Menu inventoryMenu = new ThirdMenu(200, 215, 15, 15);
     public static Menu weaponsMenu = new FourthMenu(200, 215, 15, 15);
     public static Menu armorMenu = new FifthMenu(200, 215, 15, 15);
     public static Menu itemsMenu = new SixthMenu(200, 215, 15, 15);
-    public static Menu chestMenu = new SeventhMenu(160, 50, 115, 15);
-    public static Menu yesNoMenu = new YesNoMenu(190, 110, 120, 70);
+    public static Menu chestMenu = new SeventhMenu(160, 50, 115, 170);
+    public static Menu yesNoMenu = new YesNoReferralMenu(190, 110, 120, 70);
+    public static Menu favoriteFoodMenu = new FavoriteFoodMenu(250, 110, 20, 20);
     
     private ArrayList<ClickableButton> buttons = new ArrayList<>();
     

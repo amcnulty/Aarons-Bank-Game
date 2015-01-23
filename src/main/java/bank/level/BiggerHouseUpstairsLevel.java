@@ -5,7 +5,6 @@
  */
 package bank.level;
 
-import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
@@ -25,7 +24,7 @@ public class BiggerHouseUpstairsLevel extends Level {
     
     public BiggerHouseUpstairsLevel(String path) {
         super(path);
-        biggerHouseUpstairsLevelNpcs.add(new MaleNpc(2 * 16, 8 * 16, "/dialogs/biggerHouseLevel/Luke.txt"));
+       // biggerHouseUpstairsLevelNpcs.add(new MaleNpc(2 * 16, 8 * 16, "/dialogs/biggerHouseLevel/Luke.txt"));
     }
     
     protected void loadLevel(String path) {

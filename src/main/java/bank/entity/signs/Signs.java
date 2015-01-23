@@ -16,20 +16,54 @@ import bank.graphics.Sprite;
 public class Signs extends Entity {
     
     private Sprite signSprite;
+    private String index1;
+    private String index2;
+    private String index3;
     private String[] signDialog;
     
-    
-    public Signs(int x, int y) {
+    public Signs(int x, int y, String index1) {
         this.x = x;
         this.y = y;
+        this.index1 = index1;
+        signSprite = Sprite.signSprite;
+        setSignDialog();
+    }
+    
+    public Signs(int x, int y, String index1, String index2) {
+        this.x = x;
+        this.y = y;
+        this.index1 = index1;
+        this.index2 = index2;
+        signSprite = Sprite.signSprite;
+        setSignDialog();
+    }
+    
+    public Signs(int x, int y, String index1, String index2, String index3) {
+        this.x = x;
+        this.y = y;
+        this.index1 = index1;
+        this.index2 = index2;
+        this.index3 = index3;
         signSprite = Sprite.signSprite;
         setSignDialog();
     }
     
     private void setSignDialog() {
-        signDialog = new String[2];
-        signDialog[0] = "HI JERRY WHAT ARE YOU DOING?";
-        signDialog[1] = "I am making signs that say things";
+        if (index2 == null && index3 == null)  {
+            signDialog = new String[1];
+            signDialog[0] = index1;
+        }
+        else if (index2 != null && index3 == null) {
+            signDialog = new String[2];
+            signDialog[0] = index1;
+            signDialog[1] = index2;
+        }
+        else if (index1 != null && index2 != null && index3 != null) {
+            signDialog = new String[3];
+            signDialog[0] = index1;
+            signDialog[1] = index2;
+            signDialog[2] = index3;
+        }
     }
     
     public String[] getSignDialog() {

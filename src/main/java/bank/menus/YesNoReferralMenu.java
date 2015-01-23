@@ -13,18 +13,18 @@ import java.util.ArrayList;
  *
  * @author Aaron
  */
-public class YesNoMenu extends Menu {
+class YesNoReferralMenu extends Menu {
     
     private ArrayList<ClickableButton> buttons = new ArrayList<>();
-    
-    public YesNoMenu(int width, int height, int xloc, int yloc) {
+
+    public YesNoReferralMenu(int width, int height, int xloc, int yloc) {
         super(width, height, xloc, yloc);
         addButtons();
     }
     
     private void addButtons() {
-        buttons.add(new ClickableButton(15, xloc, 20, yloc, "YES", 18));
-        buttons.add(new ClickableButton(50, xloc, 20, yloc, "NO", 19));
+        buttons.add(new ClickableButton(70, xloc, 80, yloc, "YES", 16));
+        buttons.add(new ClickableButton(110, xloc, 80, yloc, "NO", 17));
     }
     
     public void update() {
@@ -38,7 +38,6 @@ public class YesNoMenu extends Menu {
         for (int i = 0; i < buttons.size(); i++) {
             if (buttons.get(i).doAction()) {
                 currentAction = buttons.get(i).action;
-                item = buttons.get(i).item;
                 doAction = true;
             }
         }
@@ -46,6 +45,10 @@ public class YesNoMenu extends Menu {
     
     public void render(Screen screen) {
         super.render(screen);
+        font.renderSuperSmallCharacters2(130, 90, "YOU ARE ABOUT TO ADD A REFERRAL", screen);
+        font.renderSuperSmallCharacters2(130, 109, "IF YOU ARE LYING WE WILL KNOW", screen);
+        font.renderSuperSmallCharacters2(130, 130, "ARE YOU SURE THIS IS WHAT YOU", screen);
+        font.renderSuperSmallCharacters2(130, 137, "WANT TO DO", screen);
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).render(screen);
         }

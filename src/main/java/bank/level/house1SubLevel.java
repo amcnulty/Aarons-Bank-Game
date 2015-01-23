@@ -5,8 +5,6 @@
  */
 package bank.level;
 
-import bank.entity.mob.Npc.FemaleNpcClerk;
-import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
@@ -26,8 +24,8 @@ public class house1SubLevel extends Level {
 
 	public house1SubLevel(String path) {
 		super(path);
-                houseSubLevelNpcs.add(new FemaleNpcClerk(64, 48, 1, "/dialogs/houseSubLevel/clerk.txt"));
-                houseSubLevelNpcs.add(new MaleNpc(8 * 16, 6 * 16, "/dialogs/houseSubLevel/dude.txt"));
+               // houseSubLevelNpcs.add(new FemaleNpcClerk(64, 48, 1, "/dialogs/houseSubLevel/clerk.txt"));
+               // houseSubLevelNpcs.add(new MaleNpc(8 * 16, 6 * 16, "/dialogs/houseSubLevel/dude.txt"));
 	}
 
 	protected void loadLevel(String path) {

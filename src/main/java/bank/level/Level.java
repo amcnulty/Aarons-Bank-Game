@@ -42,6 +42,7 @@ public class Level implements Serializable {
         public static int SCOTT_HOUSE_LEVEL = 10;
         public static int SIDEWAYS_HOUSE_LEVEL = 11;
         public static int UNDERGROUND_CRAZY_LEVEL = 12;
+        public static int SWAMP_LEVEL = 13;
 
         
         public static Level spawnLevel = new SpawnLevel("/levels/spawn_level.png");
@@ -56,6 +57,7 @@ public class Level implements Serializable {
         public static Level scottHouseLevel = new ScottHouseLevel("/levels/crazyLevel/scott_house_level.png");
         public static Level sidewaysHouseLevel = new SidewaysHouseLevel("/levels/crazyLevel/sideways_house_level.png");
         public static Level underGroundCrazyLevel = new UnderGroundCrazyLevel("/levels/crazyLevel/underground_crazy_level.png");
+        public static Level swampLevel = new SwampLevel("/levels/swamp_level.png");
 	
 	public Level(String path) {
 		loadLevel(path);
@@ -129,6 +131,8 @@ public class Level implements Serializable {
                 return Level.sidewaysHouseLevel;
             case 12:
                 return Level.underGroundCrazyLevel;
+            case 13:
+                return Level.swampLevel;
             }
             return Level.spawnLevel;
 	}
@@ -161,6 +165,10 @@ public class Level implements Serializable {
             return false;
         }
         
+        public boolean npcAhead(int x, int y) {
+            return false;
+        }
+        
         public boolean signHere(int x, int y) {
             return false;
         }
@@ -174,6 +182,18 @@ public class Level implements Serializable {
         }
         
         public Npc getNpc(int x, int y) {
+            return null;
+        }
+
+        public boolean[] getNpcBoolean() {
+            return null;
+        }
+        
+        public int[] getNpcX() {
+            return null;
+        }
+        
+        public int[] getNpcY() {
             return null;
         }
         
@@ -190,6 +210,15 @@ public class Level implements Serializable {
         }
         
         public void setChests(boolean[] chestStatus) {
+        }
+        
+        public void setNpcBoolean(boolean[] movedOutOfWay) {
+        }
+        
+        public void setNpcX(int[] savedX) {
+        }
+        
+        public void setNpcY(int[] savedY) {
         }
         
 	public void update() {
@@ -287,6 +316,7 @@ public class Level implements Serializable {
 		if (tiles[x + y * width] == Tile.col_woodLog2_tile) return Tile.woodLog2_tile;
                 if (tiles[x + y * width] == Tile.col_darkWall_tile) return Tile.darkWall_tile;
                 if (tiles[x + y * width] == Tile.col_dirt3_withRocks_tile) return Tile.dirt3_withRocks_tile;
+                if (tiles[x + y * width] == Tile.col_rock_on_dirt1_tile) return Tile.rock_on_dirt1_tile;
 		
 		return Tile.voidTile;
 	}

@@ -272,6 +272,7 @@ public class Sprite {
 	
 	// Rock/Brick/Stone sprites
 	public static Sprite rock_on_grass = new Sprite(16, 2, 0, SpriteSheet.tiles);
+        public static Sprite rock_on_dirt1 = new Sprite(16, 1, 3, SpriteSheet.tiles);
 	public static Sprite large_brick1 = new Sprite(16, 2, 1, SpriteSheet.tiles);
 	public static Sprite large_brick2 = new Sprite(16, 2, 2, SpriteSheet.tiles);
 	public static Sprite large_brick3 = new Sprite(16, 2, 3, SpriteSheet.tiles);

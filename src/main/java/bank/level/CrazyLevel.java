@@ -6,9 +6,6 @@
 package bank.level;
 
 import bank.entity.furniture.Furniture;
-import bank.entity.mob.Npc.FemaleNpc;
-import bank.entity.mob.Npc.FemaleNpcClerk;
-import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
@@ -32,15 +29,11 @@ public class CrazyLevel extends Level {
 
     public CrazyLevel(String path) {
         super(path);
-        addNpcs();
+        //addNpcs();
         addFurniture();
     }
 
     private void addNpcs() {
-        crazyLevelNpcs.add(new FemaleNpcClerk(56 * 16, 55 * 16, 2));
-        crazyLevelNpcs.add(new MaleNpc(34 * 16, 52 * 16, "/dialogs/crazyLevel/Cody.txt"));
-        crazyLevelNpcs.add(new FemaleNpc(37 * 16, 52 * 16, "/dialogs/crazyLevel/Kali.txt"));
-        crazyLevelNpcs.add(new FemaleNpc(10 * 16, 31 * 16, "/dialogs/crazyLevel/Bobbie.txt"));
     }
     
     private void addFurniture() {

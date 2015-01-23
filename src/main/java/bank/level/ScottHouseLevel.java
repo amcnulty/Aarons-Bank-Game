@@ -6,9 +6,6 @@
 package bank.level;
 
 import bank.entity.furniture.Furniture;
-import bank.entity.mob.Npc.FemaleNpc;
-import bank.entity.mob.Npc.FemaleNpcClerk;
-import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
@@ -34,9 +31,6 @@ class ScottHouseLevel extends Level {
     }
 
     private void addNpcs() {
-        npcs.add(new FemaleNpcClerk(160, 94, 1, "/dialogs/houseSubLevel/clerk.txt"));
-        npcs.add(new MaleNpc(51-16, 89-16));
-        npcs.add(new FemaleNpc(106-16, 67-16));
     }
     
     private void addFurniture() {

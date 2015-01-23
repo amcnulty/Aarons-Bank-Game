@@ -6,7 +6,6 @@
 package bank.level;
 
 import bank.entity.furniture.Furniture;
-import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
@@ -28,7 +27,7 @@ class BaitShopLevel extends Level {
     public BaitShopLevel(String path) {
         super(path);
         addFurniture();
-        addNpcs();
+       // addNpcs();
     }
     
     private void addFurniture() {
@@ -37,7 +36,6 @@ class BaitShopLevel extends Level {
     }
     
     private void addNpcs() {
-        npcs.add(new MaleNpc(64, 32));
     }
     
     protected void loadLevel(String path) {

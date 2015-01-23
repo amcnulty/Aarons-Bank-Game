@@ -33,9 +33,19 @@ public class Save implements Serializable{
     public int attack;
     public int defence;
     public int speed;
+    public int totalRef;
+    public int aRef;
+    public int usedRef;
     public int levelNum;
+    
+    public boolean[] sidewaysLevelNpcs;
+    public int[] sidewaysLevelNpcX;
+    public int[] sidewaysLevelNpcY;
+    
     public boolean[] spawnLevelChests;
     public boolean[] underGroundCrazyLevelChests;
+    
+    
     public int equipedWeapon;
     public int[] equipedArmor;
     public int[] inventoryIDS;
@@ -48,11 +58,17 @@ public class Save implements Serializable{
     // array for underground crazy level chests
     private JSONArray underGroundCrazyLevelChestsJsonArray = new JSONArray();
     // array for equiped armor
-    private JSONArray eJsonArray = new JSONArray();
+    private JSONArray equipedArmorJsonArray = new JSONArray();
     // array for inventory ids
     private JSONArray inventoryJsonArray = new JSONArray();
     // array for inventory amounts
     private JSONArray inventoryAmountJsonArray = new JSONArray();
+    // array for npcs moved out of the way boolean
+    private JSONArray s1JsonArray = new JSONArray();
+    // array for npcs xloc
+    private JSONArray s2JsonArray = new JSONArray();
+    // array for npcs yloc
+    private JSONArray s3JsonArray = new JSONArray();
     private String fileName;
 
     public void save(Player player, Level level) {
@@ -67,6 +83,12 @@ public class Save implements Serializable{
         attack = player.attack;
         defence = player.defence;
         speed = player.speed;
+        totalRef = player.totalReferrals;
+        aRef = player.availableReferrals;
+        usedRef = player.usedReferrals;
+        sidewaysLevelNpcs = Level.sidewaysHouseLevel.getNpcBoolean();
+        sidewaysLevelNpcX = Level.sidewaysHouseLevel.getNpcX();
+        sidewaysLevelNpcY = Level.sidewaysHouseLevel.getNpcY();
         levelNum = level.getLevelNum();
         if (player.equipedWeapon == null) {
             equipedWeapon = 0;
@@ -128,15 +150,23 @@ public class Save implements Serializable{
         json.put("attack", attack);
         json.put("defence", defence);
         json.put("speed", speed);
+        json.put("totalReferrals", totalRef);
+        json.put("availableReferrals", aRef);
+        json.put("usedReferrals", usedRef);
         json.put("levelNum", levelNum);
         json.put("equipedWeapon", equipedWeapon);
+        
+        // everything down here is for arrays
+        s1JsonArray.clear();
+        s2JsonArray.clear();
+        s3JsonArray.clear();
         spawnLevelChestsJsonArray.clear();
         underGroundCrazyLevelChestsJsonArray.clear();
-        eJsonArray.clear();
+        equipedArmorJsonArray.clear();
         inventoryJsonArray.clear();
         inventoryAmountJsonArray.clear();
         for (int i = 0; i < equipedArmor.length; i++) {
-            eJsonArray.add(equipedArmor[i]);
+            equipedArmorJsonArray.add(equipedArmor[i]);
         }
         for (int i = 0; i < inventoryIDS.length; i++) {
             inventoryJsonArray.add(inventoryIDS[i]);
@@ -150,7 +180,19 @@ public class Save implements Serializable{
         for (int i = 0; i < underGroundCrazyLevelChests.length; i++) {
             underGroundCrazyLevelChestsJsonArray.add(underGroundCrazyLevelChests[i]);
         }
-        json.put("equipedArmor", eJsonArray);
+        for (int i = 0; i < sidewaysLevelNpcs.length; i++) {
+            s1JsonArray.add(sidewaysLevelNpcs[i]);
+        }
+        for (int i = 0; i < sidewaysLevelNpcs.length; i++) {
+            s2JsonArray.add(sidewaysLevelNpcX[i]);
+        }
+        for (int i = 0; i < sidewaysLevelNpcs.length; i++) {
+            s3JsonArray.add(sidewaysLevelNpcY[i]);
+        }
+        json.put("sidewaysLevelNpcs", s1JsonArray);
+        json.put("sidewaysLevelNpcX", s2JsonArray);
+        json.put("sidewaysLevelNpcY", s3JsonArray);
+        json.put("equipedArmor", equipedArmorJsonArray);
         json.put("inventoryIDS", inventoryJsonArray);
         json.put("inventoryAmounts", inventoryAmountJsonArray);
         json.put("spawnLevelChests", spawnLevelChestsJsonArray);
@@ -202,13 +244,18 @@ public class Save implements Serializable{
         attack = Integer.parseInt(json.get("attack").toString());
         defence = Integer.parseInt(json.get("defence").toString());
         speed = Integer.parseInt(json.get("speed").toString());
+        totalRef = Integer.parseInt(json.get("totalReferrals").toString());
+        aRef = Integer.parseInt(json.get("availableReferrals").toString());
+        usedRef = Integer.parseInt(json.get("usedReferrals").toString());
         levelNum = Integer.parseInt(json.get("levelNum").toString());
         equipedWeapon = Integer.parseInt(json.get("equipedWeapon").toString());
         
-        eJsonArray = (JSONArray) json.get("equipedArmor");
-        equipedArmor = new int[eJsonArray.size()];
-        for (int i = 0; i < eJsonArray.size(); i++) {
-            equipedArmor[i] = Integer.parseInt(eJsonArray.get(i).toString());
+        // everything down here is for arrays
+        
+        equipedArmorJsonArray = (JSONArray) json.get("equipedArmor");
+        equipedArmor = new int[equipedArmorJsonArray.size()];
+        for (int i = 0; i < equipedArmorJsonArray.size(); i++) {
+            equipedArmor[i] = Integer.parseInt(equipedArmorJsonArray.get(i).toString());
         }
         
         inventoryJsonArray = (JSONArray) json.get("inventoryIDS");
@@ -239,6 +286,22 @@ public class Save implements Serializable{
                 underGroundCrazyLevelChests[i] = true;
             }
             else underGroundCrazyLevelChests[i] = false;
+        }
+        
+        s1JsonArray = (JSONArray) json.get("sidewaysLevelNpcs");
+        sidewaysLevelNpcs = new boolean[s1JsonArray.size()];
+        for (int i = 0; i < s1JsonArray.size(); i++) {
+            sidewaysLevelNpcs[i] = Boolean.parseBoolean(s1JsonArray.get(i).toString());
+        }
+        s2JsonArray = (JSONArray) json.get("sidewaysLevelNpcX");
+        sidewaysLevelNpcX = new int[s2JsonArray.size()];
+        for (int i = 0; i < s2JsonArray.size(); i++) {
+            sidewaysLevelNpcX[i] = Integer.parseInt(s2JsonArray.get(i).toString());
+        }
+        s3JsonArray = (JSONArray) json.get("sidewaysLevelNpcY");
+        sidewaysLevelNpcY = new int[s3JsonArray.size()];
+        for (int i = 0; i < s3JsonArray.size(); i++) {
+            sidewaysLevelNpcY[i] = Integer.parseInt(s3JsonArray.get(i).toString());
         }
     }
 }

@@ -89,7 +89,7 @@ public class Game extends Canvas implements Runnable {
     }
 	
     public void startGame(int characterInfo) {
-        level = Level.spawnLevel;
+        level = Level.swampLevel;
         player = new Player(level.playerSpawn.x(), level.playerSpawn.y(), key, dialog, characterInfo, cut);
         player.init(level);
         toolBar.initPlayer(player);
@@ -165,6 +165,9 @@ public class Game extends Canvas implements Runnable {
         player.defence = save.defence;
         player.health = save.health;
         player.speed = save.speed;
+        player.totalReferrals = save.totalRef;
+        player.availableReferrals = save.aRef;
+        player.usedReferrals = save.usedRef;
         player.playerLevel = save.playerLevel;
         player.equipedWeapon = items.getItemFromID(save.equipedWeapon);
         player.inventory.clear();
@@ -218,10 +221,17 @@ public class Game extends Canvas implements Runnable {
             case 12:
                 level = Level.underGroundCrazyLevel;
                 break;
+            case 13:
+                level = Level.swampLevel;
+                break;
         }
         player.init(level);
         Level.spawnLevel.setChests(save.spawnLevelChests);
         Level.underGroundCrazyLevel.setChests(save.underGroundCrazyLevelChests);
+        
+        Level.sidewaysHouseLevel.setNpcBoolean(save.sidewaysLevelNpcs);
+        Level.sidewaysHouseLevel.setNpcX(save.sidewaysLevelNpcX);
+        Level.sidewaysHouseLevel.setNpcY(save.sidewaysLevelNpcY);
     }
 
     public void update() {

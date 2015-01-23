@@ -5,9 +5,12 @@
  */
 package bank.level;
 
+import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
+import bank.entity.signs.Signs;
 import bank.graphics.Screen;
+import bank.inventory.Items;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,22 +20,35 @@ import javax.imageio.ImageIO;
  *
  * @author Aaron
  */
-class SidewaysHouseLevel extends Level {
-
-    private final int LEVELNUM = 11;
+class SwampLevel extends Level {
+    
+    private final int LEVELNUM = 13;
     
     private ArrayList<Furniture> furniture = new ArrayList<>();
     private ArrayList<Npc> npcs = new ArrayList<>();
-    
-    public SidewaysHouseLevel(String path) {
+    private ArrayList<Chest> chests = new ArrayList<>();
+    private ArrayList<Signs> signs = new ArrayList<>();
+
+    public SwampLevel(String path) {
         super(path);
         addNpcs();
         //addFurniture();
+        addSigns();
+        addChests();
     }
-
+    
+    private void addChests() {
+        chests.add(new Chest(1, 28, 1, Items.CHEESE));
+        chests.add(new Chest(41, 22, 1, Items.CHERRIES));
+        chests.add(new Chest(47, 67, 1, Items.LEATHER_BOOTS));
+        chests.add(new Chest(21, 66, 1, Items.COOKIE));
+        chests.add(new Chest(3, 3, 1, Items.EGG));
+        chests.add(new Chest(47, 44, 1, Items.CHERRIES));
+    }
+    
     private void addNpcs() {
-        npcs.add(new Npc(127, 80, 1, 2, "Should I move?", "I moved"));
-        npcs.add(new Npc(100, 50, 1, 2, "Should I move?", "I moved"));
+        npcs.add(new Npc(570, 220, 1, 9, "I'm soooo hungry! Can you please give me my favorite food?", "Thank you so much! I feel much better."));
+        //npcs.add(new Npc(100, 50, 1, 2));
         
         
         for (int i = 0; i < npcs.size(); i++) {
@@ -48,6 +64,11 @@ class SidewaysHouseLevel extends Level {
         furniture.add(new Furniture(208, 176, Furniture.SMALL_COUCH));
         furniture.add(new Furniture(180, 176, Furniture.DRESSER));
         furniture.add(new Furniture(159, 176, Furniture.DRESSER));
+    }
+    
+    private void addSigns() {
+        signs.add(new Signs(25 * 16, 7 * 16, "Beyond here is Townsville. A charming town."));
+        signs.add(new Signs(38 * 16, 51 * 16 - 8, "Jeb's House", "Ya'll best keep out ya hear?"));
     }
     
     protected void loadLevel(String path) {
@@ -74,15 +95,13 @@ class SidewaysHouseLevel extends Level {
         }
         destinations = new int[width * height][3];
         // to crazy level
-        setDestinations(1, 5, Level.CRAZY_LEVEL, 58, false, 63, false);
-        setDestinations(1, 6, Level.CRAZY_LEVEL, 58, false, 63, false);
-        // to underground
-        setDestinations(8, 2, Level.UNDERGROUND_CRAZY_LEVEL, 25, true, 42, true);
+        setDestinations(29, 0, Level.CRAZY_LEVEL, 19, true, 68, false);
+        setDestinations(30, 0, Level.CRAZY_LEVEL, 19, true, 68, false);
+        setDestinations(31, 0, Level.CRAZY_LEVEL, 19, true, 68, false);
     }
     
     public boolean checkExit(int x, int y) {
-        if (leftOf(x, 1) && inYRangeOf(y, 5, 6)) return true;
-        else if(topOf(y, 2) && inXRangeOf(x, 8, 8)) return true;
+        if (topOf(y, 0) && inXRangeOf(x, 29, 31)) return true;
         return false;
     }
     
@@ -96,6 +115,22 @@ class SidewaysHouseLevel extends Level {
             if (npcs.get(i).npcHere(x, y)) npcHere = true;
         }
         return npcHere;
+    }
+    
+    public boolean signHere(int xp, int yp) {
+        boolean signHere = false;
+        for (int i = 0; i < signs.size(); i++) {
+            if (signs.get(i).signHere(xp, yp)) signHere = true;
+        }
+        return signHere;
+    }
+    
+    public boolean chestHere(int xp, int yp) {
+        boolean chestHere = false;
+        for (int i = 0; i < chests.size(); i++) {
+            if (chests.get(i).chestHere(xp, yp)) chestHere = true;
+        }
+        return chestHere;
     }
     
     public boolean npcAhead(int x, int y) {
@@ -117,6 +152,41 @@ class SidewaysHouseLevel extends Level {
             }
         }
         return null;
+    }
+    
+    public Chest getChest(int xp, int yp) {
+        for (int i = 0; i < chests.size(); i++) {
+            int xx = chests.get(i).x;
+            int yy = chests.get(i).y;
+            if (xx <= xp && xx + 32 >= xp && yy <= yp && yy + 32 >= yp) return chests.get(i);
+        }
+        return null;
+    }
+    
+    public Signs getSign(int xp, int yp) {
+        for (int i = 0; i < signs.size(); i++) {
+            int xx = signs.get(i).x;
+            int yy = signs.get(i).y;
+            if (xx <= xp - 4 && xx + 28 >= xp && yy <= yp && yy + 28 >= yp) {
+                return signs.get(i);
+            }
+        }
+        return null;
+    }
+    
+    public boolean[] getChestsOnLevel() {
+        boolean[] chestStatus = new boolean[chests.size()];
+        for (int i = 0; i < chests.size(); i++) {
+            chestStatus[i] = (chests.get(i).isOpen());
+        }
+        return chestStatus;
+    }
+    
+    public void setChests(boolean[] chestStatus) {
+        for (int i = 0; i < chests.size(); i++) {
+            if (chestStatus[i]) chests.get(i).opened = true;
+            else chests.get(i).opened = false;
+        }
     }
     
     public boolean[] getNpcBoolean() {
@@ -173,15 +243,24 @@ class SidewaysHouseLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).update();
         }
-        
+        for (int i = 0; i < chests.size(); i++) {
+            chests.get(i).update();
+        }
     }
     
     public void render(Screen screen) {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
         }
+        for (int i = 0; i < chests.size(); i++) {
+            chests.get(i).render(screen);
+        }
+        for (int i = 0; i < signs.size(); i++) {
+            signs.get(i).render(screen);
+        }
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).render(screen);
         }
-    }    
+    } 
+    
 }

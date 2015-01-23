@@ -6,7 +6,6 @@
 package bank.level;
 
 import bank.entity.furniture.Furniture;
-import bank.entity.mob.Npc.MaleNpc;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
@@ -28,8 +27,8 @@ public class BiggerHouseLevel extends Level {
     public BiggerHouseLevel(String path) {
         super(path);
         addFurniture();
-        biggerHouseLevelNpcs.add(new MaleNpc(5 * 16, 14 * 16, "/dialogs/biggerHouseLevel/Ed Gone.txt"));
-        biggerHouseLevelNpcs.add(new MaleNpc(13 * 16, 15 * 16, "/dialogs/biggerHouseLevel/Night Owl.txt"));
+       // biggerHouseLevelNpcs.add(new MaleNpc(5 * 16, 14 * 16, "/dialogs/biggerHouseLevel/Ed Gone.txt"));
+       // biggerHouseLevelNpcs.add(new MaleNpc(13 * 16, 15 * 16, "/dialogs/biggerHouseLevel/Night Owl.txt"));
     }
     
     private void addFurniture() {

@@ -31,14 +31,15 @@ public class SeventhMenu extends Menu {
         super.update();
         if (!key.checked && key.space) {
             isOpen = false;
+            key.checked = true;
         }
     }
     
     public void render(Screen screen) {
         super.render(screen);
-        font.renderSuperSmallCharacters2(171, 25, "RECEIVED", screen);
-        screen.renderSprite(130, 35, itemSprite, false);
-        font.renderSuperSmallCharacters2(156, 40, itemName, screen);
+        font.renderSuperSmallCharacters2(171, 180, "RECEIVED", screen);
+        screen.renderSprite(130, 190, itemSprite, false);
+        font.renderSuperSmallCharacters2(156, 195, itemName, screen);
     }
     
 }
