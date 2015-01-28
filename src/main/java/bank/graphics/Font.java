@@ -19,7 +19,7 @@ public class Font {
     private static Sprite[] smallCharacters = Sprite.split(smallFont);
 
     public static String smallCharactersIndex = "!\"##%%%()**,-./0123456789:;;==??ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^__abcdefghijklmnopqrstuvwxyz{{}~";
-    public static String superSmallCharactersIndex = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789++-";
+    public static String superSmallCharactersIndex = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+=-";
 
     public Font() {
 

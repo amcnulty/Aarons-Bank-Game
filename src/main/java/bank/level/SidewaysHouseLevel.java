@@ -27,13 +27,11 @@ class SidewaysHouseLevel extends Level {
     public SidewaysHouseLevel(String path) {
         super(path);
         addNpcs();
-        //addFurniture();
+        addFurniture();
     }
 
     private void addNpcs() {
-        npcs.add(new Npc(127, 80, 1, 2, "Should I move?", "I moved"));
-        npcs.add(new Npc(100, 50, 1, 2, "Should I move?", "I moved"));
-        
+        npcs.add(new Npc(127, 80, 1, 2, "Do you have any special candy? I will let you into my basement it you give me one.", "Thanks for that I really needed a level up! Go check out my basement."));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -41,13 +39,9 @@ class SidewaysHouseLevel extends Level {
     }
     
     private void addFurniture() {
-        furniture.add(new Furniture(83, 256, Furniture.OVEN));
-        furniture.add(new Furniture(26, 208, Furniture.FRIDGE_ONE));
-        furniture.add(new Furniture(44, 208, Furniture.FRIDGE_TWO));
-        furniture.add(new Furniture(238, 178, Furniture.BIG_COUCH));
-        furniture.add(new Furniture(208, 176, Furniture.SMALL_COUCH));
-        furniture.add(new Furniture(180, 176, Furniture.DRESSER));
-        furniture.add(new Furniture(159, 176, Furniture.DRESSER));
+        furniture.add(new Furniture(28, 32, Furniture.OVEN));
+        furniture.add(new Furniture(52, 32, Furniture.FRIDGE_ONE));
+        furniture.add(new Furniture(117, 110, Furniture.BARREL));
     }
     
     protected void loadLevel(String path) {

@@ -13,18 +13,18 @@ import java.util.ArrayList;
  *
  * @author Aaron
  */
-public class YesNoMenu extends Menu {
+public class SidewaysHouseYesNoMenu extends Menu {
     
     private ArrayList<ClickableButton> buttons = new ArrayList<>();
     
-    public YesNoMenu(int yesButton, int noButton) {
-        super(80, 45, 180, 80);
-        addButtons(yesButton, noButton);
+    public SidewaysHouseYesNoMenu(int width, int height, int xloc, int yloc) {
+        super(width, height, xloc, yloc);
+        addButtons();
     }
     
-    private void addButtons(int yesButton, int noButton) {
-        buttons.add(new ClickableButton(15, xloc, 20, yloc, "YES", yesButton));
-        buttons.add(new ClickableButton(50, xloc, 20, yloc, "NO", noButton));
+    private void addButtons() {
+        buttons.add(new ClickableButton(15, xloc, 20, yloc, "YES", 18));
+        buttons.add(new ClickableButton(50, xloc, 20, yloc, "NO", 19));
     }
     
     public void update() {

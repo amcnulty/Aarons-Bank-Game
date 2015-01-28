@@ -43,6 +43,7 @@ public class Level implements Serializable {
         public static int SIDEWAYS_HOUSE_LEVEL = 11;
         public static int UNDERGROUND_CRAZY_LEVEL = 12;
         public static int SWAMP_LEVEL = 13;
+        public static int JEBS_HOUSE_LEVEL = 14;
 
         
         public static Level spawnLevel = new SpawnLevel("/levels/spawn_level.png");
@@ -58,6 +59,7 @@ public class Level implements Serializable {
         public static Level sidewaysHouseLevel = new SidewaysHouseLevel("/levels/crazyLevel/sideways_house_level.png");
         public static Level underGroundCrazyLevel = new UnderGroundCrazyLevel("/levels/crazyLevel/underground_crazy_level.png");
         public static Level swampLevel = new SwampLevel("/levels/swamp_level.png");
+        public static Level jebsHouseLevel = new JebsHouseLevel("/levels/swampLevel/jebs_house_level.png");
 	
 	public Level(String path) {
 		loadLevel(path);
@@ -133,6 +135,8 @@ public class Level implements Serializable {
                 return Level.underGroundCrazyLevel;
             case 13:
                 return Level.swampLevel;
+            case 14:
+                return Level.jebsHouseLevel;
             }
             return Level.spawnLevel;
 	}

@@ -21,6 +21,10 @@ public class CutScenes {
     
     public static int LEFT100STEPS = 1;
     public static int LEFT40STEPS = 2;
+    public static int DOWN60STEPS = 3;
+    public static int LEFTSWAMPGUARD = 4;
+    public static int DOWN25STEPS = 5;
+    public static int MAZEGUARD = 6;
     
     //private static String introDialogPath = CutScenes.class.getResource("/dialogs/intro_scene_dialog.txt").getPath();
     private static String introDialogPath = "/dialogs/intro_scene_dialog.txt";
@@ -30,6 +34,10 @@ public class CutScenes {
     private byte[][] introScene = new byte[0][3];
     private byte[][] left100 = new byte[0][3];
     private byte[][] left40 = new byte[0][3];
+    private byte[][] down25 = new byte[0][3];
+    private byte[][] down60 = new byte[0][3];
+    private byte[][] mazeGuard = new byte[0][3];
+    private byte[][] leftSwampGuard = new byte[0][2];
     public int index;
     private int messageGroup = 1;
 
@@ -54,6 +62,21 @@ public class CutScenes {
         buildIntroScene(8, 0, false);       // Dialog
         left100 = west(100, false, left100);
         left40 = west(40, false, left40);
+        down60 = south(60, false, down60);
+        down25 = south(25, false, down25);
+        buildLeftSwampGuard();
+        buildMazeGuard();
+    }
+    
+    private void buildMazeGuard() {
+        mazeGuard = south(10, false, mazeGuard);
+        mazeGuard = west(25, false, mazeGuard);
+    }
+    
+    private void buildLeftSwampGuard() {
+        leftSwampGuard = south(30, false, leftSwampGuard);
+        leftSwampGuard = west(30, false, leftSwampGuard);
+        
     }
     
     private void buildIntroScene(int dir, int clicks, boolean running) {
@@ -246,6 +269,16 @@ public class CutScenes {
                 return left100;
             case 2:
                 return left40;
+            case 3:
+                return down60;
+            case 4:
+                return leftSwampGuard;
+            case 5:
+                return down25;
+            case 6:
+                return mazeGuard;
+            default:
+                System.err.println("YOU HAVE NOT MADE A CASE FOR GETROUTE IN CUTSCENE CLASS");
         }
         return null;
     }

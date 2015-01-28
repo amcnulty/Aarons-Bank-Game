@@ -11,8 +11,10 @@ import bank.graphics.Screen;
 import bank.graphics.Sprite;
 import bank.input.Keyboard;
 import bank.input.Mouse;
+import bank.inventory.ArmorItem;
 import bank.inventory.Items;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -25,6 +27,7 @@ public class Menu {
     protected Font font = new Font();
     private Mouse mouse;
     protected Keyboard key;
+    protected Random random;
     
     private int width, height;
     protected int xloc, yloc;
@@ -41,8 +44,22 @@ public class Menu {
     public boolean isOpen;
     public int currentAction;
     
+    public int item1rand;
+    public int item2rand;
+    public int item3rand;
+    public int item4rand;
+    public int item5rand;
+    public int item6rand;
+    
+    public static int FAVORITEFOODMENU = 9;
+    public static int SWORDYESNOMENU = 10;
+    public static int THREEREFERRALYESNOTMENU = 11;
+    public static int MAZEGUARDMENU = 12;
+    public static int TRAINING_BOOK_FOR_REFERRAL_MENU = 13;
+    public static int STORE_ONE_MENU = 14;
+    
     public static Menu firstMenu = new FirstMenu(100, 150, 20, 20);
-    public static Menu secondMenu = new YesNoMenu(80, 45, 180, 80);
+    public static Menu secondMenu = new YesNoMenu(18, 19);
     public static Menu inventoryMenu = new ThirdMenu(200, 215, 15, 15);
     public static Menu weaponsMenu = new FourthMenu(200, 215, 15, 15);
     public static Menu armorMenu = new FifthMenu(200, 215, 15, 15);
@@ -50,6 +67,11 @@ public class Menu {
     public static Menu chestMenu = new SeventhMenu(160, 50, 115, 170);
     public static Menu yesNoMenu = new YesNoReferralMenu(190, 110, 120, 70);
     public static Menu favoriteFoodMenu = new FavoriteFoodMenu(250, 110, 20, 20);
+    public static Menu swordYesNoMenu = new YesNoMenu(24, 25);
+    public static Menu threeReferralYesNoMenu = new YesNoMenu(26, 27);
+    public static Menu mazeGuardMenu = new YesNoMenu(28, 29);
+    public static Menu trainingBookReferralMenu = new YesNoMenu(30, 31);
+    public static Menu storeOneMenu = new StoreOneMenu(270, 210, 10, 20);
     
     private ArrayList<ClickableButton> buttons = new ArrayList<>();
     
@@ -59,6 +81,7 @@ public class Menu {
         this.xloc = xloc;
         this.yloc = yloc;
         mouse = new Mouse();
+        random = new Random();
         pixels = new int[width * height];
         addMenuTheme();
         addButtons();
@@ -125,6 +148,9 @@ public class Menu {
      }
     
     public void setItemSpriteAndName(Sprite itemSprite, String itemName) {
+    }
+    
+    public void randomizeTotals() {
     }
     
     public void setPanes() {

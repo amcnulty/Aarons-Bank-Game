@@ -161,7 +161,7 @@ public class Items {
             case 42:
                 return ArmorItem.corbinsSheild;
             default:
-                System.err.println("ERROR! YOU HAVE NOT MADE A CASE FOR THIS ITEM. From getItemFromID in Items class");
+                System.err.println("ERROR! YOU HAVE NOT MADE A CASE FOR ITEM ID NUMBER " + itemID + ". From getItemFromID in Items class");
         }
             
         return null;

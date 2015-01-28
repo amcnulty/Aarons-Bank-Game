@@ -190,6 +190,8 @@ public class Game extends Canvas implements Runnable {
                 break;
             case 2:
                 level = Level.crazyLevel;
+                level.getNpc(143, 58).x = 143;
+                level.getNpc(143, 58).y = 58;
                 break;
             case 3:
                 level = Level.house1SubLevel;
@@ -223,6 +225,9 @@ public class Game extends Canvas implements Runnable {
                 break;
             case 13:
                 level = Level.swampLevel;
+                break;
+            case 14:
+                level = Level.jebsHouseLevel;
                 break;
         }
         player.init(level);
@@ -267,6 +272,17 @@ public class Game extends Canvas implements Runnable {
                 if (player.changingLevels == true) {
                     player.changingLevels = false;
                     level = Level.getDestination(player.getLevelDestination());
+                    if (level.equals(Level.crazyLevel)) {
+                        if (level.getNpc(143, 58) == null) System.out.println("level is null");
+                        if (level.getNpc(143, 58) != null) {
+                            level.getNpc(143, 58).y = 58;
+                            level.getNpc(143, 58).x = 143;
+                        }
+                        else if (level.getNpc(143 - 25, 58 + 10) != null){
+                            level.getNpc(143 - 25, 58 + 10).x = 143;
+                            level.getNpc(143, 58 + 10).y = 58;
+                        }
+                    }
                     player.changeLocation(player.getXDestination(), player.getYDestination());
                     player.init(level);
                     fader.setPosition(player.x, player.y);

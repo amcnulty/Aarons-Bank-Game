@@ -69,7 +69,7 @@ public class Chest extends Entity {
     }
     
     public boolean chestHere(int xp, int yp) {
-        if (x <= xp && x + 32 >= xp && y <= yp && y + 32 >= yp) return true;
+        if (x + 1 <= xp && x + 31 >= xp && y + 1 <= yp && y + 31 >= yp) return true;
         return false;
     }
     

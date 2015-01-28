@@ -27,10 +27,15 @@ class House2SubLevel extends Level {
     public House2SubLevel(String path) {
         super(path);
         addFurniture();
-        //addNPCs();
+        addNpcs();
     }
     
-    private void addNPCs() {
+    private void addNpcs() {
+        npcs.add(new Npc(155, 112, 1, "/dialogs/crazyLevel/Anthony.txt"));
+        
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).init(this);
+        }
     }
     
     private void addFurniture() {
@@ -69,7 +74,7 @@ class House2SubLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
-        setDestinations(6, 10, 2, 53, false, 40, false);
+        setDestinations(6, 10, Level.CRAZY_LEVEL, 53, false, 40, false);
         setDestinations(7, 10, 2, 53, false, 40, false);
     }
     
@@ -93,7 +98,7 @@ class House2SubLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             int xx = npcs.get(i).x;
             int yy = npcs.get(i).y;
-            if (xx + 3 <= x && x <= xx + 28 && yy + 2 <= y && y <= yy + 32) {
+            if (xx - 13 <= x && x <= xx + 13 && yy - 16 <= y && y <= yy + 15) {
                 return npcs.get(i);
             }
         }

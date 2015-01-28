@@ -8,6 +8,7 @@ package bank.level;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
+import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,16 +25,21 @@ public class CrazyLevel extends Level {
     
     private final int LEVELNUM = 2;
     
-    private ArrayList<Npc> crazyLevelNpcs = new ArrayList<>();
+    private ArrayList<Npc> npcs = new ArrayList<>();
     private ArrayList<Furniture> furniture = new ArrayList<>();
 
     public CrazyLevel(String path) {
         super(path);
-        //addNpcs();
+        addNpcs();
         addFurniture();
     }
 
     private void addNpcs() {
+        npcs.add(new Npc(143, 58, 1, Menu.MAZEGUARDMENU, "Would you like to try the maze garden? Entrance is 100 dollars", "THIS SAYS NOTHING"));
+        
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).init(this);
+        }
     }
     
     private void addFurniture() {
@@ -66,9 +72,13 @@ public class CrazyLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
-        setDestinations(18, 69, Level.SPAWN_LEVEL, 11, true, 2, false);
-        setDestinations(19, 69, Level.SPAWN_LEVEL, 11, true, 2, false);
-        setDestinations(20, 69, Level.SPAWN_LEVEL, 11, true, 2, false);
+        //setDestinations(18, 69, Level.SPAWN_LEVEL, 11, true, 2, false);
+        //setDestinations(19, 69, Level.SPAWN_LEVEL, 11, true, 2, false);
+        //setDestinations(20, 69, Level.SPAWN_LEVEL, 11, true, 2, false);
+        
+        setDestinations(18, 69, Level.SWAMP_LEVEL, 30, true, 1, true);
+        setDestinations(19, 69, Level.SWAMP_LEVEL, 30, true, 1, true);
+        setDestinations(20, 69, Level.SWAMP_LEVEL, 30, true, 1, true);
 
         setDestinations(8, 0, Level.MAZE_LEVEL, 34, true, 68, false);
         setDestinations(9, 0, Level.MAZE_LEVEL, 34, true, 68, false);
@@ -196,8 +206,8 @@ public class CrazyLevel extends Level {
 
     public boolean npcHere(int x, int y) {
         boolean npcHere = false;
-        for (int i = 0; i < crazyLevelNpcs.size(); i++) {
-            if (crazyLevelNpcs.get(i).npcHere(x, y)) npcHere = true;
+        for (int i = 0; i < npcs.size(); i++) {
+            if (npcs.get(i).npcHere(x, y)) npcHere = true;
         }
         return npcHere;
     }
@@ -211,20 +221,19 @@ public class CrazyLevel extends Level {
     }
 
     public Npc getNpc(int x, int y) {
-        for (int i = 0; i < crazyLevelNpcs.size(); i++) {
-            int xx = crazyLevelNpcs.get(i).x;
-            int yy = crazyLevelNpcs.get(i).y;
-            if (xx + 3 <= x && x <= xx + 28 && yy + 2 <= y && y <= yy + 32) {
-                return crazyLevelNpcs.get(i);
+        for (int i = 0; i < npcs.size(); i++) {
+            int xx = npcs.get(i).x;
+            int yy = npcs.get(i).y;
+            if (xx - 13 <= x && x <= xx + 13 && yy - 16 <= y && y <= yy + 15) {
+                return npcs.get(i);
             }
         }
         return null;
     }
 
     public void update() {
-        //System.out.println("Player Y: 1119 should return false " + inYRangeOf(112, 4, 6));
-        for (int i = 0; i < crazyLevelNpcs.size(); i++) {
-            crazyLevelNpcs.get(i).update();
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).update();
         }
     }
 
@@ -232,8 +241,8 @@ public class CrazyLevel extends Level {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
         }
-        for (int i = 0; i < crazyLevelNpcs.size(); i++) {
-            crazyLevelNpcs.get(i).render(screen);
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).render(screen);
         }
     }
 

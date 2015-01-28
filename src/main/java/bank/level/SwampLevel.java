@@ -11,6 +11,7 @@ import bank.entity.mob.Npc.Npc;
 import bank.entity.signs.Signs;
 import bank.graphics.Screen;
 import bank.inventory.Items;
+import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ class SwampLevel extends Level {
     public SwampLevel(String path) {
         super(path);
         addNpcs();
-        //addFurniture();
+        addFurniture();
         addSigns();
         addChests();
     }
@@ -47,9 +48,10 @@ class SwampLevel extends Level {
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(570, 220, 1, 9, "I'm soooo hungry! Can you please give me my favorite food?", "Thank you so much! I feel much better."));
-        //npcs.add(new Npc(100, 50, 1, 2));
-        
+        npcs.add(new Npc(570, 220, 1, Menu.FAVORITEFOODMENU, "I'm soooo hungry! Can you please give me my favorite food?", "Thank you so much! I feel much better."));
+        npcs.add(new Npc(458, 32, 1, Menu.SWORDYESNOMENU, "I will not let you pass unless you give me an interesting weapon. Have anything that would interest me?", "This is a most interesting sword."));
+        npcs.add(new Npc(488, 58, 1, Menu.THREEREFERRALYESNOTMENU, "I will not let you pass unless you give me three of your referrals. Would you like to give me those referrals?", "Have a good time in Townsville"));
+        npcs.add(new Npc(518, 32, 1));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -57,13 +59,7 @@ class SwampLevel extends Level {
     }
     
     private void addFurniture() {
-        furniture.add(new Furniture(83, 256, Furniture.OVEN));
-        furniture.add(new Furniture(26, 208, Furniture.FRIDGE_ONE));
-        furniture.add(new Furniture(44, 208, Furniture.FRIDGE_TWO));
-        furniture.add(new Furniture(238, 178, Furniture.BIG_COUCH));
-        furniture.add(new Furniture(208, 176, Furniture.SMALL_COUCH));
-        furniture.add(new Furniture(180, 176, Furniture.DRESSER));
-        furniture.add(new Furniture(159, 176, Furniture.DRESSER));
+        furniture.add(new Furniture(38 * 16, 45 * 16, Furniture.BARREL));
     }
     
     private void addSigns() {
@@ -98,10 +94,12 @@ class SwampLevel extends Level {
         setDestinations(29, 0, Level.CRAZY_LEVEL, 19, true, 68, false);
         setDestinations(30, 0, Level.CRAZY_LEVEL, 19, true, 68, false);
         setDestinations(31, 0, Level.CRAZY_LEVEL, 19, true, 68, false);
+        setDestinations(43, 46, Level.JEBS_HOUSE_LEVEL, 4, true, 6, true);
     }
     
     public boolean checkExit(int x, int y) {
         if (topOf(y, 0) && inXRangeOf(x, 29, 31)) return true;
+        else if (topOf(y, 46) && inXRangeOf(x, 43, 43)) return true;
         return false;
     }
     

@@ -347,6 +347,8 @@ public class Sprite {
 	// ToolBar sprites
 	public static Sprite toolBar1 = new Sprite(true, 130, 55, SpriteSheet.toolBar);
 	public static Sprite toolBar2 = new Sprite(false, 130, 55, SpriteSheet.toolBar);
+        
+        public static Sprite dollarSign = new Sprite("/textures/sheets/dollarSign.png");
 	
 	// Menu sprites
 	public static Sprite invMenu1 = new Sprite(150, 190, SpriteSheet.invMenu1);

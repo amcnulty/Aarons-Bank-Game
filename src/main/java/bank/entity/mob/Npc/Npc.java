@@ -51,9 +51,10 @@ public class Npc extends Mob {
         setSprite(0);
     }
 
-    public Npc(int x, int y, String path) {
+    public Npc(int x, int y, int characterDesign, String path) {
         this.x = x;
         this.y = y;
+        this.characterDesign = characterDesign;
         setSprite(0);
         dialogPath = path;
     }
@@ -69,7 +70,7 @@ public class Npc extends Mob {
         setSprite(0);
     }
     
-    public Npc(int x, int y, int menuNum, String path) {
+    public Npc(int x, int y, int characterDesign, int menuNum, String path) {
         this.x = x;
         this.y = y ;
         this.menuNum = menuNum;
@@ -119,6 +120,46 @@ public class Npc extends Mob {
                     break;
             }
                 break;
+            case 2:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.femaleNPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.femaleNPC_forward1;
+                        }
+                        else this.sprite = Sprite.femaleNPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.femaleNPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.femaleNPC_right1;
+                        }
+                        else this.sprite = Sprite.femaleNPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.femaleNPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.femaleNPC_back1;
+                        }
+                        else this.sprite = Sprite.femaleNPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.femaleNPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.femaleNPC_left1;
+                        }
+                        else this.sprite = Sprite.femaleNPC_left2;
+                    }
+                    break;
+            }
+                break;
         }
     }
     
@@ -158,14 +199,19 @@ public class Npc extends Mob {
         this.dir = dir;
         talking = true;
         if (dialogPath == null) {
-            if (initialConversation) {
+            if (initialConversation && finalConvo != null) {
                 String[] array = new String[1];
                 array[0] = initialConvo;
                 return array;
             }
-            else {
+            else if (!initialConversation && finalConvo != null) {
                 String[] array = new String[1];
                 array[0] = finalConvo;
+                return array;
+            }
+            else {
+                String[] array = new String[1];
+                array[0] = "I don't have any script";
                 return array;
             }
         }
@@ -195,8 +241,8 @@ public class Npc extends Mob {
             int lines = Integer.parseInt(inputFile.nextLine());
             String[] convo = new String[lines];
             for (int i = 0; i < lines; i++) {
-			convo[i] = inputFile.nextLine();
-		}
+                    convo[i] = inputFile.nextLine();
+            }
             inputFile.close();
             return convo;
         }

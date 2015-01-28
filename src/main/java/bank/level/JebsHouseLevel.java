@@ -5,10 +5,8 @@
  */
 package bank.level;
 
-import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
-import bank.entity.signs.Signs;
 import bank.graphics.Screen;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,24 +17,21 @@ import javax.imageio.ImageIO;
  *
  * @author Aaron
  */
-public class house1SubLevel extends Level {
-    
-    private final int LEVELNUM = 3;
+class JebsHouseLevel extends Level {
+
+    private final int LEVELNUM = 14;
     
     private ArrayList<Furniture> furniture = new ArrayList<>();
     private ArrayList<Npc> npcs = new ArrayList<>();
-    private ArrayList<Chest> chests = new ArrayList<>();
-    private ArrayList<Signs> signs = new ArrayList<>();
-
-    public house1SubLevel(String path) {
+    
+    public JebsHouseLevel(String path) {
         super(path);
         addNpcs();
         addFurniture();
     }
-    
+
     private void addNpcs() {
-        npcs.add(new Npc(137, 101, 1, "/dialogs/houseSubLevel/dude.txt"));
-        npcs.add(new Npc(76, 64, 2, 1, "Welcome to my Weapon Shop! What can I interest you in today?", ""));
+        npcs.add(new Npc(52, 62, 1, "/dialogs/swampLevel/jeb.txt"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -44,12 +39,10 @@ public class house1SubLevel extends Level {
     }
     
     private void addFurniture() {
-        furniture.add(new Furniture(28, 32, Furniture.DRESSER));
-        furniture.add(new Furniture(78, 32, Furniture.OFFICE_CHAIR));
-        furniture.add(new Furniture(160, 35, Furniture.SMALL_COUCH));
-        furniture.add(new Furniture(162, 136, Furniture.SMALL_COUCH));
+        furniture.add(new Furniture(33, 33, Furniture.SMALL_COUCH));
+        furniture.add(new Furniture(64, 36, Furniture.AIR_COMPRESSOR));
     }
-
+    
     protected void loadLevel(String path) {
         try {
             BufferedImage image = ImageIO.read(Level.class.getResource(path));
@@ -63,28 +56,25 @@ public class house1SubLevel extends Level {
             System.out.println("Exception! Could not load level file!");
         }
     }
-
+    
     protected void generateLevel() {
         for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                        if (tiles[x + y * width] == 0xffFAFF7F) {
-                                playerSpawn = new TileCoordinate(x, y);
-                        }
+            for (int x = 0; x < width; x++) {
+                if (tiles[x + y * width] == 0xffFAFF7F) {
+                    playerSpawn = new TileCoordinate(x, y);
                 }
+            }
         }
         destinations = new int[width * height][3];
-        destinations[6 + 10 * width][0] = destinations[7 + 10 * width][0] = 2;
-        destinations[6 + 10 * width][1] = destinations[7 + 10 * width][1] = 57 * 16;
-        destinations[6 + 10 * width][2] = destinations[7 + 10 * width][2] = 50 * 16;
+        // to swamp level
+        setDestinations(4, 7, Level.SWAMP_LEVEL, 43, true, 48, true);
     }
-
+    
     public boolean checkExit(int x, int y) {
-        if ((y == 174 || y == 173) && x >= 96 && x <= 127) return true;
-        //else if ((y == 785 || y == 786) && x >= 896 && x <= 927) return true;
-        //else if ((x == 382 || x == 383) && y >= 160 && y <= 207) return true;
+        if (bottomOf(y, 7) && inXRangeOf(x, 4, 4)) return true;
         return false;
     }
-
+    
     public int getLevelNum() {
         return LEVELNUM;
     }
@@ -95,22 +85,6 @@ public class house1SubLevel extends Level {
             if (npcs.get(i).npcHere(x, y)) npcHere = true;
         }
         return npcHere;
-    }
-    
-    public boolean signHere(int xp, int yp) {
-        boolean signHere = false;
-        for (int i = 0; i < signs.size(); i++) {
-            if (signs.get(i).signHere(xp, yp)) signHere = true;
-        }
-        return signHere;
-    }
-    
-    public boolean chestHere(int xp, int yp) {
-        boolean chestHere = false;
-        for (int i = 0; i < chests.size(); i++) {
-            if (chests.get(i).chestHere(xp, yp)) chestHere = true;
-        }
-        return chestHere;
     }
     
     public boolean npcAhead(int x, int y) {
@@ -132,41 +106,6 @@ public class house1SubLevel extends Level {
             }
         }
         return null;
-    }
-    
-    public Chest getChest(int xp, int yp) {
-        for (int i = 0; i < chests.size(); i++) {
-            int xx = chests.get(i).x;
-            int yy = chests.get(i).y;
-            if (xx <= xp && xx + 32 >= xp && yy <= yp && yy + 32 >= yp) return chests.get(i);
-        }
-        return null;
-    }
-    
-    public Signs getSign(int xp, int yp) {
-        for (int i = 0; i < signs.size(); i++) {
-            int xx = signs.get(i).x;
-            int yy = signs.get(i).y;
-            if (xx <= xp - 4 && xx + 28 >= xp && yy <= yp && yy + 28 >= yp) {
-                return signs.get(i);
-            }
-        }
-        return null;
-    }
-    
-    public boolean[] getChestsOnLevel() {
-        boolean[] chestStatus = new boolean[chests.size()];
-        for (int i = 0; i < chests.size(); i++) {
-            chestStatus[i] = (chests.get(i).isOpen());
-        }
-        return chestStatus;
-    }
-    
-    public void setChests(boolean[] chestStatus) {
-        for (int i = 0; i < chests.size(); i++) {
-            if (chestStatus[i]) chests.get(i).opened = true;
-            else chests.get(i).opened = false;
-        }
     }
     
     public boolean[] getNpcBoolean() {
@@ -223,20 +162,12 @@ public class house1SubLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).update();
         }
-        for (int i = 0; i < chests.size(); i++) {
-            chests.get(i).update();
-        }
+        
     }
     
     public void render(Screen screen) {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
-        }
-        for (int i = 0; i < chests.size(); i++) {
-            chests.get(i).render(screen);
-        }
-        for (int i = 0; i < signs.size(); i++) {
-            signs.get(i).render(screen);
         }
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).render(screen);

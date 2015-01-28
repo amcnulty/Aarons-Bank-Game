@@ -5,9 +5,12 @@
  */
 package bank.level;
 
+import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
+import bank.entity.signs.Signs;
 import bank.graphics.Screen;
+import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,10 +30,17 @@ class StoreOneLevel extends Level {
     public StoreOneLevel(String path) {
         super(path);
         addFurniture();
-        //addNpcs();
+        addNpcs();
     }
     
     private void addNpcs() {
+        npcs.add(new Npc(171, 110, 2, Menu.STORE_ONE_MENU, "Welcome to my Armor Store. You can never have to much protection!!", ""));
+        npcs.add(new Npc(54, 79, 1, "/dialogs/storeOneLevel/helpfulMan.txt"));
+        npcs.add(new Npc(104, 66, 2, "/dialogs/storeOneLevel/toughGirl.txt"));
+        
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).init(this);
+        }
     }
     
     private void addFurniture() {
@@ -86,15 +96,67 @@ class StoreOneLevel extends Level {
         return npcHere;
     }
     
+    public boolean npcAhead(int x, int y) {
+        boolean npcHere = false;
+        int counter = 0;
+        for (int i = 0; i < npcs.size(); i++) {
+            if (npcs.get(i).npcAhead(x, y)) counter++;
+        }
+        if (counter > 1) npcHere = true;
+        return npcHere;
+    }
+    
     public Npc getNpc(int x, int y) {
         for (int i = 0; i < npcs.size(); i++) {
             int xx = npcs.get(i).x;
             int yy = npcs.get(i).y;
-            if (xx + 3 <= x && x <= xx + 28 && yy + 2 <= y && y <= yy + 32) {
+            if (xx - 13 <= x && x <= xx + 13 && yy - 16 <= y && y <= yy + 15) {
                 return npcs.get(i);
             }
         }
         return null;
+    }
+    
+    public boolean[] getNpcBoolean() {
+        boolean[] array = new boolean[npcs.size()];
+        for (int i = 0; i < npcs.size(); i++) {
+            array[i] = npcs.get(i).movedOutOfWay;
+        }
+        return array;
+    }
+    
+    public void setNpcBoolean(boolean[] movedOutOfWay) {
+        for (int i = 0; i < movedOutOfWay.length; i++) {
+            npcs.get(i).movedOutOfWay = movedOutOfWay[i];
+        }
+    }
+    
+    public int[] getNpcX() {
+        int[] array = new int[npcs.size()];
+        for (int i = 0; i < npcs.size(); i++) {
+            array[i] = npcs.get(i).x;
+        }
+        return array;
+    }
+    
+    public void setNpcX(int[] savedX) {
+        for (int i = 0; i < savedX.length; i++) {
+            npcs.get(i).x = savedX[i];
+        }
+    }
+    
+    public int[] getNpcY() {
+        int[] array = new int[npcs.size()];
+        for (int i = 0; i < npcs.size(); i++) {
+            array[i] = npcs.get(i).y;
+        }
+        return array;
+    }
+    
+    public void setNpcY(int[] savedY) {
+        for (int i = 0; i < savedY.length; i++) {
+            npcs.get(i).y = savedY[i];
+        }
     }
     
     public boolean furnitureHere(int xp, int yp) {
@@ -109,7 +171,6 @@ class StoreOneLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).update();
         }
-        
     }
     
     public void render(Screen screen) {
