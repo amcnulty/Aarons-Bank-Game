@@ -8,8 +8,11 @@ package bank.level;
 import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
+import bank.entity.signs.Signs;
 import bank.graphics.Screen;
-import bank.inventory.ArmorItem;
+import bank.inventory.Items;
+import bank.inventory.WeaponItem;
+import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,27 +22,32 @@ import javax.imageio.ImageIO;
  *
  * @author Aaron
  */
-public class BiggerHouseUpstairsLevel extends Level {
+class DuplexLevel extends Level {
     
-    private final int LEVELNUM = 5;
+    private final int LEVELNUM = 16;
     
     private ArrayList<Furniture> furniture = new ArrayList<>();
     private ArrayList<Npc> npcs = new ArrayList<>();
     private ArrayList<Chest> chests = new ArrayList<>();
-    
-    public BiggerHouseUpstairsLevel(String path) {
+
+    public DuplexLevel(String path) {
         super(path);
         addNpcs();
-        addChests();
         addFurniture();
+        addChests();
     }
     
     private void addChests() {
-        chests.add(new Chest(4, 1, 2, ArmorItem.LEATHER_HELMET));
+        chests.add(new Chest(19, 2, 1, WeaponItem.SPEED_SWORD));
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(49, 142, 1, "/dialogs/biggerHouseLevel/Luke.txt"));
+        npcs.add(new Npc(205, 78, 2, "/dialogs/duplexLevel/Linda.txt"));
+        npcs.add(new Npc(315, 121, 1, "/dialogs/duplexLevel/harold.txt"));
+        npcs.add(new Npc(46, 43, 1, 17, "Would you like to pay 5,000 dollars for some attack training?", "NO SCRIPT"));
+        npcs.add(new Npc(61, 92, 1, 18, "Would you like to pay 5,000 dollars for some defence training?", "NO SCRIPT"));
+        npcs.add(new Npc(152, 37, 1, 19, "Would you like to pay 5,000 dollars for some speed training?", "NO SCRIPT"));
+        npcs.add(new Npc(105, 78, 1, 20, "Would you like to trade one of your referrals for a level up?", "NO SCRIPT"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -47,7 +55,11 @@ public class BiggerHouseUpstairsLevel extends Level {
     }
     
     private void addFurniture() {
-        furniture.add(new Furniture(6 * 16 + 5, 11 * 16, Furniture.BARREL));
+        furniture.add(new Furniture(12 * 16 - 4, 32, Furniture.FRIDGE_ONE));
+        furniture.add(new Furniture(14 * 15 + 2, 32, Furniture.OVEN));
+        furniture.add(new Furniture(16 * 15 - 6, 32, Furniture.FRIDGE_TWO));
+        furniture.add(new Furniture(302, 80, Furniture.BIG_COUCH));
+        furniture.add(new Furniture(274, 75, Furniture.DRESSER));
     }
     
     protected void loadLevel(String path) {
@@ -73,23 +85,23 @@ public class BiggerHouseUpstairsLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
-        destinations[7 + 1 * width][0] = 4;
-        destinations[7 + 1 * width][1] =  14 * 16;
-        destinations[7 + 1 * width][2] = 5 * 16;
-        
+        // to crazy level
+        setDestinations(8, 9, Level.CRAZY_LEVEL, 32, false, 29, false);
+        setDestinations(9, 9, Level.CRAZY_LEVEL, 32, false, 29, false);
+        setDestinations(13, 9, Level.CRAZY_LEVEL, 37, false, 29, false);
+        setDestinations(14, 9, Level.CRAZY_LEVEL, 37, false, 29, false);
     }
     
     public boolean checkExit(int x, int y) {
-		if ((y == 17 || y == 18) && x >= 112 && x <= 143) return true;
-		//else if ((y == 785 || y == 786) && x >= 896 && x <= 927) return true;
-		//else if ((x == 382 || x == 383) && y >= 160 && y <= 207) return true;
-		return false;
-	}
+        if (bottomOf(y, 9) && inXRangeOf(x, 8, 9)) return true;
+        else if (bottomOf(y, 9) && inXRangeOf(x, 13, 14)) return true;
+        return false;
+    }
     
     public int getLevelNum() {
-            return LEVELNUM;
-        }
-        
+        return LEVELNUM;
+    }
+    
     public boolean npcHere(int x, int y) {
         boolean npcHere = false;
         for (int i = 0; i < npcs.size(); i++) {

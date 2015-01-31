@@ -13,7 +13,9 @@ You can use the [arrow keys] on the keyboard or the [w a s d] keys in the same f
 The [shift] key will allow you to run like the wind! You must hold down [shift] while moving to run.
 
 3
-3
+5
+You will see a box in the top right of your screen that displays your stats, level, cash and player name.
+Also, there is an inventory button to access your inventory. You can equip and use items that you find.
 You will need to save your progress as you play the game. To do this press the [escape key] during regular gameplay.
 You cannot save your game during cut-scenes like this one. After you save you can load your game from the title screen.
 Save often and explore lots!! Have fun!

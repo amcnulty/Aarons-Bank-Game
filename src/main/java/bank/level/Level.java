@@ -44,6 +44,10 @@ public class Level implements Serializable {
         public static int UNDERGROUND_CRAZY_LEVEL = 12;
         public static int SWAMP_LEVEL = 13;
         public static int JEBS_HOUSE_LEVEL = 14;
+        public static int POTION_SHOP_LEVEL = 15;
+        public static int DUPLEX_LEVEL = 16;
+        public static int RIGHT_ROUTE_LEVEL = 17;
+        public static int LEFT_ROUTE_LEVEL = 18;
 
         
         public static Level spawnLevel = new SpawnLevel("/levels/spawn_level.png");
@@ -60,6 +64,10 @@ public class Level implements Serializable {
         public static Level underGroundCrazyLevel = new UnderGroundCrazyLevel("/levels/crazyLevel/underground_crazy_level.png");
         public static Level swampLevel = new SwampLevel("/levels/swamp_level.png");
         public static Level jebsHouseLevel = new JebsHouseLevel("/levels/swampLevel/jebs_house_level.png");
+        public static Level potionShopLevel = new PotionShopLevel("/levels/crazyLevel/potion_shop_level.png");
+        public static Level duplexLevel = new DuplexLevel("/levels/crazyLevel/duplex_level.png");
+        public static Level rightRouteLevel = new RightRouteLevel("/levels/right_route_level.png");
+        public static Level leftRouteLevel = new LeftRouteLevel("/levels/left_route_level.png");
 	
 	public Level(String path) {
 		loadLevel(path);
@@ -137,8 +145,18 @@ public class Level implements Serializable {
                 return Level.swampLevel;
             case 14:
                 return Level.jebsHouseLevel;
+            case 15:
+                return Level.potionShopLevel;
+            case 16:
+                return Level.duplexLevel;
+            case 17:
+                return Level.rightRouteLevel;
+            case 18:
+                return Level.leftRouteLevel;
+            default:
+                System.err.println("YOU HAVE NOT MADE A CASE FOR THIS LEVEL IN LEVEL CLASS");
+                return Level.spawnLevel;
             }
-            return Level.spawnLevel;
 	}
 	
 	public boolean checkExit(int x, int y) {

@@ -43,11 +43,14 @@ public class Player extends Mob {
     private int anim = 0;
     private boolean walking = false;
     private boolean exited = false;
+    private boolean goToSellMenu = false;
+    private Items randomItem;
     private int playerSpeed = 1;
     private int lastX;
     private int lastY;
     private boolean movingForNpc;
     private int moveToX, moveToY;
+    private int lastPlayerX, lastPlayerY;
     
     // Player Stats
     public int cash = 500;
@@ -163,7 +166,7 @@ public class Player extends Mob {
     }
 	
     public void update() {
-        System.out.println("X:  " + x + "  Y:  " + y + "  X Tile:  " + x / 16 + "  Y Tile:  " + y / 16);
+        //System.out.println("X:  " + x + "  Y:  " + y + "  X Tile:  " + x / 16 + "  Y Tile:  " + y / 16);
         int xa = 0, ya = 0;
         if (anim < 7500) anim++;
         else anim = 0;
@@ -252,6 +255,7 @@ public class Player extends Mob {
                             switch (level.getNpc(lastX, lastY).menuNum) {
                                 case 1:
                                     menu = Menu.firstMenu;
+                                    menu.randomizeTotals();
                                     break;
                                 case 2:
                                     menu = Menu.secondMenu;
@@ -274,6 +278,29 @@ public class Player extends Mob {
                                 case 14:
                                     menu = Menu.storeOneMenu;
                                     menu.randomizeTotals();
+                                    break;
+                                case 15:
+                                    menu = Menu.potionShopMenu;
+                                    menu.randomizeTotals();
+                                    break;
+                                case 16:
+                                    menu = Menu.baitShopMenu;
+                                    break;
+                                case 17:
+                                    menu = Menu.attackTrainerMenu;
+                                    break;
+                                case 18:
+                                    menu = Menu.defenceTrainerMenu;
+                                    break;
+                                case 19:
+                                    menu = Menu.speedTrainerMenu;
+                                    break;
+                                case 20:
+                                    menu = Menu.levelUpTrainerMenu;
+                                    break;
+                                case 21:
+                                    if (goToSellMenu) menu = Menu.sellArmorMenu;
+                                    else menu = Menu.sellArmorYesNoMenu;
                                     break;
                                 default:
                                     System.err.println("YOU HAVE NOT MADE A CASE FOR MENU NUMBER " + level.getNpc(lastX, lastY).menuNum + " IN PLAYER.UPDATE()");
@@ -454,7 +481,7 @@ public class Player extends Mob {
             case 17:
                 menu = Menu.inventoryMenu;
                 break;
-            case 18: // yes on second menu
+            case 18: // yes on sideways house menu
                 if (removeInventoryItem(UsableItem.special_candy)) {
                     level.getNpc(lastX, lastY).initCut(cut);
                     level.getNpc(lastX, lastY).setRoute(CutScenes.LEFT40STEPS);
@@ -475,7 +502,7 @@ public class Player extends Mob {
                 if (level.getNpc(lastX, lastY) == null);
                 else level.getNpc(lastX, lastY).talking = false;
                 break;
-            case 19: // no on second menu
+            case 19: // no on sideways house menu
                 dialog.isOpen = true;
                 array = new String[1];
                 array[0] = "If you change your mind come talk to me.";
@@ -782,7 +809,7 @@ public class Player extends Mob {
                     addInventoryItem(ArmorItem.leatherhelmet);
                     dialog.isOpen = true;
                     array = new String[1];
-                    array[0] = "A leather helmet has been added to your inventory";
+                    array[0] = "A Leather Helmet has been added to your inventory.";
                     dialog.setMessage(array);
                 }
                 else {
@@ -798,7 +825,7 @@ public class Player extends Mob {
                     addInventoryItem(ArmorItem.hardLeatherHelmet);
                     dialog.isOpen = true;
                     array = new String[1];
-                    array[0] = "A hard leather helmet has been added to your inventory";
+                    array[0] = "A Hard Leather Helmet has been added to your inventory.";
                     dialog.setMessage(array);
                 }
                 else {
@@ -814,7 +841,7 @@ public class Player extends Mob {
                     addInventoryItem(ArmorItem.hardLeatherTunic);
                     dialog.isOpen = true;
                     array = new String[1];
-                    array[0] = "A hard leather tunic has been added to your inventory";
+                    array[0] = "A Hard Leather Tunic has been added to your inventory.";
                     dialog.setMessage(array);
                 }
                 else {
@@ -830,7 +857,7 @@ public class Player extends Mob {
                     addInventoryItem(ArmorItem.steelToeBoots);
                     dialog.isOpen = true;
                     array = new String[1];
-                    array[0] = "A pair of steel toe boots have been added to your inventory";
+                    array[0] = "A pair of Steel Toe Boots have been added to your inventory.";
                     dialog.setMessage(array);
                 }
                 else {
@@ -846,7 +873,7 @@ public class Player extends Mob {
                     addInventoryItem(ArmorItem.leatherTunic);
                     dialog.isOpen = true;
                     array = new String[1];
-                    array[0] = "A leather tunic has been added to your inventory";
+                    array[0] = "A Leather Tunic has been added to your inventory.";
                     dialog.setMessage(array);
                 }
                 else {
@@ -862,7 +889,7 @@ public class Player extends Mob {
                     addInventoryItem(ArmorItem.leatherBoots);
                     dialog.isOpen = true;
                     array = new String[1];
-                    array[0] = "A pair of leather boots have been added to your inventory";
+                    array[0] = "A pair of Leather Boots have been added to your inventory.";
                     dialog.setMessage(array);
                 }
                 else {
@@ -871,6 +898,372 @@ public class Player extends Mob {
                     array[0] = "You don't have enough money!";
                     dialog.setMessage(array);
                 }
+                break;
+            case 38: // buying deluxe sword from houseSubLevel
+                if (cash >= menu.item1rand) {
+                    cash -= menu.item1rand;
+                    addInventoryItem(WeaponItem.deluxeSword);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A Deluxe Sword has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 39: // buying deluxe dagger from houseSubLevel
+                if (cash >= menu.item2rand) {
+                    cash -= menu.item2rand;
+                    addInventoryItem(WeaponItem.deluxeDagger);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A Deluxe Dagger has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 40: // buying heavy sword from houseSubLevel
+                if (cash >= menu.item3rand) {
+                    cash -= menu.item3rand;
+                    addInventoryItem(WeaponItem.heavySword);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A Heavy Sword has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 41: // buying black dagger from houseSubLevel
+                if (cash >= menu.item4rand) {
+                    cash -= menu.item4rand;
+                    addInventoryItem(WeaponItem.blackDagger);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A Black Dagger has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 42: // buying ice sword from houseSubLevel
+                if (cash >= menu.item5rand) {
+                    cash -= menu.item5rand;
+                    addInventoryItem(WeaponItem.iceSword);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "An Ice Sword has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 43: // buying flame sword from houseSubLevel
+                if (cash >= menu.item6rand) {
+                    cash -= menu.item6rand;
+                    addInventoryItem(WeaponItem.flameSword);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A Flame Sword has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 44: // buying speed potion from potion shop level
+                if (cash >= UsableItem.speed_potion.standardPrice) {
+                    cash -= UsableItem.speed_potion.standardPrice;
+                    addInventoryItem(UsableItem.speed_potion);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A Speed Potion has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 45: // buying defence potion from potion shop level
+                if (cash >= UsableItem.defence_potion.standardPrice) {
+                    cash -= UsableItem.defence_potion.standardPrice;
+                    addInventoryItem(UsableItem.defence_potion);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A Defence Potion has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 46: // buying attack potion from potion shop level
+                if (cash >= UsableItem.attack_potion.standardPrice) {
+                    cash -= UsableItem.attack_potion.standardPrice;
+                    addInventoryItem(UsableItem.attack_potion);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "An Attack Potion has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 47: // buying drinking water from bait shop
+                if (cash >= UsableItem.drinkingWater.standardPrice) {
+                    cash -= UsableItem.drinkingWater.standardPrice;
+                    addInventoryItem(UsableItem.drinkingWater);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A bottle of Drinkning Water has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 48: // buying banana from bait shop
+                if (cash >= UsableItem.banana.standardPrice) {
+                    cash -= UsableItem.banana.standardPrice;
+                    addInventoryItem(UsableItem.banana);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A banana has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 49: // buying cheese from bait shop
+                if (cash >= UsableItem.cheese.standardPrice) {
+                    cash -= UsableItem.cheese.standardPrice;
+                    addInventoryItem(UsableItem.cheese);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A block of cheese has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 50: // buying fish from bait shop
+                if (cash >= UsableItem.fish.standardPrice) {
+                    cash -= UsableItem.fish.standardPrice;
+                    addInventoryItem(UsableItem.fish);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "A fish has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 51: // buying cherries from bait shop
+                if (cash >= UsableItem.cherries.standardPrice) {
+                    cash -= UsableItem.cherries.standardPrice;
+                    addInventoryItem(UsableItem.cherries);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Cherries have been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 52: // buying egg from bait shop
+                if (cash >= UsableItem.egg.standardPrice) {
+                    cash -= UsableItem.egg.standardPrice;
+                    addInventoryItem(UsableItem.egg);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "An egg has been added to your inventory.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 53: // yes to attack trainer menu
+                if (cash >= 5000) {
+                    cash -= 5000;
+                    attack += 40;
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Your attack power just went up by 40!";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money for my training!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 54: // no to trainer menus
+                dialog.isOpen = true;
+                array = new String[1];
+                array[0] = "If you change your mind come talk to me.";
+                dialog.setMessage(array);
+                break;
+            case 55: // yes to defence trainer menu
+                if (cash >= 5000) {
+                    cash -= 5000;
+                    defence += 40;
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Your defence stat just went up by 40!";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money for my training!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 56: // yes to speed trainer menu
+                if (cash >= 5000) {
+                    cash -= 5000;
+                    speed += 40;
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Your speed stat just went up by 40!";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money for my training!";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 57: // yes to level up trainer menu
+                if (availableReferrals >= 1) {
+                    availableReferrals--;
+                    usedReferrals++;
+                    changeLevel(1);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "LEVEL UP!!";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough referrals to level up. Come back when you get some referrals and then I can train you.";
+                    dialog.setMessage(array);
+                }
+                break;
+            case 58: // yes to sell armor menu
+                switch (random.nextInt(6)) {
+                    case 0:
+                        randomItem = ArmorItem.leatherBoots;
+                        break;
+                    case 1:
+                        randomItem = ArmorItem.steelToeBoots;
+                        break;
+                    case 2:
+                        randomItem = ArmorItem.leatherTunic;
+                        break;
+                    case 3:
+                        randomItem = ArmorItem.hardLeatherTunic;
+                        break;
+                    case 4:
+                        randomItem = ArmorItem.leatherhelmet;
+                        break;
+                    case 5:
+                        randomItem = ArmorItem.hardLeatherHelmet;
+                        break;
+                    default:
+                        randomItem = ArmorItem.leatherBoots;
+                        break;
+                }
+                dialog.isOpen = true;
+                array = new String[1];
+                array[0] = "Alright, the piece of armor I'm looking for is a " + randomItem.itemName;
+                dialog.setMessage(array);
+                goToSellMenu = true;
+                menu.isOpen = false;
+                break;
+            case 59: // trade button on sell armor menu
+                if (removeInventoryItem(randomItem)) {
+                    int randomPay = randomItem.standardPrice - (random.nextInt((int)((double)randomItem.standardPrice * .1)) + 100);
+                    cash += randomPay;
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You just got " + randomPay + " dollars for selling your " + randomItem.itemName;
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have any " + randomItem.itemName + " in your inventory";
+                    dialog.setMessage(array);
+                }
+                goToSellMenu = false;
+                break;
+            case 60: // don't trade button on sell armor menu
+                dialog.isOpen = true;
+                array = new String[1];
+                array[0] = "If you get some good stuff come see me and I'll buy it from you!";
+                dialog.setMessage(array);
+                goToSellMenu = false;
                 break;
             default:
                 System.err.println("ERROR! YOU HAVE NOT MADE A CASE FOR THIS; From doAction in player class");
@@ -920,12 +1313,14 @@ public class Player extends Mob {
         if (y < moveToY) ya = 1;
         else if (y > moveToY) ya = -1;
         else if (y == moveToY) atY = true;
-        if (atX && atY) {
+        if ((atX && atY) || (lastPlayerX == x && lastPlayerY == y)) {
             movingForNpc = false;
             level.getNpc(lastX, lastY).moveAlongRoute = true;
             walking = false;
         }
         else {
+            lastPlayerX = x;
+            lastPlayerY = y;
             move(xa, ya);
             walking = true;
         }
@@ -1004,6 +1399,8 @@ public class Player extends Mob {
        if (dir == 0) {
            for (int yp = y; yp >= y - 8; yp--) {
                if (level.signHere(x, yp)) {
+                   lastX = x;
+                   lastY = yp;
                    dialog.isOpen = true;
                    dialog.setMessage(level.getSign(x, yp).getSignDialog());
                }
@@ -1084,7 +1481,6 @@ public class Player extends Mob {
                 menu.isOpen = true;
                 menu.setItemSpriteAndName(item.getItemFromID(itemNum).itemSprite, item.getItemFromID(itemNum).itemName);
             }
-            else System.out.println("This chest has already been opened");
     }
         
     private void talk() {

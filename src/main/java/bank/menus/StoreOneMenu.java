@@ -26,13 +26,13 @@ class StoreOneMenu extends Menu {
     }
     
     private void addButtons() {
-        // add 500 dollars button
+        // buy leather helmet button
         buttons.add(new ClickableButton(50, xloc, 27, yloc, "BUY", 32, ArmorItem.leatherhelmet));
-        // adding button to show bobbie
+        // buy hard leather helmet button
         buttons.add(new ClickableButton(50, xloc, 85, yloc, "BUY", 33, ArmorItem.hardLeatherHelmet));
-        // adding banana button
+        // buy hard leather tunic button
         buttons.add(new ClickableButton(50, xloc, 143, yloc, "BUY", 34, ArmorItem.hardLeatherTunic));
-        // adding speed potion button
+        // buy steel toe boots button
         buttons.add(new ClickableButton(190, xloc, 27, yloc, "BUY", 35, ArmorItem.steelToeBoots));
         // buy button for leather tunic
         buttons.add(new ClickableButton(190, xloc, 85, yloc, "BUY", 36, ArmorItem.leatherTunic));

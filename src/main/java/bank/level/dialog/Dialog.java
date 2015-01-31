@@ -80,7 +80,7 @@ public class Dialog {
 					
 				}
 				else if (i == p + 1 && p != 0) {			// if the end of the substring has reached the last space
-					currentMessageLength -= 31; 			// find out how much is left in the message
+					currentMessageLength -= segment1.length(); 			// find out how much is left in the message
 					if (currentMessageLength == 0) {		// if current message is empty
 						s = 6;								// always break from this switch statement
 						p = 0;
@@ -112,7 +112,7 @@ public class Dialog {
 					
 				}
 				else if (i == p + 1 && p != 0) { 						
-					currentMessageLength -= 31; 			
+					currentMessageLength -= segment2.length(); 			
 					if (currentMessageLength == 0) {		
 						s = 6;								
 						p = 0;
@@ -144,7 +144,7 @@ public class Dialog {
 					
 				}
 				else if (i == p + 1 && p != 0) { 						
-					currentMessageLength -= 31; 			
+					currentMessageLength -= segment3.length(); 			
 					if (currentMessageLength == 0) {		
 						s = 6;								
 						p = 0;
@@ -176,7 +176,7 @@ public class Dialog {
 					
 				}
 				else if (i == p + 1 && p != 0) { 						
-					currentMessageLength -= 31; 			
+					currentMessageLength -= segment4.length(); 			
 					if (currentMessageLength == 0) {		
 						s = 6;								
 						p = 0;
@@ -256,11 +256,16 @@ public class Dialog {
 			else screen.renderSprite(265, 75, smallCharacters[88], false);
 			
 			// scan through message[index].charAt(p) where p is the relative 31 position
-			if (p != 0) {
-				if (message[index].charAt(p) == 32) {
-				}
-				else p--;
-			}
+                        try {
+                            if (p != 0) {
+                                    if (message[index].charAt(p) == 32) {
+                                    }
+                                    else p--;
+                            }
+                        }
+                        catch (StringIndexOutOfBoundsException e) {
+                            p = 0;
+                        }
 			// render all of the segments on the dialog box
 			for (int i = 0; i < segment1.length(); i++) {
 				char currentChar = segment1.charAt(i);

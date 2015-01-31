@@ -8,6 +8,7 @@ package bank.level;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
 import bank.graphics.Screen;
+import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ class BaitShopLevel extends Level {
     public BaitShopLevel(String path) {
         super(path);
         addFurniture();
-       // addNpcs();
+        addNpcs();
     }
     
     private void addFurniture() {
@@ -36,6 +37,11 @@ class BaitShopLevel extends Level {
     }
     
     private void addNpcs() {
+        npcs.add(new Npc(77, 47, 2, Menu.BAIT_SHOP_MENU, "Welcome to my bait shope! We also sell food for hungry fishermen.", "NO SCRIPT"));
+        
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs.get(i).init(this);
+        }
     }
     
     protected void loadLevel(String path) {
@@ -84,7 +90,7 @@ class BaitShopLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             int xx = npcs.get(i).x;
             int yy = npcs.get(i).y;
-            if (xx + 3 <= x && x <= xx + 28 && yy + 2 <= y && y <= yy + 32) {
+            if (xx - 13 <= x && x <= xx + 13 && yy - 16 <= y && y <= yy + 15) {
                 return npcs.get(i);
             }
         }

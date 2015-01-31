@@ -52,6 +52,7 @@ class SwampLevel extends Level {
         npcs.add(new Npc(458, 32, 1, Menu.SWORDYESNOMENU, "I will not let you pass unless you give me an interesting weapon. Have anything that would interest me?", "This is a most interesting sword."));
         npcs.add(new Npc(488, 58, 1, Menu.THREEREFERRALYESNOTMENU, "I will not let you pass unless you give me three of your referrals. Would you like to give me those referrals?", "Have a good time in Townsville"));
         npcs.add(new Npc(518, 32, 1));
+        npcs.add(new Npc(515, 751, 1, Menu.SELL_ARMOR_YESNOMENU, "I am looking for some armor. Do you have some?", "NO SCRIPT"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -259,6 +260,6 @@ class SwampLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).render(screen);
         }
-    } 
+    }
     
 }

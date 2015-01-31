@@ -42,8 +42,17 @@ public class Save implements Serializable{
     public int[] sidewaysLevelNpcX;
     public int[] sidewaysLevelNpcY;
     
+    public boolean[] swampLevelNpcs;    // new
+    public int[] swampLevelNpcX;        // new
+    public int[] swampLevelNpcY;        // new
+    
     public boolean[] spawnLevelChests;
     public boolean[] underGroundCrazyLevelChests;
+    public boolean[] mazeLevelChests;               // new
+    public boolean[] swampLevelChests;              // new
+    public boolean[] crazyLevelChests;              // new
+    public boolean[] duplexLevelChests;              // new
+    public boolean[] biggerHouseLevelChests;      // new
     
     
     public int equipedWeapon;
@@ -57,6 +66,11 @@ public class Save implements Serializable{
     private JSONArray spawnLevelChestsJsonArray = new JSONArray();
     // array for underground crazy level chests
     private JSONArray underGroundCrazyLevelChestsJsonArray = new JSONArray();
+    private JSONArray mazeLevelChestsJsonArray = new JSONArray();
+    private JSONArray swampLevelChestsJsonArray = new JSONArray();
+    private JSONArray crazyLevelChestsJsonArray = new JSONArray();
+    private JSONArray dJsonArray = new JSONArray();
+    private JSONArray bJsonArray = new JSONArray();
     // array for equiped armor
     private JSONArray equipedArmorJsonArray = new JSONArray();
     // array for inventory ids
@@ -64,11 +78,17 @@ public class Save implements Serializable{
     // array for inventory amounts
     private JSONArray inventoryAmountJsonArray = new JSONArray();
     // array for npcs moved out of the way boolean
-    private JSONArray s1JsonArray = new JSONArray();
+    private JSONArray sidewaysLevelNpcMovedJsonArray = new JSONArray();
     // array for npcs xloc
-    private JSONArray s2JsonArray = new JSONArray();
+    private JSONArray sidewaysLevelNPCXJsonArray = new JSONArray();
     // array for npcs yloc
-    private JSONArray s3JsonArray = new JSONArray();
+    private JSONArray sidewaysLevelNPCYJsonArray = new JSONArray();
+    // array for npcs moved out of the way boolean in swamp level
+    private JSONArray swampLevelNpcMovedJsonArray = new JSONArray();
+    // array for npcs xlco on swamp level
+    private JSONArray swampLevelNPCXJsonArray = new JSONArray();
+    // array for npcs yloc on swamp level
+    private JSONArray swampLevelNPCYJsonArray = new JSONArray();
     private String fileName;
 
     public void save(Player player, Level level) {
@@ -89,6 +109,9 @@ public class Save implements Serializable{
         sidewaysLevelNpcs = Level.sidewaysHouseLevel.getNpcBoolean();
         sidewaysLevelNpcX = Level.sidewaysHouseLevel.getNpcX();
         sidewaysLevelNpcY = Level.sidewaysHouseLevel.getNpcY();
+        swampLevelNpcs = Level.swampLevel.getNpcBoolean();
+        swampLevelNpcX = Level.swampLevel.getNpcX();
+        swampLevelNpcY = Level.swampLevel.getNpcY();
         levelNum = level.getLevelNum();
         if (player.equipedWeapon == null) {
             equipedWeapon = 0;
@@ -105,6 +128,11 @@ public class Save implements Serializable{
         inventoryAmounts = player.getInventoryAmount();
         spawnLevelChests = Level.spawnLevel.getChestsOnLevel();
         underGroundCrazyLevelChests = Level.underGroundCrazyLevel.getChestsOnLevel();
+        mazeLevelChests = Level.mazeLevel.getChestsOnLevel();
+        swampLevelChests = Level.swampLevel.getChestsOnLevel();
+        crazyLevelChests = Level.crazyLevel.getChestsOnLevel();
+        duplexLevelChests = Level.duplexLevel.getChestsOnLevel();
+        biggerHouseLevelChests = Level.biggerHouseUpstairsLevel.getChestsOnLevel();
         encode();
         switch (player.playerNum) {
         case 1:
@@ -157,11 +185,19 @@ public class Save implements Serializable{
         json.put("equipedWeapon", equipedWeapon);
         
         // everything down here is for arrays
-        s1JsonArray.clear();
-        s2JsonArray.clear();
-        s3JsonArray.clear();
+        sidewaysLevelNpcMovedJsonArray.clear();
+        sidewaysLevelNPCXJsonArray.clear();
+        sidewaysLevelNPCYJsonArray.clear();
+        swampLevelNpcMovedJsonArray.clear();
+        swampLevelNPCXJsonArray.clear();
+        swampLevelNPCYJsonArray.clear();
         spawnLevelChestsJsonArray.clear();
         underGroundCrazyLevelChestsJsonArray.clear();
+        mazeLevelChestsJsonArray.clear();
+        swampLevelChestsJsonArray.clear();
+        crazyLevelChestsJsonArray.clear();
+        dJsonArray.clear();
+        bJsonArray.clear();
         equipedArmorJsonArray.clear();
         inventoryJsonArray.clear();
         inventoryAmountJsonArray.clear();
@@ -180,23 +216,55 @@ public class Save implements Serializable{
         for (int i = 0; i < underGroundCrazyLevelChests.length; i++) {
             underGroundCrazyLevelChestsJsonArray.add(underGroundCrazyLevelChests[i]);
         }
-        for (int i = 0; i < sidewaysLevelNpcs.length; i++) {
-            s1JsonArray.add(sidewaysLevelNpcs[i]);
+        for (int i = 0; i < mazeLevelChests.length; i++) {
+            mazeLevelChestsJsonArray.add(mazeLevelChests[i]);
+        }
+        for (int i = 0; i < swampLevelChests.length; i++) {
+            swampLevelChestsJsonArray.add(swampLevelChests[i]);
+        }
+        for (int i = 0; i < crazyLevelChests.length; i++) {
+            crazyLevelChestsJsonArray.add(crazyLevelChests[i]);
+        }
+        for (int i = 0; i < duplexLevelChests.length; i++) {
+            dJsonArray.add(duplexLevelChests[i]);
+        }
+        for (int i = 0; i < biggerHouseLevelChests.length; i++) {
+            bJsonArray.add(biggerHouseLevelChests[i]);
         }
         for (int i = 0; i < sidewaysLevelNpcs.length; i++) {
-            s2JsonArray.add(sidewaysLevelNpcX[i]);
+            sidewaysLevelNpcMovedJsonArray.add(sidewaysLevelNpcs[i]);
         }
         for (int i = 0; i < sidewaysLevelNpcs.length; i++) {
-            s3JsonArray.add(sidewaysLevelNpcY[i]);
+            sidewaysLevelNPCXJsonArray.add(sidewaysLevelNpcX[i]);
         }
-        json.put("sidewaysLevelNpcs", s1JsonArray);
-        json.put("sidewaysLevelNpcX", s2JsonArray);
-        json.put("sidewaysLevelNpcY", s3JsonArray);
+        for (int i = 0; i < sidewaysLevelNpcs.length; i++) {
+            sidewaysLevelNPCYJsonArray.add(sidewaysLevelNpcY[i]);
+        }
+        for (int i = 0; i < swampLevelNpcs.length; i++) {
+            swampLevelNpcMovedJsonArray.add(swampLevelNpcs[i]);
+        }
+        for (int i = 0; i < swampLevelNpcs.length; i++) {
+            swampLevelNPCXJsonArray.add(swampLevelNpcX[i]);
+        }
+        for (int i = 0; i < swampLevelNpcs.length; i++) {
+            swampLevelNPCYJsonArray.add(swampLevelNpcY[i]);
+        }
+        json.put("sidewaysLevelNpcs", sidewaysLevelNpcMovedJsonArray);
+        json.put("sidewaysLevelNpcX", sidewaysLevelNPCXJsonArray);
+        json.put("sidewaysLevelNpcY", sidewaysLevelNPCYJsonArray);
+        json.put("swampLevelNpcs", swampLevelNpcMovedJsonArray);
+        json.put("swampLevelNpcX", swampLevelNPCXJsonArray);
+        json.put("swampLevelNpcY", swampLevelNPCYJsonArray);
         json.put("equipedArmor", equipedArmorJsonArray);
         json.put("inventoryIDS", inventoryJsonArray);
         json.put("inventoryAmounts", inventoryAmountJsonArray);
         json.put("spawnLevelChests", spawnLevelChestsJsonArray);
         json.put("underGroundCrazyLevelChests", underGroundCrazyLevelChestsJsonArray);
+        json.put("mazeLevelChests", mazeLevelChestsJsonArray);
+        json.put("swampLevelChests", swampLevelChestsJsonArray);
+        json.put("crazyLevelChests", crazyLevelChestsJsonArray);
+        json.put("duplexLevelChests", dJsonArray);
+        json.put("biggerHouseLevelChests", bJsonArray);
         
     }
     
@@ -288,20 +356,81 @@ public class Save implements Serializable{
             else underGroundCrazyLevelChests[i] = false;
         }
         
-        s1JsonArray = (JSONArray) json.get("sidewaysLevelNpcs");
-        sidewaysLevelNpcs = new boolean[s1JsonArray.size()];
-        for (int i = 0; i < s1JsonArray.size(); i++) {
-            sidewaysLevelNpcs[i] = Boolean.parseBoolean(s1JsonArray.get(i).toString());
+        mazeLevelChestsJsonArray = (JSONArray) json.get("mazeLevelChests");
+        mazeLevelChests = new boolean[mazeLevelChestsJsonArray.size()];
+        for (int i = 0; i < mazeLevelChestsJsonArray.size(); i++) {
+            if (mazeLevelChestsJsonArray.get(i).toString().equals("true")) {
+                mazeLevelChests[i] = true;
+            }
+            else mazeLevelChests[i] = false;
         }
-        s2JsonArray = (JSONArray) json.get("sidewaysLevelNpcX");
-        sidewaysLevelNpcX = new int[s2JsonArray.size()];
-        for (int i = 0; i < s2JsonArray.size(); i++) {
-            sidewaysLevelNpcX[i] = Integer.parseInt(s2JsonArray.get(i).toString());
+        
+        swampLevelChestsJsonArray = (JSONArray) json.get("swampLevelChests");
+        swampLevelChests = new boolean[swampLevelChestsJsonArray.size()];
+        for (int i = 0; i < swampLevelChestsJsonArray.size(); i++) {
+            if (swampLevelChestsJsonArray.get(i).toString().equals("true")) {
+                swampLevelChests[i] = true;
+            }
+            else swampLevelChests[i] = false;
         }
-        s3JsonArray = (JSONArray) json.get("sidewaysLevelNpcY");
-        sidewaysLevelNpcY = new int[s3JsonArray.size()];
-        for (int i = 0; i < s3JsonArray.size(); i++) {
-            sidewaysLevelNpcY[i] = Integer.parseInt(s3JsonArray.get(i).toString());
+        
+        crazyLevelChestsJsonArray = (JSONArray) json.get("crazyLevelChests");
+        crazyLevelChests = new boolean[crazyLevelChestsJsonArray.size()];
+        for (int i = 0; i < crazyLevelChestsJsonArray.size(); i++) {
+            if (crazyLevelChestsJsonArray.get(i).toString().equals("true")) {
+                crazyLevelChests[i] = true;
+            }
+            else crazyLevelChests[i] = false;
+        }
+        
+        dJsonArray = (JSONArray) json.get("duplexLevelChests");
+        duplexLevelChests = new boolean[dJsonArray.size()];
+        for (int i = 0; i < dJsonArray.size(); i++) {
+            if (dJsonArray.get(i).toString().equals("true")) {
+                duplexLevelChests[i] = true;
+            }
+            else duplexLevelChests[i] = false;
+        }
+        
+        bJsonArray = (JSONArray) json.get("biggerHouseLevelChests");
+        biggerHouseLevelChests = new boolean[bJsonArray.size()];
+        for (int i = 0; i < bJsonArray.size(); i++) {
+            if (bJsonArray.get(i).toString().equals("true")) {
+                biggerHouseLevelChests[i] = true;
+            }
+            else biggerHouseLevelChests[i] = false;
+        }
+        
+        sidewaysLevelNpcMovedJsonArray = (JSONArray) json.get("sidewaysLevelNpcs");
+        sidewaysLevelNpcs = new boolean[sidewaysLevelNpcMovedJsonArray.size()];
+        for (int i = 0; i < sidewaysLevelNpcMovedJsonArray.size(); i++) {
+            sidewaysLevelNpcs[i] = Boolean.parseBoolean(sidewaysLevelNpcMovedJsonArray.get(i).toString());
+        }
+        sidewaysLevelNPCXJsonArray = (JSONArray) json.get("sidewaysLevelNpcX");
+        sidewaysLevelNpcX = new int[sidewaysLevelNPCXJsonArray.size()];
+        for (int i = 0; i < sidewaysLevelNPCXJsonArray.size(); i++) {
+            sidewaysLevelNpcX[i] = Integer.parseInt(sidewaysLevelNPCXJsonArray.get(i).toString());
+        }
+        sidewaysLevelNPCYJsonArray = (JSONArray) json.get("sidewaysLevelNpcY");
+        sidewaysLevelNpcY = new int[sidewaysLevelNPCYJsonArray.size()];
+        for (int i = 0; i < sidewaysLevelNPCYJsonArray.size(); i++) {
+            sidewaysLevelNpcY[i] = Integer.parseInt(sidewaysLevelNPCYJsonArray.get(i).toString());
+        }
+        
+        swampLevelNpcMovedJsonArray = (JSONArray) json.get("swampLevelNpcs");
+        swampLevelNpcs = new boolean[swampLevelNpcMovedJsonArray.size()];
+        for (int i = 0; i < swampLevelNpcMovedJsonArray.size(); i++) {
+            swampLevelNpcs[i] = Boolean.parseBoolean(swampLevelNpcMovedJsonArray.get(i).toString());
+        }
+        swampLevelNPCXJsonArray = (JSONArray) json.get("swampLevelNpcX");
+        swampLevelNpcX = new int[swampLevelNPCXJsonArray.size()];
+        for (int i = 0; i < swampLevelNPCXJsonArray.size(); i++) {
+            swampLevelNpcX[i] = Integer.parseInt(swampLevelNPCXJsonArray.get(i).toString());
+        }
+        swampLevelNPCYJsonArray = (JSONArray) json.get("swampLevelNpcY");
+        swampLevelNpcY = new int[swampLevelNPCYJsonArray.size()];
+        for (int i = 0; i < swampLevelNPCYJsonArray.size(); i++) {
+            swampLevelNpcY[i] = Integer.parseInt(swampLevelNPCYJsonArray.get(i).toString());
         }
     }
 }

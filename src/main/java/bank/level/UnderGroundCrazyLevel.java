@@ -52,6 +52,15 @@ class UnderGroundCrazyLevel extends Level {
     private void addFurniture() {
         furniture.add(new Furniture(19 * 16 - 6, 41 * 16, Furniture.BARREL));
         furniture.add(new Furniture(20 * 16, 41 * 16, Furniture.BARREL));
+        furniture.add(new Furniture(76, 32, Furniture.DRESSER));
+        furniture.add(new Furniture(100, 32, Furniture.DRESSER));
+        furniture.add(new Furniture(28, 7 * 16, Furniture.DRESSER));
+        furniture.add(new Furniture(122, 9 * 16, Furniture.DRESSER));
+        furniture.add(new Furniture(146, 9 * 16, Furniture.DRESSER));
+        furniture.add(new Furniture(170, 9 * 16, Furniture.DRESSER));
+        furniture.add(new Furniture(194, 9 * 16, Furniture.DRESSER));
+        furniture.add(new Furniture(218, 9 * 16, Furniture.DRESSER));
+        furniture.add(new Furniture(242, 9 * 16, Furniture.DRESSER));
     }
     
     protected void loadLevel(String path) {

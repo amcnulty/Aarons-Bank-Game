@@ -5,9 +5,12 @@
  */
 package bank.level;
 
+import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
+import bank.entity.signs.Signs;
 import bank.graphics.Screen;
+import bank.inventory.UsableItem;
 import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -27,15 +30,31 @@ public class CrazyLevel extends Level {
     
     private ArrayList<Npc> npcs = new ArrayList<>();
     private ArrayList<Furniture> furniture = new ArrayList<>();
+    private ArrayList<Chest> chests = new ArrayList<>();
+    private ArrayList<Signs> signs = new ArrayList<>();
 
     public CrazyLevel(String path) {
         super(path);
         addNpcs();
         addFurniture();
+        addChests();
+        addSigns();
+    }
+    
+    private void addSigns() {
+        signs.add(new Signs(1053, 614, "Armor Store"));
+    }
+    
+    private void addChests() {
+        chests.add(new Chest(40, 67, 2, UsableItem.COOKIE));
+        chests.add(new Chest(1, 61, 2, UsableItem.BANANA));
+        chests.add(new Chest(42, 20, 2, UsableItem.LEATHER_HELMET));
+        chests.add(new Chest(45, 1, 2, UsableItem.CHEESE));
     }
 
     private void addNpcs() {
         npcs.add(new Npc(143, 58, 1, Menu.MAZEGUARDMENU, "Would you like to try the maze garden? Entrance is 100 dollars", "THIS SAYS NOTHING"));
+        npcs.add(new Npc(168, 522, 2, "/dialogs/crazyLevel/Bobbie.txt"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -96,6 +115,19 @@ public class CrazyLevel extends Level {
         setDestinations(58, 64, Level.SIDEWAYS_HOUSE_LEVEL, 3, false, 5, true);
         
         setDestinations(5, 22, 9, 4, true, 6, false);
+        
+        setDestinations(22, 46, Level.POTION_SHOP_LEVEL, 4, true, 6, true);
+        
+        setDestinations(31, 27, Level.DUPLEX_LEVEL, 9, false, 8, false);
+        setDestinations(32, 27, Level.DUPLEX_LEVEL, 9, false, 8, false);
+        setDestinations(36, 27, Level.DUPLEX_LEVEL, 14, false, 8, false);
+        setDestinations(37, 27, Level.DUPLEX_LEVEL, 14, false, 8, false);
+        
+        setDestinations(69, 11, Level.RIGHT_ROUTE_LEVEL, 1, false, 57, false);
+        setDestinations(69, 12, Level.RIGHT_ROUTE_LEVEL, 1, false, 57, false);
+        
+        setDestinations(0, 9, Level.LEFT_ROUTE_LEVEL, 49, false, 56, false);
+        setDestinations(0, 10, Level.LEFT_ROUTE_LEVEL, 49, false, 56, false);
 
 
         //destinations[18 + 69 * width][0] = destinations[19 + 69 * width][0] = destinations[20 + 69 * width][0] = 1;
@@ -135,6 +167,11 @@ public class CrazyLevel extends Level {
         else if (topOf(y, 38) && inXRangeOf(x, 63, 64)) return true;
         else if (topOf(y , 22) && inXRangeOf(x, 5, 5)) return true;
         else if (topOf(y, 25) && inXRangeOf(x, 59, 60)) return true;
+        else if (topOf(y, 46) && inXRangeOf(x, 22, 22)) return true;
+        else if (topOf(y, 27) && inXRangeOf(x, 31, 32)) return true;
+        else if (topOf(y, 27) && inXRangeOf(x, 36, 37)) return true;
+        else if (rightOf(x, 69) && inYRangeOf(y, 11, 12)) return true;
+        else if (leftOf(x, 0) && inYRangeOf(y, 9, 10)) return true;
         if ((x == 937 || x == 936) && inYRangeOf(y, 63, 64)) return true;
         return false;
     }
@@ -212,6 +249,67 @@ public class CrazyLevel extends Level {
         return npcHere;
     }
     
+    public boolean signHere(int xp, int yp) {
+        boolean signHere = false;
+        for (int i = 0; i < signs.size(); i++) {
+            if (signs.get(i).signHere(xp, yp)) signHere = true;
+        }
+        return signHere;
+    }
+    
+    public boolean chestHere(int xp, int yp) {
+        boolean chestHere = false;
+        for (int i = 0; i < chests.size(); i++) {
+            if (chests.get(i).chestHere(xp, yp)) chestHere = true;
+        }
+        return chestHere;
+    }
+    
+    public boolean npcAhead(int x, int y) {
+        boolean npcHere = false;
+        int counter = 0;
+        for (int i = 0; i < npcs.size(); i++) {
+            if (npcs.get(i).npcAhead(x, y)) counter++;
+        }
+        if (counter > 1) npcHere = true;
+        return npcHere;
+    }
+    
+    public Chest getChest(int xp, int yp) {
+        for (int i = 0; i < chests.size(); i++) {
+            int xx = chests.get(i).x;
+            int yy = chests.get(i).y;
+            if (xx <= xp && xx + 32 >= xp && yy <= yp && yy + 32 >= yp) return chests.get(i);
+        }
+        return null;
+    }
+    
+    public Signs getSign(int xp, int yp) {
+        for (int i = 0; i < signs.size(); i++) {
+            int xx = signs.get(i).x;
+            int yy = signs.get(i).y;
+            if (xx <= xp - 4 && xx + 28 >= xp && yy <= yp && yy + 28 >= yp) {
+                return signs.get(i);
+            }
+        }
+        return null;
+    }
+    
+    public boolean[] getChestsOnLevel() {
+        boolean[] chestStatus = new boolean[chests.size()];
+        for (int i = 0; i < chests.size(); i++) {
+            chestStatus[i] = (chests.get(i).isOpen());
+        }
+        return chestStatus;
+    }
+    
+    public void setChests(boolean[] chestStatus) {
+        for (int i = 0; i < chests.size(); i++) {
+            if (chestStatus[i]) chests.get(i).opened = true;
+            else chests.get(i).opened = false;
+        }
+    }
+    
     public boolean furnitureHere(int xp, int yp) {
         boolean furnitureHere = false;
         for (int i = 0; i < furniture.size(); i++) {
@@ -235,11 +333,20 @@ public class CrazyLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).update();
         }
+        for (int i = 0; i < chests.size(); i++) {
+            chests.get(i).update();
+        }
     }
 
     public void render(Screen screen) {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
+        }
+        for (int i = 0; i < chests.size(); i++) {
+            chests.get(i).render(screen);
+        }
+        for (int i = 0; i < signs.size(); i++) {
+            signs.get(i).render(screen);
         }
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).render(screen);

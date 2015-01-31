@@ -229,14 +229,35 @@ public class Game extends Canvas implements Runnable {
             case 14:
                 level = Level.jebsHouseLevel;
                 break;
+            case 15:
+                level = Level.potionShopLevel;
+                break;
+            case 16:
+                level = Level.duplexLevel;
+                break;
+            case 17:
+                level = Level.rightRouteLevel;
+                break;
+            case 18:
+                level = Level.leftRouteLevel;
+                break;
         }
         player.init(level);
         Level.spawnLevel.setChests(save.spawnLevelChests);
         Level.underGroundCrazyLevel.setChests(save.underGroundCrazyLevelChests);
+        Level.mazeLevel.setChests(save.mazeLevelChests);
+        Level.swampLevel.setChests(save.swampLevelChests);
+        Level.crazyLevel.setChests(save.crazyLevelChests);
+        Level.duplexLevel.setChests(save.duplexLevelChests);
+        Level.biggerHouseUpstairsLevel.setChests(save.biggerHouseLevelChests);
         
         Level.sidewaysHouseLevel.setNpcBoolean(save.sidewaysLevelNpcs);
         Level.sidewaysHouseLevel.setNpcX(save.sidewaysLevelNpcX);
         Level.sidewaysHouseLevel.setNpcY(save.sidewaysLevelNpcY);
+        
+        Level.swampLevel.setNpcBoolean(save.swampLevelNpcs);
+        Level.swampLevel.setNpcX(save.swampLevelNpcX);
+        Level.swampLevel.setNpcY(save.swampLevelNpcY);
     }
 
     public void update() {

@@ -8,8 +8,9 @@ package bank.level;
 import bank.entity.chests.Chest;
 import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
+import bank.entity.signs.Signs;
 import bank.graphics.Screen;
-import bank.inventory.ArmorItem;
+import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,27 +20,21 @@ import javax.imageio.ImageIO;
  *
  * @author Aaron
  */
-public class BiggerHouseUpstairsLevel extends Level {
+class PotionShopLevel extends Level {
     
-    private final int LEVELNUM = 5;
+    private final int LEVELNUM = 15;
     
     private ArrayList<Furniture> furniture = new ArrayList<>();
     private ArrayList<Npc> npcs = new ArrayList<>();
-    private ArrayList<Chest> chests = new ArrayList<>();
-    
-    public BiggerHouseUpstairsLevel(String path) {
+
+    public PotionShopLevel(String path) {
         super(path);
         addNpcs();
-        addChests();
         addFurniture();
     }
     
-    private void addChests() {
-        chests.add(new Chest(4, 1, 2, ArmorItem.LEATHER_HELMET));
-    }
-    
     private void addNpcs() {
-        npcs.add(new Npc(49, 142, 1, "/dialogs/biggerHouseLevel/Luke.txt"));
+        npcs.add(new Npc(77, 47, 2, Menu.POTION_SHOP_MENU, "Welcome to the TownsVille potion shope! What do you need?", "NO SCRIPT"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -47,7 +42,8 @@ public class BiggerHouseUpstairsLevel extends Level {
     }
     
     private void addFurniture() {
-        furniture.add(new Furniture(6 * 16 + 5, 11 * 16, Furniture.BARREL));
+        furniture.add(new Furniture(28, 32, Furniture.DRESSER));
+        furniture.add(new Furniture(24, 32 + 16 *3, Furniture.FRIDGE_TWO));
     }
     
     protected void loadLevel(String path) {
@@ -73,37 +69,25 @@ public class BiggerHouseUpstairsLevel extends Level {
             }
         }
         destinations = new int[width * height][3];
-        destinations[7 + 1 * width][0] = 4;
-        destinations[7 + 1 * width][1] =  14 * 16;
-        destinations[7 + 1 * width][2] = 5 * 16;
-        
+        // to crazy level
+        setDestinations(4, 7, Level.CRAZY_LEVEL, 22, true, 48, true);
     }
     
     public boolean checkExit(int x, int y) {
-		if ((y == 17 || y == 18) && x >= 112 && x <= 143) return true;
-		//else if ((y == 785 || y == 786) && x >= 896 && x <= 927) return true;
-		//else if ((x == 382 || x == 383) && y >= 160 && y <= 207) return true;
-		return false;
-	}
+        if (bottomOf(y, 7) && inXRangeOf(x, 4, 4)) return true;
+        return false;
+    }
     
     public int getLevelNum() {
-            return LEVELNUM;
-        }
-        
+        return LEVELNUM;
+    }
+    
     public boolean npcHere(int x, int y) {
         boolean npcHere = false;
         for (int i = 0; i < npcs.size(); i++) {
             if (npcs.get(i).npcHere(x, y)) npcHere = true;
         }
         return npcHere;
-    }
-    
-    public boolean chestHere(int xp, int yp) {
-        boolean chestHere = false;
-        for (int i = 0; i < chests.size(); i++) {
-            if (chests.get(i).chestHere(xp, yp)) chestHere = true;
-        }
-        return chestHere;
     }
     
     public boolean npcAhead(int x, int y) {
@@ -126,31 +110,6 @@ public class BiggerHouseUpstairsLevel extends Level {
         }
         return null;
     }
-    
-    public Chest getChest(int xp, int yp) {
-        for (int i = 0; i < chests.size(); i++) {
-            int xx = chests.get(i).x;
-            int yy = chests.get(i).y;
-            if (xx <= xp && xx + 32 >= xp && yy <= yp && yy + 32 >= yp) return chests.get(i);
-        }
-        return null;
-    }
-    
-    public boolean[] getChestsOnLevel() {
-        boolean[] chestStatus = new boolean[chests.size()];
-        for (int i = 0; i < chests.size(); i++) {
-            chestStatus[i] = (chests.get(i).isOpen());
-        }
-        return chestStatus;
-    }
-    
-    public void setChests(boolean[] chestStatus) {
-        for (int i = 0; i < chests.size(); i++) {
-            if (chestStatus[i]) chests.get(i).opened = true;
-            else chests.get(i).opened = false;
-        }
-    }
-    
     public boolean[] getNpcBoolean() {
         boolean[] array = new boolean[npcs.size()];
         for (int i = 0; i < npcs.size(); i++) {
@@ -205,17 +164,11 @@ public class BiggerHouseUpstairsLevel extends Level {
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).update();
         }
-        for (int i = 0; i < chests.size(); i++) {
-            chests.get(i).update();
-        }
     }
     
     public void render(Screen screen) {
         for (int i = 0; i < furniture.size(); i++) {
             furniture.get(i).render(screen);
-        }
-        for (int i = 0; i < chests.size(); i++) {
-            chests.get(i).render(screen);
         }
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).render(screen);

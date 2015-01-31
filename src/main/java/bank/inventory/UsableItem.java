@@ -21,20 +21,20 @@ public class UsableItem extends Items {
     private int levelChange;
     
     // Food Items
-    public static UsableItem drinkingWater = new UsableItem(3, Sprite.drinking_water, 100, "DRINKING WATER", 10, 0, 0, 0, 0);
-    public static UsableItem banana = new UsableItem(4, Sprite.banana, 100, "BANANA", 10, 0, 0, 0, 0);
-    public static UsableItem cheese = new UsableItem(9, Sprite.cheese, 100, "CHEESE", 10, 0, 0, 0, 0);
-    public static UsableItem drumstick = new UsableItem(11, Sprite.drumstick, 100, "DRUMSTICK", 10, 0, 0, 0, 0);
-    public static UsableItem cookie = new UsableItem(12, Sprite.cookie, 100, "COOKIE", 10, 0, 0, 0, 0);
-    public static UsableItem fish = new UsableItem(13, Sprite.fish, 100, "FISH", 10, 0, 0, 0, 0);
-    public static UsableItem cherries = new UsableItem(15, Sprite.cherries, 100, "CHERRIES", 10, 0, 0, 0, 0);
-    public static UsableItem egg = new UsableItem(16, Sprite.egg, 100, "EGG", 10, 0, 0, 0, 0);
+    public static UsableItem drinkingWater = new UsableItem(3, Sprite.drinking_water, 500, "DRINKING WATER", 10, 0, 0, 0, 0);
+    public static UsableItem banana = new UsableItem(4, Sprite.banana, 500, "BANANA", 10, 0, 0, 0, 0);
+    public static UsableItem cheese = new UsableItem(9, Sprite.cheese, 500, "CHEESE", 10, 0, 0, 0, 0);
+    public static UsableItem drumstick = new UsableItem(11, Sprite.drumstick, 500, "DRUMSTICK", 10, 0, 0, 0, 0);
+    public static UsableItem cookie = new UsableItem(12, Sprite.cookie, 500, "COOKIE", 10, 0, 0, 0, 0);
+    public static UsableItem fish = new UsableItem(13, Sprite.fish, 500, "FISH", 10, 0, 0, 0, 0);
+    public static UsableItem cherries = new UsableItem(15, Sprite.cherries, 500, "CHERRIES", 10, 0, 0, 0, 0);
+    public static UsableItem egg = new UsableItem(16, Sprite.egg, 500, "EGG", 10, 0, 0, 0, 0);
     
     
     // Potion Items
-    public static UsableItem speed_potion = new UsableItem(5, Sprite.speed_potion, 500, "SPEED POTION", 0, 5, 0, 0, 0);
-    public static UsableItem defence_potion = new UsableItem(6, Sprite.defence_potion, 500, "DEFENCE POTION", 0, 0, 0, 5, 0);
-    public static UsableItem attack_potion = new UsableItem(7, Sprite.attack_potion, 500, "ATTACK POTION", 0, 0, 5, 0, 0);
+    public static UsableItem speed_potion = new UsableItem(5, Sprite.speed_potion, 2500, "SPEED POTION", 0, 15, 0, 0, 0);
+    public static UsableItem defence_potion = new UsableItem(6, Sprite.defence_potion, 2500, "DEFENCE POTION", 0, 0, 0, 15, 0);
+    public static UsableItem attack_potion = new UsableItem(7, Sprite.attack_potion, 2500, "ATTACK POTION", 0, 0, 15, 0, 0);
     
     // Other Items
     public static UsableItem training_book = new UsableItem(10, Sprite.training_book, 10000, "TRAINING BOOK", 5, 5, 5, 5, 1);

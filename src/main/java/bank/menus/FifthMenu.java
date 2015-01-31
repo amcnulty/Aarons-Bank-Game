@@ -6,6 +6,7 @@
 package bank.menus;
 
 import bank.graphics.Screen;
+import bank.graphics.Sprite;
 import bank.input.Mouse;
 import bank.menus.panes.ItemPane;
 import java.util.ArrayList;
@@ -64,6 +65,26 @@ public class FifthMenu extends Menu {
                 showPreviousButton = true;
             }
         }
+    }
+    // this needs to be for items protection and speed change stats
+    private Sprite buildNameBoxSprite(String itemName) {
+        int width = ((itemName.length() * 6) + 6);
+        int[] pixels = new int[width * 13];
+        for (int y = 0; y < 13; y++) {
+            for (int x = 0; x < width; x++) {
+                pixels[x + y * width] = 0xffFF384B;
+            }
+        }
+        for (int i = 0; i < width; i++) {
+            pixels[i] = 0;
+            pixels[i + 12 * width] = 0;
+        }
+        for (int i = 0; i < 13; i++) {
+            pixels[0 + i * width] = 0;
+            pixels[(width * (i + 1)) - 1] = 0;
+        }
+        Sprite newSprite = new Sprite(pixels, width, 13);
+        return newSprite;
     }
     
     public void update() {
@@ -155,6 +176,12 @@ public class FifthMenu extends Menu {
             }
             previousButton.render(screen);
         }
+        /**
+        if (Mouse.getX() >= 78 && Mouse.getX() <= 122 && Mouse.getY() >= 180 && Mouse.getY() <= 222 && itemPane.get(0) != null) {
+            Sprite newSprite = buildNameBoxSprite(itemPane.get(0).item.itemName);
+            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, itemPane.get(0).item.itemName, screen);
+        }*/
     }    
     
 }

@@ -57,8 +57,16 @@ public class Menu {
     public static int MAZEGUARDMENU = 12;
     public static int TRAINING_BOOK_FOR_REFERRAL_MENU = 13;
     public static int STORE_ONE_MENU = 14;
+    public static int POTION_SHOP_MENU = 15;
+    public static int BAIT_SHOP_MENU = 16;
+    public static int ATTACK_TRAINER_MENU = 17;
+    public static int DEFENCE_TRAINER_MENU = 18;
+    public static int SPEED_TRAINER_MENU = 19;
+    public static int LEVEL_UP_TRAINER_MENU = 20;
+    public static int SELL_ARMOR_YESNOMENU = 21;
+    public static int SELL_ARMOR_MENU = 22;
     
-    public static Menu firstMenu = new FirstMenu(100, 150, 20, 20);
+    public static Menu firstMenu = new FirstMenu(270, 210, 10, 20);
     public static Menu secondMenu = new YesNoMenu(18, 19);
     public static Menu inventoryMenu = new ThirdMenu(200, 215, 15, 15);
     public static Menu weaponsMenu = new FourthMenu(200, 215, 15, 15);
@@ -72,6 +80,14 @@ public class Menu {
     public static Menu mazeGuardMenu = new YesNoMenu(28, 29);
     public static Menu trainingBookReferralMenu = new YesNoMenu(30, 31);
     public static Menu storeOneMenu = new StoreOneMenu(270, 210, 10, 20);
+    public static Menu potionShopMenu = new PotionShopMenu(140, 210, 10, 20);
+    public static Menu baitShopMenu = new BaitShopMenu(270, 210, 10, 20);
+    public static Menu attackTrainerMenu = new YesNoMenu(53, 54);
+    public static Menu defenceTrainerMenu = new YesNoMenu(55, 54);
+    public static Menu speedTrainerMenu = new YesNoMenu(56, 54);
+    public static Menu levelUpTrainerMenu = new YesNoMenu(57, 54);
+    public static Menu sellArmorYesNoMenu = new YesNoMenu(58, 54);
+    public static Menu sellArmorMenu = new SellArmorMenu(140, 50, 140, 80);
     
     private ArrayList<ClickableButton> buttons = new ArrayList<>();
     

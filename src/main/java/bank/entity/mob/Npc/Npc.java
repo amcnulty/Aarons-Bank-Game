@@ -118,7 +118,7 @@ public class Npc extends Mob {
                         else this.sprite = Sprite.maleNPC_left2;
                     }
                     break;
-            }
+                }
                 break;
             case 2:
                 switch (dir) {
@@ -158,7 +158,47 @@ public class Npc extends Mob {
                         else this.sprite = Sprite.femaleNPC_left2;
                     }
                     break;
-            }
+                }
+                break;
+            case 3:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.corbin_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.corbin_forward1;
+                        }
+                        else this.sprite = Sprite.corbin_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.corbin_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.corbin_right1;
+                        }
+                        else this.sprite = Sprite.corbin_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.corbin_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.corbin_back1;
+                        }
+                        else this.sprite = Sprite.corbin_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.corbin_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.corbin_left1;
+                        }
+                        else this.sprite = Sprite.corbin_left2;
+                    }
+                    break;
+                }
                 break;
         }
     }

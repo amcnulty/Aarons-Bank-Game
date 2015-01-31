@@ -1,0 +1,20 @@
+5
+1
+1
+This area is not available in the demo version.
+
+2
+1
+In the demo version there are a few houses that you cannot enter.
+
+3
+1
+In the demo version not all of the items are in the game.
+
+4
+1
+In the demo version there are not as many characters around town. Also, some don't have any script.
+
+5
+1
+In the demo version there are no settings available in the title menu.
