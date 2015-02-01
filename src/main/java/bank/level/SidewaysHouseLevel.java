@@ -124,6 +124,7 @@ class SidewaysHouseLevel extends Level {
     public void setNpcBoolean(boolean[] movedOutOfWay) {
         for (int i = 0; i < movedOutOfWay.length; i++) {
             npcs.get(i).movedOutOfWay = movedOutOfWay[i];
+            if (movedOutOfWay[i]) npcs.get(i).initialConversation = false;
         }
     }
     

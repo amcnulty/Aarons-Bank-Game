@@ -66,24 +66,24 @@ public class FifthMenu extends Menu {
             }
         }
     }
-    // this needs to be for items protection and speed change stats
+    
     private Sprite buildNameBoxSprite(String itemName) {
         int width = ((itemName.length() * 6) + 6);
-        int[] pixels = new int[width * 13];
-        for (int y = 0; y < 13; y++) {
+        int[] pixels = new int[width * 21];
+        for (int y = 0; y < 21; y++) {
             for (int x = 0; x < width; x++) {
                 pixels[x + y * width] = 0xffFF384B;
             }
         }
         for (int i = 0; i < width; i++) {
             pixels[i] = 0;
-            pixels[i + 12 * width] = 0;
+            pixels[i + 20 * width] = 0;
         }
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 21; i++) {
             pixels[0 + i * width] = 0;
             pixels[(width * (i + 1)) - 1] = 0;
         }
-        Sprite newSprite = new Sprite(pixels, width, 13);
+        Sprite newSprite = new Sprite(pixels, width, 21);
         return newSprite;
     }
     
@@ -128,7 +128,7 @@ public class FifthMenu extends Menu {
             for (int i = 7; i < 14; i++) {
                 try {
                     itemPane.get(i).update();
-                    if (itemPane.get(i).doAction) {
+                    if (itemPane.get(i).doAction()) {
                         currentAction = itemPane.get(i).action;
                         item = itemPane.get(i).item;
                         doAction = true;
@@ -164,6 +164,20 @@ public class FifthMenu extends Menu {
                 }
             }
             if (showNextButton) nextButton.render(screen);
+            for (int i = 0; i < 7; i++) {
+                try {
+                    if (Mouse.getX() >= 74 && Mouse.getX() <= 122 && Mouse.getY() >= 178 + (60 * i) && Mouse.getY() <= 226 + (60 * i) && itemPane.get(i) != null) {
+                        String lengthOfBox = "SPEED CHANGE - " + Integer.toString(itemPane.get(i).item.getSpeedChange());
+                        Sprite newSprite = buildNameBoxSprite(lengthOfBox);
+                        screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                        font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "PROTECTION -  " + Integer.toString(itemPane.get(i).item.getDefenceChange()), screen);
+                        font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 12, "SPEED CHANGE - " + Integer.toString(itemPane.get(i).item.getSpeedChange()), screen);
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
         }
         else if (!firstPage) {
             for (int i = 7; i < 14; i++) {
@@ -175,13 +189,21 @@ public class FifthMenu extends Menu {
                 }
             }
             previousButton.render(screen);
+            for (int i = 0; i < 7; i++) {
+                try {
+                    if (Mouse.getX() >= 74 && Mouse.getX() <= 122 && Mouse.getY() >= 178 + (60 * i) && Mouse.getY() <= 226 + (60 * i) && itemPane.get(i + 7) != null) {
+                        String lengthOfBox = "SPEED CHANGE - " + Integer.toString(itemPane.get(i + 7).item.getSpeedChange());
+                        Sprite newSprite = buildNameBoxSprite(lengthOfBox);
+                        screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                        font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "PROTECTION -  " + Integer.toString(itemPane.get(i + 7).item.getDefenceChange()), screen);
+                        font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 12, "SPEED CHANGE - " + Integer.toString(itemPane.get(i + 7).item.getSpeedChange()), screen);
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
         }
-        /**
-        if (Mouse.getX() >= 78 && Mouse.getX() <= 122 && Mouse.getY() >= 180 && Mouse.getY() <= 222 && itemPane.get(0) != null) {
-            Sprite newSprite = buildNameBoxSprite(itemPane.get(0).item.itemName);
-            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
-            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, itemPane.get(0).item.itemName, screen);
-        }*/
     }    
     
 }

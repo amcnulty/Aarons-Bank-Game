@@ -6,6 +6,7 @@
 package bank.menus;
 
 import bank.graphics.Screen;
+import bank.graphics.Sprite;
 import bank.input.Mouse;
 import bank.menus.panes.ItemPane;
 import java.util.ArrayList;
@@ -66,6 +67,26 @@ public class FourthMenu extends Menu {
         }
     }
     
+    private Sprite buildNameBoxSprite(String itemName) {
+        int width = ((itemName.length() * 6) + 6);
+        int[] pixels = new int[width * 13];
+        for (int y = 0; y < 13; y++) {
+            for (int x = 0; x < width; x++) {
+                pixels[x + y * width] = 0xffFF384B;
+            }
+        }
+        for (int i = 0; i < width; i++) {
+            pixels[i] = 0;
+            pixels[i + 12 * width] = 0;
+        }
+        for (int i = 0; i < 13; i++) {
+            pixels[0 + i * width] = 0;
+            pixels[(width * (i + 1)) - 1] = 0;
+        }
+        Sprite newSprite = new Sprite(pixels, width, 13);
+        return newSprite;
+    }
+    
     public void update() {
         super.update();
         for (int i = 0; i < buttons.size(); i++) {
@@ -107,7 +128,7 @@ public class FourthMenu extends Menu {
             for (int i = 7; i < 14; i++) {
                 try {
                     itemPane.get(i).update();
-                    if (itemPane.get(i).doAction) {
+                    if (itemPane.get(i).doAction()) {
                         currentAction = itemPane.get(i).action;
                         item = itemPane.get(i).item;
                         doAction = true;
@@ -143,6 +164,20 @@ public class FourthMenu extends Menu {
                 }
             }
             if (showNextButton) nextButton.render(screen);
+            
+            for (int i = 0; i < 7; i++) {
+                try {
+                    if (Mouse.getX() >= 74 && Mouse.getX() <= 122 && Mouse.getY() >= 178 + (60 * i) && Mouse.getY() <= 226 + (60 * i) && itemPane.get(i) != null) {
+                        String damageStr = "DAMAGE:  " + Integer.toString(itemPane.get(i).item.getAttackChange());
+                        Sprite newSprite = buildNameBoxSprite(damageStr);
+                        screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                        font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "DAMAGE -  " + Integer.toString(itemPane.get(i).item.getAttackChange()), screen);
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
         }
         else if (!firstPage) {
             for (int i = 7; i < 14; i++) {
@@ -154,6 +189,21 @@ public class FourthMenu extends Menu {
                 }
             }
             previousButton.render(screen);
+            
+            for (int i = 0; i < 7; i++) {
+                try {
+                    if (Mouse.getX() >= 74 && Mouse.getX() <= 122 && Mouse.getY() >= 178 + (60 * i) && Mouse.getY() <= 226 + (60 * i) && itemPane.get(i + 7) != null) {
+                        String damageStr = "DAMAGE:  " + Integer.toString(itemPane.get(i + 7).item.getAttackChange());
+                        //System.out.println(damageStr);
+                        Sprite newSprite = buildNameBoxSprite(damageStr);
+                        screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                        font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "DAMAGE -  " + Integer.toString(itemPane.get(i + 7).item.getAttackChange()), screen);
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
         }
     }
     

@@ -37,7 +37,7 @@ class BaitShopLevel extends Level {
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(77, 47, 2, Menu.BAIT_SHOP_MENU, "Welcome to my bait shope! We also sell food for hungry fishermen.", "NO SCRIPT"));
+        npcs.add(new Npc(77, 47, 2, Menu.BAIT_SHOP_MENU, "Welcome to my bait shop! We also sell food for hungry fishermen.", "NO SCRIPT"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);

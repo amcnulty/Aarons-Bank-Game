@@ -6,7 +6,9 @@
 package bank.menus;
 
 import bank.graphics.Screen;
+import bank.graphics.Sprite;
 import bank.input.Mouse;
+import bank.inventory.Items;
 import bank.menus.panes.ItemPane;
 import java.util.ArrayList;
 
@@ -66,6 +68,27 @@ public class SixthMenu extends Menu {
         }
     }
     
+    private Sprite buildNameBoxSprite(String itemName, int rows) {
+        rows--;
+        int width = ((itemName.length() * 6) + 6);
+        int[] pixels = new int[width * (13 + (8 * rows))];
+        for (int y = 0; y < (13 + (8 * rows)); y++) {
+            for (int x = 0; x < width; x++) {
+                pixels[x + y * width] = 0xffFF384B;
+            }
+        }
+        for (int i = 0; i < width; i++) {
+            pixels[i] = 0;
+            pixels[i + (12 + (8 * rows)) * width] = 0;
+        }
+        for (int i = 0; i < (13 + (8 * rows)); i++) {
+            pixels[0 + i * width] = 0;
+            pixels[(width * (i + 1)) - 1] = 0;
+        }
+        Sprite newSprite = new Sprite(pixels, width, (13 + (8 * rows)));
+        return newSprite;
+    }
+    
     public void update() {
         super.update();
         for (int i = 0; i < buttons.size(); i++) {
@@ -107,7 +130,7 @@ public class SixthMenu extends Menu {
             for (int i = 7; i < 14; i++) {
                 try {
                     itemPane.get(i).update();
-                    if (itemPane.get(i).doAction) {
+                    if (itemPane.get(i).doAction()) {
                         currentAction = itemPane.get(i).action;
                         item = itemPane.get(i).item;
                         doAction = true;
@@ -143,6 +166,56 @@ public class SixthMenu extends Menu {
                 }
             }
             if (showNextButton) nextButton.render(screen);
+            for (int i = 0; i < 7; i++) {
+                try {
+                    Items item = itemPane.get(i).item;
+                    if (Mouse.getX() >= 74 && Mouse.getX() <= 122 && Mouse.getY() >= 178 + (60 * i) && Mouse.getY() <= 226 + (60 * i) && item != null) {
+                        if (item.itemName.equalsIgnoreCase("Attack Potion")) {
+                            String lengthOfBox = "ATTACK CHANGE - " + item.getAttackChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox , 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "ATTACK CHANGE - " + Integer.toString(item.getAttackChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Defence Potion")) {
+                            String lengthOfBox = "DEFENCE CHANGE - " + item.getDefenceChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "DEFENCE CHANGE - " + Integer.toString(item.getDefenceChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Speed Potion")) {
+                            String lengthOfBox = "SPEED CHANGE - " + item.getSpeedChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "SPEED CHANGE - " + Integer.toString(item.getSpeedChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Training Book") || item.itemName.equalsIgnoreCase("LV 2 TRAINING BOOK")) {
+                            String lengthOfBox = "DEFENCE CHANGE - " + item.getDefenceChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 5);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "LEVEL CHANGE - " + Integer.toString(item.getLevelChange()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 12, "HEALTH CHANGE - " + Integer.toString(item.getHealthPoints()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 20, "ATTACK CHANGE - " + Integer.toString(item.getAttackChange()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 28, "DEFENCE CHANGE - " + Integer.toString(item.getDefenceChange()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 36, "SPEED CHANGE - " + Integer.toString(item.getSpeedChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Special Candy")) {
+                            String lengthOfBox = "LEVEL CHANGE - " + item.getSpeedChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "LEVEL CHANGE - " + Integer.toString(item.getLevelChange()), screen);
+                        }
+                        else {
+                            String lengthOfBox = "HEALTH CHANGE - " + item.getSpeedChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "HEALTH CHANGE - " + Integer.toString(item.getHealthPoints()), screen);
+                        }
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
         }
         else if (!firstPage) {
             for (int i = 7; i < 14; i++) {
@@ -154,6 +227,56 @@ public class SixthMenu extends Menu {
                 }
             }
             previousButton.render(screen);
+            for (int i = 0; i < 7; i++) {
+                try {
+                    Items item = itemPane.get(i + 7).item;
+                    if (Mouse.getX() >= 74 && Mouse.getX() <= 122 && Mouse.getY() >= 178 + (60 * i) && Mouse.getY() <= 226 + (60 * i) && item != null) {
+                        if (item.itemName.equalsIgnoreCase("Attack Potion")) {
+                            String lengthOfBox = "ATTACK CHANGE - " + item.getAttackChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox , 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "ATTACK CHANGE - " + Integer.toString(item.getAttackChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Defence Potion")) {
+                            String lengthOfBox = "DEFENCE CHANGE - " + item.getDefenceChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "DEFENCE CHANGE - " + Integer.toString(item.getDefenceChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Speed Potion")) {
+                            String lengthOfBox = "SPEED CHANGE - " + item.getSpeedChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "SPEED CHANGE - " + Integer.toString(item.getSpeedChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Training Book") || item.itemName.equalsIgnoreCase("LV 2 TRAINING BOOK")) {
+                            String lengthOfBox = "DEFENCE CHANGE - " + item.getDefenceChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 5);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "LEVEL CHANGE - " + Integer.toString(item.getLevelChange()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 12, "HEALTH CHANGE - " + Integer.toString(item.getHealthPoints()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 20, "ATTACK CHANGE - " + Integer.toString(item.getAttackChange()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 28, "DEFENCE CHANGE - " + Integer.toString(item.getDefenceChange()), screen);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 36, "SPEED CHANGE - " + Integer.toString(item.getSpeedChange()), screen);
+                        }
+                        else if (item.itemName.equalsIgnoreCase("Special Candy")) {
+                            String lengthOfBox = "LEVEL CHANGE - " + item.getSpeedChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "LEVEL CHANGE - " + Integer.toString(item.getLevelChange()), screen);
+                        }
+                        else {
+                            String lengthOfBox = "HEALTH CHANGE - " + item.getSpeedChange();
+                            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 1);
+                            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+                            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, "HEALTH CHANGE - " + Integer.toString(item.getHealthPoints()), screen);
+                        }
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
         }
     }
 }
