@@ -31,7 +31,7 @@ class JebsHouseLevel extends Level {
     }
 
     private void addNpcs() {
-        npcs.add(new Npc(52, 62, 1, "/dialogs/swampLevel/jeb.txt"));
+        npcs.add(new Npc(52, 62, Npc.MALE2NPC, "/dialogs/swampLevel/jeb.txt"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);

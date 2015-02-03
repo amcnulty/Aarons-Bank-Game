@@ -27,6 +27,7 @@ public class SpriteSheet {
 	public static SpriteSheet invMenu1 = new SpriteSheet("/menus/inventory.png", 150, 190);
 	public static SpriteSheet invMenu2 = new SpriteSheet("/menus/inventory2.png", 150, 190);
         public static SpriteSheet characters = new SpriteSheet("/textures/sheets/character_sheet.png", 288, 256);
+        public static SpriteSheet moreCharacters = new SpriteSheet("/textures/sheets/character_sheet2.png", 384, 256);
         public static SpriteSheet items = new SpriteSheet("/textures/sheets/items_sheet.png", 160, 224);
         public static SpriteSheet furniture = new SpriteSheet("/textures/sheets/furniture_sheet.png", 96, 96);
 	

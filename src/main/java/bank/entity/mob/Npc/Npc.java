@@ -43,6 +43,18 @@ public class Npc extends Mob {
     private String initialConvo;
     public boolean initialConversation = true;
     private String finalConvo;
+    
+    public static int MALENPC = 1;
+    public static int FEMALENPC = 2;
+    public static int CORBIN = 3;
+    public static int MALE2NPC = 4;
+    public static int MALE3NPC = 5;
+    public static int FEMALE2NPC = 6;
+    public static int FEMALE3NPC = 7;
+    public static int ARMOREDGUARD = 8;
+    public static int FEMALE4NPC = 9;
+    public static int MALE4NPC = 10;
+    
 
     public Npc(int x, int y, int characterDesign) {
         this.x = x;
@@ -196,6 +208,286 @@ public class Npc extends Mob {
                             this.sprite = Sprite.corbin_left1;
                         }
                         else this.sprite = Sprite.corbin_left2;
+                    }
+                    break;
+                }
+                break;
+            case 4:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.male2NPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male2NPC_forward1;
+                        }
+                        else this.sprite = Sprite.male2NPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.male2NPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male2NPC_right1;
+                        }
+                        else this.sprite = Sprite.male2NPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.male2NPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male2NPC_back1;
+                        }
+                        else this.sprite = Sprite.male2NPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.male2NPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male2NPC_left1;
+                        }
+                        else this.sprite = Sprite.male2NPC_left2;
+                    }
+                    break;
+                }
+                break;
+            case 5:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.male3NPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male3NPC_forward1;
+                        }
+                        else this.sprite = Sprite.male3NPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.male3NPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male3NPC_right1;
+                        }
+                        else this.sprite = Sprite.male3NPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.male3NPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male3NPC_back1;
+                        }
+                        else this.sprite = Sprite.male3NPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.male3NPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male3NPC_left1;
+                        }
+                        else this.sprite = Sprite.male3NPC_left2;
+                    }
+                    break;
+                }
+                break;
+            case 6:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.female2NPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female2NPC_forward1;
+                        }
+                        else this.sprite = Sprite.female2NPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.female2NPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female2NPC_right1;
+                        }
+                        else this.sprite = Sprite.female2NPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.female2NPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female2NPC_back1;
+                        }
+                        else this.sprite = Sprite.female2NPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.female2NPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female2NPC_left1;
+                        }
+                        else this.sprite = Sprite.female2NPC_left2;
+                    }
+                    break;
+                }
+                break;
+            case 7:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.female3NPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female3NPC_forward1;
+                        }
+                        else this.sprite = Sprite.female3NPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.female3NPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female3NPC_right1;
+                        }
+                        else this.sprite = Sprite.female3NPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.female3NPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female3NPC_back1;
+                        }
+                        else this.sprite = Sprite.female3NPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.female3NPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female3NPC_left1;
+                        }
+                        else this.sprite = Sprite.female3NPC_left2;
+                    }
+                    break;
+                }
+                break;
+            case 8:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.armoredGuardNPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.armoredGuardNPC_forward1;
+                        }
+                        else this.sprite = Sprite.armoredGuardNPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.armoredGuardNPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.armoredGuardNPC_right1;
+                        }
+                        else this.sprite = Sprite.armoredGuardNPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.armoredGuardNPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.armoredGuardNPC_back1;
+                        }
+                        else this.sprite = Sprite.armoredGuardNPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.armoredGuardNPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.armoredGuardNPC_left1;
+                        }
+                        else this.sprite = Sprite.armoredGuardNPC_left2;
+                    }
+                    break;
+                }
+                break;
+            case 9:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.female4NPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female4NPC_forward1;
+                        }
+                        else this.sprite = Sprite.female4NPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.female4NPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female4NPC_right1;
+                        }
+                        else this.sprite = Sprite.female4NPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.female4NPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female4NPC_back1;
+                        }
+                        else this.sprite = Sprite.female4NPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.female4NPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.female4NPC_left1;
+                        }
+                        else this.sprite = Sprite.female4NPC_left2;
+                    }
+                    break;
+                }
+                break;
+            case 10:
+                switch (dir) {
+                case 0:
+                    this.sprite = Sprite.male4NPC_forward;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male4NPC_forward1;
+                        }
+                        else this.sprite = Sprite.male4NPC_forward2;
+                    }
+                    break;
+                case 1:
+                    this.sprite = Sprite.male4NPC_right;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male4NPC_right1;
+                        }
+                        else this.sprite = Sprite.male4NPC_right2;
+                    }
+                    break;
+                case 2:
+                    this.sprite = Sprite.male4NPC_back;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male4NPC_back1;
+                        }
+                        else this.sprite = Sprite.male4NPC_back2;
+                    }
+                    break;
+                case 3:
+                    this.sprite = Sprite.male4NPC_left;
+                    if (walking) {
+                        if (anim % 20 > 9) {
+                            this.sprite = Sprite.male4NPC_left1;
+                        }
+                        else this.sprite = Sprite.male4NPC_left2;
                     }
                     break;
                 }

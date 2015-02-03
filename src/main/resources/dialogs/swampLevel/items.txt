@@ -1,0 +1,17 @@
+3
+1
+1
+I'll give you an explanation of the ITEM system.
+
+2
+4
+Items can be used for various things. Food items, for example, are used to increase your HP or health stat.
+Other items to different things but, I won't get into that here.
+When you get items they are stored in your INVENTORY.
+If you don't know how to open your inventory talk to the INVENTORY GUIDE that we have.
+
+3
+3
+To see all of your items click the ITEM button on the top of the inventory screen.
+To see what effect an item will have hover your mouse over the picture of the item to get more information about it.
+To use an item click the USE button to the right of the item that you would like to use.

@@ -34,7 +34,7 @@ class RightRouteLevel extends Level {
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(73, 883, 3, "/dialogs/demo.txt"));
+        npcs.add(new Npc(73, 883, Npc.ARMOREDGUARD, "/dialogs/demo.txt"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);

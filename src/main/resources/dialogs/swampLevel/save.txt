@@ -1,0 +1,12 @@
+2
+1
+2
+To save your game press the ESCAPE KEY and that will bring up the pause menu.
+You will see three options, SAVE, LOAD, and EXIT. Keep talking to me and I'll explain that further.
+
+2
+4
+The SAVE button will save your game in its current state. Everything including the armor and weapons you have equipped will save.
+The LOAD button will load your game from the last spot you saved.
+You will lose any progress you have made if you LOAD from the PAUSE MENU.
+The EXIT button will close the entire game.

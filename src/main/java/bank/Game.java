@@ -177,42 +177,6 @@ public class Game extends Canvas implements Runnable {
             player.inventory.add(items.getItemFromID(save.inventoryIDS[i]));
             player.inventory.get(i).setAmount(save.inventoryAmounts[i]);
         }
-        // for testing purposes
-        player.inventory.add(WeaponItem.bloodSword);
-        player.inventory.add(WeaponItem.heavySword);
-        player.inventory.add(WeaponItem.flameSword);
-        player.inventory.add(WeaponItem.poisonDagger);
-        player.inventory.add(WeaponItem.sparkSword);
-        player.inventory.add(WeaponItem.battleAxe);
-        player.inventory.add(WeaponItem.speedSword);
-        player.inventory.add(WeaponItem.bloodDagger);
-        player.inventory.add(WeaponItem.deluxeDagger);
-        player.inventory.add(WeaponItem.crystalSword);
-        player.inventory.add(WeaponItem.blackDagger);
-        
-        player.inventory.add(ArmorItem.hardLeatherBoots);
-        player.inventory.add(ArmorItem.hardLeatherHelmet);
-        player.inventory.add(ArmorItem.hardLeatherTunic);
-        player.inventory.add(ArmorItem.ironBoots);
-        player.inventory.add(ArmorItem.ironChestplate);
-        player.inventory.add(ArmorItem.ironHelmet);
-        player.inventory.add(ArmorItem.goldBoots);
-        player.inventory.add(ArmorItem.goldChestplate);
-        player.inventory.add(ArmorItem.goldHelmet);
-        player.inventory.add(ArmorItem.corbinsSheild);
-        player.inventory.add(ArmorItem.steelToeBoots);
-        
-        player.inventory.add(UsableItem.lv2_training_book);
-        player.inventory.add(UsableItem.special_candy);
-        player.inventory.add(UsableItem.speed_potion);
-        player.inventory.add(UsableItem.attack_potion);
-        player.inventory.add(UsableItem.defence_potion);
-        player.inventory.add(UsableItem.drumstick);
-        player.inventory.add(UsableItem.egg);
-        player.inventory.add(UsableItem.fish);
-        player.inventory.add(UsableItem.cheese);
-        player.inventory.add(UsableItem.drinkingWater);
-        
         for (int i = 0; i < 3; i++) {
             player.equipedArmor[i] = items.getItemFromID(save.equipedArmor[i]);
         }

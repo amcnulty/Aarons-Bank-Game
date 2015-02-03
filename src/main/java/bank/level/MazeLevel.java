@@ -38,7 +38,8 @@ public class MazeLevel extends Level {
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(95, 1054, 2, Menu.TRAINING_BOOK_FOR_REFERRAL_MENU, "Hey got any referrals? I could really use one! I'll give you a special book for helping me out.", "THIS SAYS NOTHING"));
+        npcs.add(new Npc(95, 1054, Npc.FEMALE4NPC, Menu.TRAINING_BOOK_FOR_REFERRAL_MENU, "Hey got any referrals? I could really use one! I'll give you a special book for helping me out.", "THIS SAYS NOTHING"));
+        npcs.add(new Npc(425, 544, Npc.MALE2NPC, Menu.BUY_SPECIAL_CANDY_MENU, "I'll sell you a special candy for 4000 dollars. Want to buy one?", "NO SCRIPT"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -46,9 +47,9 @@ public class MazeLevel extends Level {
     }
     
     private void addChests() {
-        chests.add(new Chest(67, 64, 2, Items.DRAGON_SWORD));
-        chests.add(new Chest(59, 1, 2, Items.IRON_HELMET));
-        chests.add(new Chest(1, 1, 2, Items.SPECIAL_CANDY));
+        chests.add(new Chest(67, 64, 2, Items.SPECIAL_CANDY));
+        chests.add(new Chest(59, 1, 2, Items.DRAGON_SWORD));
+        chests.add(new Chest(1, 1, 2, Items.IRON_HELMET));
         chests.add(new Chest(25, 31, 2, Items.IRON_BOOTS));
         chests.add(new Chest(1, 65, 2, Items.TRAINING_BOOK));
     }

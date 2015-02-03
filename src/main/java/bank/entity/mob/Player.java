@@ -53,7 +53,7 @@ public class Player extends Mob {
     private int lastPlayerX, lastPlayerY;
     
     // Player Stats
-    public int cash = 500;
+    public int cash = 800;
     public int playerLevel = 1;
     public int health = 50;
     public int attack = 20;
@@ -301,6 +301,18 @@ public class Player extends Mob {
                                 case 21:
                                     if (goToSellMenu) menu = Menu.sellArmorMenu;
                                     else menu = Menu.sellArmorYesNoMenu;
+                                    break;
+                                case 23:
+                                    menu = Menu.bribeMenu;
+                                    break;
+                                case 24:
+                                    menu = Menu.goodBadMenu;
+                                    break;
+                                case 25:
+                                    menu = Menu.buySpecialCandyMenu;
+                                    break;
+                                case 26:
+                                    menu = Menu.moneyForReferralMenu;
                                     break;
                                 default:
                                     System.err.println("YOU HAVE NOT MADE A CASE FOR MENU NUMBER " + level.getNpc(lastX, lastY).menuNum + " IN PLAYER.UPDATE()");
@@ -639,6 +651,7 @@ public class Player extends Mob {
                     dialog.setMessage(array);
                     level.getNpc(lastX, lastY).initialConversation = false;
                     level.getNpc(lastX, lastY).closeShop();
+                    level.getNpc(lastX, lastY).movedOutOfWay = true;
                     inventory.add(WeaponItem.speedSword);
                     menu.isOpen = false;
                     if (level.getNpc(lastX, lastY) == null);
@@ -756,7 +769,6 @@ public class Player extends Mob {
                     array[0] = "You don't have enough cash. You only have " + cash;
                     dialog.setMessage(array);
                 }
-                menu.isOpen = false;
                 if (level.getNpc(lastX, lastY) == null);
                 else level.getNpc(lastX, lastY).talking = false;
                 break;
@@ -765,7 +777,6 @@ public class Player extends Mob {
                 array = new String[1];
                 array[0] = "If you change your mind come talk to me.";
                 dialog.setMessage(array);
-                menu.isOpen = false;
                 if (level.getNpc(lastX, lastY) == null);
                 else level.getNpc(lastX, lastY).talking = false;
                 break;
@@ -1265,6 +1276,113 @@ public class Player extends Mob {
                 dialog.setMessage(array);
                 goToSellMenu = false;
                 break;
+            case 61: // yes to bribe menu
+                if (cash >= 1000) {
+                    cash -= 1000;
+                    level.getNpc(lastX, lastY).initialConversation = false;
+                    level.getNpc(lastX, lastY).closeShop();
+                    level.getNpc(lastX, lastY).initCut(cut);
+                    level.getNpc(lastX, lastY).setRoute(CutScenes.RIGHTSWAMPGUARD);
+                    moveToX = 488;
+                    moveToY = 130;
+                    movingForNpc = true;
+                    moveForNpc(moveToX, moveToY);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money.";
+                    dialog.setMessage(array);
+                }
+                menu.isOpen = false;
+                if (level.getNpc(lastX, lastY) == null);
+                else level.getNpc(lastX, lastY).talking = false;
+                break;
+            case 62: // yes to good bad menu
+                if (random.nextInt(100) > 98) {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Thats good to hear. You know what? I'm feeling generous today!";
+                    dialog.setMessage(array);
+                    level.getNpc(lastX, lastY).initialConversation = false;
+                    level.getNpc(lastX, lastY).closeShop();
+                    level.getNpc(lastX, lastY).initCut(cut);
+                    level.getNpc(lastX, lastY).setRoute(CutScenes.SCOTT);
+                    moveToX = 205;
+                    moveToY = 222;
+                    movingForNpc = true;
+                    moveForNpc(moveToX, moveToY);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Thats good to hear. I'm not feeling generous right now...";
+                    dialog.setMessage(array);
+                }
+                menu.isOpen = false;
+                if (level.getNpc(lastX, lastY) == null);
+                else level.getNpc(lastX, lastY).talking = false;
+                break;
+            case 63: // no to good bad menu
+                if (random.nextInt(100) > 98) {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Really? I'm not feeling very good either. You know what? I'm feeling generous today!";
+                    dialog.setMessage(array);
+                    level.getNpc(lastX, lastY).initialConversation = false;
+                    level.getNpc(lastX, lastY).closeShop();
+                    level.getNpc(lastX, lastY).initCut(cut);
+                    level.getNpc(lastX, lastY).setRoute(CutScenes.SCOTT);
+                    moveToX = 205;
+                    moveToY = 222;
+                    movingForNpc = true;
+                    moveForNpc(moveToX, moveToY);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "That's too bad... I'm not feeling generous right now...";
+                    dialog.setMessage(array);
+                }
+                menu.isOpen = false;
+                if (level.getNpc(lastX, lastY) == null);
+                else level.getNpc(lastX, lastY).talking = false;
+                break;
+            case 64: // yes to buy special candy menu
+                if (cash >= 4000) {
+                    cash -= 4000;
+                    addInventoryItem(UsableItem.special_candy);
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Thank you for your business. Come back if you want more.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have enough money!";
+                    dialog.setMessage(array);
+                }
+                    if (level.getNpc(lastX, lastY) == null);
+                    else level.getNpc(lastX, lastY).talking = false;
+                break;
+            case 65: // yes to money for referral menu
+                if (availableReferrals >= 1) {
+                    availableReferrals--;
+                    usedReferrals++;
+                    cash += 2000;
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "Thank you for your business!! Come back if you want to trade again.";
+                    dialog.setMessage(array);
+                }
+                else {
+                    dialog.isOpen = true;
+                    array = new String[1];
+                    array[0] = "You don't have any referrals available to give me.";
+                    dialog.setMessage(array);
+                }
+                break;
             default:
                 System.err.println("ERROR! YOU HAVE NOT MADE A CASE FOR THIS; From doAction in player class");
         }
@@ -1280,6 +1398,13 @@ public class Player extends Mob {
                     break;
                 }
                 else {
+                    if (item.equals(equipedWeapon)) equipedWeapon = null;
+                    for (int ii = 0; ii < 3; ii++) {
+                        if (item.equals(equipedArmor[ii])) {
+                            equipedArmor[ii] = null;
+                            break;
+                        }
+                    }
                     inventory.remove(inventory.get(i));
                     tookItem = true;
                     break;

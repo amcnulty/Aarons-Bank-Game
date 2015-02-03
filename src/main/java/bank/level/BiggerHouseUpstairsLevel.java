@@ -35,7 +35,7 @@ public class BiggerHouseUpstairsLevel extends Level {
     }
     
     private void addChests() {
-        chests.add(new Chest(4, 1, 2, ArmorItem.LEATHER_HELMET));
+        chests.add(new Chest(4, 1, 2, ArmorItem.STEEL_TOE_BOOTS));
     }
     
     private void addNpcs() {

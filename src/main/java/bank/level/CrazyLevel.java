@@ -10,6 +10,7 @@ import bank.entity.furniture.Furniture;
 import bank.entity.mob.Npc.Npc;
 import bank.entity.signs.Signs;
 import bank.graphics.Screen;
+import bank.inventory.ArmorItem;
 import bank.inventory.UsableItem;
 import bank.menus.Menu;
 import java.awt.image.BufferedImage;
@@ -43,6 +44,10 @@ public class CrazyLevel extends Level {
     
     private void addSigns() {
         signs.add(new Signs(1053, 614, "Armor Store"));
+        signs.add(new Signs(58 * 16 + 13, 49 * 16 + 6, "Weapon Store"));
+        signs.add(new Signs(23 * 16 + 13, 46 * 16 + 6, "Potion Shop"));
+        signs.add(new Signs(6 * 16 + 5, 22 * 16 + 2, "Bait Shop"));
+        signs.add(new Signs(29 * 16 - 10, 27 * 16, "Training Inside!", "We specialise in stat building and level training. Come inside and we can bulk you up!"));
     }
     
     private void addChests() {
@@ -50,11 +55,24 @@ public class CrazyLevel extends Level {
         chests.add(new Chest(1, 61, 2, UsableItem.BANANA));
         chests.add(new Chest(42, 20, 2, UsableItem.LEATHER_HELMET));
         chests.add(new Chest(45, 1, 2, UsableItem.CHEESE));
+        chests.add(new Chest(1, 1, 2, ArmorItem.STEEL_TOE_BOOTS));
+        chests.add(new Chest(37, 5, 2, UsableItem.SPEED_POTION));
+        chests.add(new Chest(17, 1, 2, UsableItem.DRUMSTICK));
+        chests.add(new Chest(4, 42, 2, UsableItem.DRINKING_WATER));
+        chests.add(new Chest(67, 67, 2, UsableItem.FISH));
     }
 
     private void addNpcs() {
         npcs.add(new Npc(143, 58, 1, Menu.MAZEGUARDMENU, "Would you like to try the maze garden? Entrance is 100 dollars", "THIS SAYS NOTHING"));
-        npcs.add(new Npc(168, 522, 2, "/dialogs/crazyLevel/Bobbie.txt"));
+        npcs.add(new Npc(168, 522, Npc.FEMALE2NPC, "/dialogs/crazyLevel/Bobbie.txt"));
+        npcs.add(new Npc(540, 1088, Npc.MALE2NPC, "/dialogs/crazyLevel/towerPerson.txt"));
+        npcs.add(new Npc(48, 774, Npc.MALE3NPC, "/dialogs/crazyLevel/parkMale.txt"));
+        npcs.add(new Npc(76, 774, Npc.FEMALE3NPC, "/dialogs/crazyLevel/parkFemale.txt"));
+        npcs.add(new Npc(622, 821, Npc.MALE4NPC, "/dialogs/crazyLevel/referral.txt"));
+        npcs.add(new Npc(766, 510, Npc.FEMALE2NPC, "/dialogs/crazyLevel/girlOnCorner.txt"));
+        npcs.add(new Npc(41, 384 + 40, Npc.MALENPC, "/dialogs/crazyLevel/fisherman.txt"));
+        npcs.add(new Npc(917, 880, Npc.MALE3NPC, "/dialogs/crazyLevel/clue.txt"));
+        npcs.add(new Npc(512, 22, Npc.MALE4NPC, Menu.MONEY_FOR_REFERRAL_MENU, "I'm looking for a referral. If you have one I'll give you 2000 dollars. Want to trade?", "NO SCRIPT"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);

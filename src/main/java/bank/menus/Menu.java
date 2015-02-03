@@ -65,6 +65,10 @@ public class Menu {
     public static int LEVEL_UP_TRAINER_MENU = 20;
     public static int SELL_ARMOR_YESNOMENU = 21;
     public static int SELL_ARMOR_MENU = 22;
+    public static int BRIBE_MENU = 23;
+    public static int GOODBAD_MENU = 24;
+    public static int BUY_SPECIAL_CANDY_MENU = 25;
+    public static int MONEY_FOR_REFERRAL_MENU = 26;
     
     public static Menu firstMenu = new FirstMenu(270, 210, 10, 20);
     public static Menu secondMenu = new YesNoMenu(18, 19);
@@ -88,6 +92,10 @@ public class Menu {
     public static Menu levelUpTrainerMenu = new YesNoMenu(57, 54);
     public static Menu sellArmorYesNoMenu = new YesNoMenu(58, 54);
     public static Menu sellArmorMenu = new SellArmorMenu(140, 50, 140, 80);
+    public static Menu bribeMenu = new YesNoMenu(61, 54);
+    public static Menu goodBadMenu = new YesNoMenu(62, 63);
+    public static Menu buySpecialCandyMenu = new YesNoMenu(64, 54);
+    public static Menu moneyForReferralMenu = new YesNoMenu(65, 54);
     
     private ArrayList<ClickableButton> buttons = new ArrayList<>();
     

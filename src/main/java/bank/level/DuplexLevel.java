@@ -38,15 +38,15 @@ class DuplexLevel extends Level {
     }
     
     private void addChests() {
-        chests.add(new Chest(19, 2, 1, WeaponItem.SPEED_SWORD));
+        chests.add(new Chest(19, 2, 1, WeaponItem.BLOOD_DAGGER));
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(205, 78, 2, "/dialogs/duplexLevel/Linda.txt"));
+        npcs.add(new Npc(205, 78, Npc.FEMALE4NPC, "/dialogs/duplexLevel/Linda.txt"));
         npcs.add(new Npc(315, 121, 1, "/dialogs/duplexLevel/harold.txt"));
-        npcs.add(new Npc(46, 43, 1, 17, "Would you like to pay 5,000 dollars for some attack training?", "NO SCRIPT"));
-        npcs.add(new Npc(61, 92, 1, 18, "Would you like to pay 5,000 dollars for some defence training?", "NO SCRIPT"));
-        npcs.add(new Npc(152, 37, 1, 19, "Would you like to pay 5,000 dollars for some speed training?", "NO SCRIPT"));
+        npcs.add(new Npc(46, 43, Npc.CORBIN, 17, "Would you like to pay 5,000 dollars for some attack training?", "NO SCRIPT"));
+        npcs.add(new Npc(61, 92, Npc.ARMOREDGUARD, 18, "Would you like to pay 5,000 dollars for some defence training?", "NO SCRIPT"));
+        npcs.add(new Npc(152, 37, Npc.FEMALENPC, 19, "Would you like to pay 5,000 dollars for some speed training?", "NO SCRIPT"));
         npcs.add(new Npc(105, 78, 1, 20, "Would you like to trade one of your referrals for a level up?", "NO SCRIPT"));
         
         for (int i = 0; i < npcs.size(); i++) {

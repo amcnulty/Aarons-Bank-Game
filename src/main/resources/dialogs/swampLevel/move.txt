@@ -1,0 +1,11 @@
+2
+1
+2
+You can move your character with the arrow keys but, a lot of computer gamers like to use W A S D.
+If you use the W A S D keys with your left hand you can use the mouse with your right hand at the same time.
+
+2
+3
+You can run by holding down the shift key as you are moving but, be careful!
+When you are running your character can get hung up trying to get into tight spaces.
+When trying to fit into a tight space be sure to walk and try to slide or wiggle into the space.

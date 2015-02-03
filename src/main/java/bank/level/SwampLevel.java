@@ -45,14 +45,21 @@ class SwampLevel extends Level {
         chests.add(new Chest(21, 66, 1, Items.COOKIE));
         chests.add(new Chest(3, 3, 1, Items.EGG));
         chests.add(new Chest(47, 44, 1, Items.CHERRIES));
+        chests.add(new Chest(8, 15, 1, Items.DELUXE_DAGGER));
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(570, 220, 1, Menu.FAVORITEFOODMENU, "I'm soooo hungry! Can you please give me my favorite food?", "Thank you so much! I feel much better."));
-        npcs.add(new Npc(458, 32, 1, Menu.SWORDYESNOMENU, "I will not let you pass unless you give me an interesting weapon. Have anything that would interest me?", "This is a most interesting sword."));
-        npcs.add(new Npc(488, 58, 1, Menu.THREEREFERRALYESNOTMENU, "I will not let you pass unless you give me three of your referrals. Would you like to give me those referrals?", "Have a good time in Townsville"));
-        npcs.add(new Npc(518, 32, 1));
-        npcs.add(new Npc(515, 751, 1, Menu.SELL_ARMOR_YESNOMENU, "I am looking for some armor. Do you have some?", "NO SCRIPT"));
+        npcs.add(new Npc(570, 220, Npc.MALE3NPC, Menu.FAVORITEFOODMENU, "I'm soooo hungry! Can you please give me my favorite food?", "Thank you so much! I feel much better."));
+        npcs.add(new Npc(458, 32, Npc.ARMOREDGUARD, Menu.SWORDYESNOMENU, "I will not let you pass unless you give me an interesting weapon. Have anything that would interest me?", "This is a most interesting sword."));
+        npcs.add(new Npc(488, 58, Npc.ARMOREDGUARD, Menu.THREEREFERRALYESNOTMENU, "I will not let you pass unless you give me three of your referrals. Would you like to give me those referrals?", "Have a good time in Townsville"));
+        npcs.add(new Npc(518, 32, Npc.ARMOREDGUARD, Menu.BRIBE_MENU, "I will not let you pass unless you give me 1000 dollars cash.", "Thanks for the cash! I really needed it to pay off some debt."));
+        npcs.add(new Npc(515, 751, Npc.MALENPC, Menu.SELL_ARMOR_YESNOMENU, "I am looking for some armor. Do you have some?", "NO SCRIPT"));
+        npcs.add(new Npc(203, 196, Npc.CORBIN, "/dialogs/swampLevel/weapons.txt"));
+        npcs.add(new Npc(311, 196, Npc.ARMOREDGUARD, "/dialogs/swampLevel/armor.txt"));
+        npcs.add(new Npc(308, 299, Npc.FEMALENPC, "/dialogs/swampLevel/items.txt"));
+        npcs.add(new Npc(261, 245, Npc.MALE4NPC, "/dialogs/swampLevel/move.txt"));
+        npcs.add(new Npc(216, 288, Npc.MALENPC, "/dialogs/swampLevel/save.txt"));
+        npcs.add(new Npc(348, 303, Npc.FEMALE4NPC, "/dialogs/swampLevel/inventory.txt"));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);

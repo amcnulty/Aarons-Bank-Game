@@ -41,23 +41,24 @@ public class ThirdMenu extends Menu {
         }
     }
     
-    private Sprite buildNameBoxSprite(String itemName) {
+    private Sprite buildNameBoxSprite(String itemName, int rows) {
+        rows--;
         int width = ((itemName.length() * 6) + 6);
-        int[] pixels = new int[width * 13];
-        for (int y = 0; y < 13; y++) {
+        int[] pixels = new int[width * (13 + (8 * rows))];
+        for (int y = 0; y < (13 + (8 * rows)); y++) {
             for (int x = 0; x < width; x++) {
                 pixels[x + y * width] = 0xffFF384B;
             }
         }
         for (int i = 0; i < width; i++) {
             pixels[i] = 0;
-            pixels[i + 12 * width] = 0;
+            pixels[i + (12 + (8 * rows)) * width] = 0;
         }
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < (13 + (8 * rows)); i++) {
             pixels[0 + i * width] = 0;
             pixels[(width * (i + 1)) - 1] = 0;
         }
-        Sprite newSprite = new Sprite(pixels, width, 13);
+        Sprite newSprite = new Sprite(pixels, width, (13 + (8 * rows)));
         return newSprite;
     }
     
@@ -130,11 +131,29 @@ public class ThirdMenu extends Menu {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).render(screen);
         }
+        if (Mouse.getX() >= 59 * 3 && Mouse.getX() <= 59 * 3 + 16 * 3 && Mouse.getY() >= 164 * 3 && Mouse.getY() <= 164 * 3 + 16 * 3 && player.equipedWeapon != null) {
+            String lengthOfBox;
+            if (player.equipedWeapon.itemName.length() >= ("DAMAGE - " + player.equipedWeapon.getAttackChange()).length()) {
+                lengthOfBox = player.equipedWeapon.itemName;
+            }
+            else lengthOfBox = "DAMAGE - " + player.equipedWeapon.getAttackChange();
+            Sprite newSprite = buildNameBoxSprite(lengthOfBox, 2);
+            screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
+            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, player.equipedWeapon.itemName, screen);
+            font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 12, "DAMAGE - " + player.equipedWeapon.getAttackChange(), screen);
+        }
         for (int i = 0; i < 3; i++) {
             if (Mouse.getX() >= 399 && Mouse.getX() <= 447 && Mouse.getY() > 486 + ((18 * i)*3) && Mouse.getY() < 534 + ((18 * i)*3) && player.equipedArmor[i] != null) {
-                Sprite newSprite = buildNameBoxSprite(player.equipedArmor[i].itemName);
+                String lengthOfBox;
+                if (player.equipedArmor[i].itemName.length() >= ("SPEED CHANGE - " + player.equipedArmor[i].getSpeedChange()).length()) {
+                    lengthOfBox = player.equipedArmor[i].itemName;
+                }
+                else lengthOfBox = "SPEED CHANGE - " + player.equipedArmor[i].getSpeedChange();
+                Sprite newSprite = buildNameBoxSprite(lengthOfBox, 3);
                 screen.renderSprite((Mouse.getX() / 3) + 10, (Mouse.getY() / 3), newSprite, false);
                 font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 4, player.equipedArmor[i].itemName, screen);
+                font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 12, "PROTECTION - " + player.equipedArmor[i].getDefenceChange(), screen);
+                font.renderSuperSmallCharacters2((Mouse.getX() / 3) + 15, (Mouse.getY() / 3) + 20,"SPEED CHANGE - " + player.equipedArmor[i].getSpeedChange(), screen);
             }
         }
     }

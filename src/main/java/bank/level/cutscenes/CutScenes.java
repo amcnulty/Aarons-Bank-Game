@@ -6,9 +6,7 @@
 package bank.level.cutscenes;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
@@ -25,10 +23,10 @@ public class CutScenes {
     public static int LEFTSWAMPGUARD = 4;
     public static int DOWN25STEPS = 5;
     public static int MAZEGUARD = 6;
+    public static int RIGHTSWAMPGUARD = 7;
+    public static int SCOTT = 8;
     
-    //private static String introDialogPath = CutScenes.class.getResource("/dialogs/intro_scene_dialog.txt").getPath();
     private static String introDialogPath = "/dialogs/intro_scene_dialog.txt";
-    //private static InputStream introDialogPath = CutScenes.class.getClassLoader().getResourceAsStream("/dialogs/intro_scene_dialog.txt");
     
     public boolean introScenePlaying = false;
     private byte[][] introScene = new byte[0][3];
@@ -38,6 +36,8 @@ public class CutScenes {
     private byte[][] down60 = new byte[0][3];
     private byte[][] mazeGuard = new byte[0][3];
     private byte[][] leftSwampGuard = new byte[0][2];
+    private byte[][] rightSwampGuard = new byte[0][2];
+    private byte[][] scott = new byte[0][2];
     public int index;
     private int messageGroup = 1;
 
@@ -65,12 +65,24 @@ public class CutScenes {
         down60 = south(60, false, down60);
         down25 = south(25, false, down25);
         buildLeftSwampGuard();
+        buildRightSwampGuard();
+        buildScott();
         buildMazeGuard();
+    }
+    
+    private void buildScott() {
+        scott = west(20, false, scott);
+        scott = north(20, false, scott);
     }
     
     private void buildMazeGuard() {
         mazeGuard = south(10, false, mazeGuard);
         mazeGuard = west(25, false, mazeGuard);
+    }
+    
+    private void buildRightSwampGuard() {
+        rightSwampGuard = south(30, false, rightSwampGuard);
+        rightSwampGuard = east(30, false, rightSwampGuard);
     }
     
     private void buildLeftSwampGuard() {
@@ -277,6 +289,10 @@ public class CutScenes {
                 return down25;
             case 6:
                 return mazeGuard;
+            case 7:
+                return rightSwampGuard;
+            case 8:
+                return scott;
             default:
                 System.err.println("YOU HAVE NOT MADE A CASE FOR GETROUTE IN CUTSCENE CLASS");
         }

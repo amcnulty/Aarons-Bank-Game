@@ -1,0 +1,18 @@
+3
+1
+1
+I'll give you an explanation of the ARMOR system.
+
+2
+4
+Armor increases the defence stat of your character but, only if it is equipped to you.
+When you receive armor it will not be equipped aromatically so, you must equip it yourself from the INVENTORY screen.
+If you don't know how to open your inventory talk to the INVENTORY GUIDE that we have.
+Talk to me if you want to know more about ARMOR.
+
+3
+4
+To see all of your armor, click the ARMOR button at the top of the inventory screen.
+You can hover your mouse over the picture of the armor to see the amount it will change your defence and speed stats.
+To equip a piece of armor, click the EQUIP button to the right of the armor you would like to equip. You can equip up to three armor.
+To see what you have equipped click the MAIN button and your currently equipped armor will be on this page.

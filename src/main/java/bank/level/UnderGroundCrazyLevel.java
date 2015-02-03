@@ -11,6 +11,7 @@ import bank.entity.mob.Npc.Npc;
 import bank.entity.signs.Signs;
 import bank.graphics.Screen;
 import bank.inventory.Items;
+import bank.menus.Menu;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ class UnderGroundCrazyLevel extends Level {
     }
     
     private void addNpcs() {
-        npcs.add(new Npc(16 * 16, 15 * 16, 1));
+        npcs.add(new Npc(16 * 16, 15 * 16, Npc.MALENPC, Menu.GOODBAD_MENU, "Are you feeling good today?", "You better take care of that dagger."));
         
         for (int i = 0; i < npcs.size(); i++) {
             npcs.get(i).init(this);
@@ -44,9 +45,15 @@ class UnderGroundCrazyLevel extends Level {
     }
     
     private void addChests() {
-        chests.add(new Chest(15, 30, 3, Items.BLACK_DAGGER));
+        chests.add(new Chest(7, 43, 3, Items.TRAINING_BOOK));
+        chests.add(new Chest(15, 30, 3, Items.BLOOD_SWORD));
+        chests.add(new Chest(15, 33, 3, Items.DEFENCE_POTION));
         chests.add(new Chest(2, 20, 3, Items.IRON_CHESTPLATE));
+        
         chests.add(new Chest(12, 2, 3, Items.POISON_DAGGER));
+        chests.add(new Chest(14, 2, 3, Items.LV2_TRAINING_BOOK));
+        chests.add(new Chest(16, 2, 3, Items.ATTACK_POTION));
+        
     }
     
     private void addFurniture() {

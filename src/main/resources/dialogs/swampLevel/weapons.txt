@@ -1,0 +1,18 @@
+3
+1
+1
+I'll give you an explanation of the WEAPONS system.
+
+2
+4
+Weapons increase the attack stat of your character but, only if it is equipped to you.
+When you receive a new weapon it will not be equipped aromatically so, you must equip it yourself from the INVENTORY screen.
+If you don't know how to open your inventory talk to the INVENTORY GUIDE that we have.
+Talk to me if you want to know more about WEAPONS.
+
+3
+4
+To see all of your weapons, click the WEAPONS button at the top of the inventory screen.
+You can hover your mouse over the picture of the weapon to see the amount it will increase your attack stat.
+To equip a weapon, click the EQUIP button to the right of the weapon you would like to equip.
+To see what you have equipped click the MAIN button and your currently equipped weapon will be on this page.

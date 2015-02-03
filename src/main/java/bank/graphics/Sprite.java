@@ -58,6 +58,137 @@ public class Sprite {
         public static Sprite femaleNPC_forward1 = new Sprite(32, 0, 3, SpriteSheet.characters);
         public static Sprite femaleNPC_forward2 = new Sprite(32, 2, 3, SpriteSheet.characters);
         
+        // Female2 NPC Sprites
+        
+        public static Sprite female2NPC_back = new Sprite(32, 4, 0, SpriteSheet.moreCharacters);
+        public static Sprite female2NPC_back1 = new Sprite(32, 3, 0, SpriteSheet.moreCharacters);
+        public static Sprite female2NPC_back2 = new Sprite(32, 5, 0, SpriteSheet.moreCharacters);
+        
+        public static Sprite female2NPC_left = new Sprite(32, 4, 1, SpriteSheet.moreCharacters);
+	public static Sprite female2NPC_left1 = new Sprite(32, 3, 1, SpriteSheet.moreCharacters);
+        public static Sprite female2NPC_left2 = new Sprite(32, 5, 1, SpriteSheet.moreCharacters);
+        
+        public static Sprite female2NPC_right = new Sprite(32, 4, 2, SpriteSheet.moreCharacters);
+        public static Sprite female2NPC_right1 = new Sprite(32, 3, 2, SpriteSheet.moreCharacters);
+        public static Sprite female2NPC_right2 = new Sprite(32, 5, 2, SpriteSheet.moreCharacters);
+        
+        public static Sprite female2NPC_forward = new Sprite(32, 4, 3, SpriteSheet.moreCharacters);
+        public static Sprite female2NPC_forward1 = new Sprite(32, 3, 3, SpriteSheet.moreCharacters);
+        public static Sprite female2NPC_forward2 = new Sprite(32, 5, 3, SpriteSheet.moreCharacters);
+        
+        
+        // Female3 NPC Sprites
+        
+        public static Sprite female3NPC_back = new Sprite(32, 4, 4, SpriteSheet.moreCharacters);
+        public static Sprite female3NPC_back1 = new Sprite(32, 3, 4, SpriteSheet.moreCharacters);
+        public static Sprite female3NPC_back2 = new Sprite(32, 5, 4, SpriteSheet.moreCharacters);
+        
+        public static Sprite female3NPC_left = new Sprite(32, 4, 5, SpriteSheet.moreCharacters);
+	public static Sprite female3NPC_left1 = new Sprite(32, 3, 5, SpriteSheet.moreCharacters);
+        public static Sprite female3NPC_left2 = new Sprite(32, 5, 5, SpriteSheet.moreCharacters);
+        
+        public static Sprite female3NPC_right = new Sprite(32, 4, 6, SpriteSheet.moreCharacters);
+        public static Sprite female3NPC_right1 = new Sprite(32, 3, 6, SpriteSheet.moreCharacters);
+        public static Sprite female3NPC_right2 = new Sprite(32, 5, 6, SpriteSheet.moreCharacters);
+        
+        public static Sprite female3NPC_forward = new Sprite(32, 4, 7, SpriteSheet.moreCharacters);
+        public static Sprite female3NPC_forward1 = new Sprite(32, 3, 7, SpriteSheet.moreCharacters);
+        public static Sprite female3NPC_forward2 = new Sprite(32, 5, 7, SpriteSheet.moreCharacters);
+        
+        
+        // Male2 NPC Sprites
+        
+        public static Sprite male2NPC_back = new Sprite(32, 1, 0, SpriteSheet.moreCharacters);
+        public static Sprite male2NPC_back1 = new Sprite(32, 0, 0, SpriteSheet.moreCharacters);
+        public static Sprite male2NPC_back2 = new Sprite(32, 2, 0, SpriteSheet.moreCharacters);
+        
+        public static Sprite male2NPC_left = new Sprite(32, 1, 1, SpriteSheet.moreCharacters);
+	public static Sprite male2NPC_left1 = new Sprite(32, 0, 1, SpriteSheet.moreCharacters);
+        public static Sprite male2NPC_left2 = new Sprite(32, 2, 1, SpriteSheet.moreCharacters);
+        
+        public static Sprite male2NPC_right = new Sprite(32, 1, 2, SpriteSheet.moreCharacters);
+        public static Sprite male2NPC_right1 = new Sprite(32, 0, 2, SpriteSheet.moreCharacters);
+        public static Sprite male2NPC_right2 = new Sprite(32, 2, 2, SpriteSheet.moreCharacters);
+        
+        public static Sprite male2NPC_forward = new Sprite(32, 1, 3, SpriteSheet.moreCharacters);
+        public static Sprite male2NPC_forward1 = new Sprite(32, 0, 3, SpriteSheet.moreCharacters);
+        public static Sprite male2NPC_forward2 = new Sprite(32, 2, 3, SpriteSheet.moreCharacters);
+        
+        
+        // Male3 NPC Sprites
+        
+        public static Sprite male3NPC_back = new Sprite(32, 1, 4, SpriteSheet.moreCharacters);
+        public static Sprite male3NPC_back1 = new Sprite(32, 0, 4, SpriteSheet.moreCharacters);
+        public static Sprite male3NPC_back2 = new Sprite(32, 2, 4, SpriteSheet.moreCharacters);
+        
+        public static Sprite male3NPC_left = new Sprite(32, 1, 5, SpriteSheet.moreCharacters);
+	public static Sprite male3NPC_left1 = new Sprite(32, 0, 5, SpriteSheet.moreCharacters);
+        public static Sprite male3NPC_left2 = new Sprite(32, 2, 5, SpriteSheet.moreCharacters);
+        
+        public static Sprite male3NPC_right = new Sprite(32, 1, 6, SpriteSheet.moreCharacters);
+        public static Sprite male3NPC_right1 = new Sprite(32, 0, 6, SpriteSheet.moreCharacters);
+        public static Sprite male3NPC_right2 = new Sprite(32, 2, 6, SpriteSheet.moreCharacters);
+        
+        public static Sprite male3NPC_forward = new Sprite(32, 1, 7, SpriteSheet.moreCharacters);
+        public static Sprite male3NPC_forward1 = new Sprite(32, 0, 7, SpriteSheet.moreCharacters);
+        public static Sprite male3NPC_forward2 = new Sprite(32, 2, 7, SpriteSheet.moreCharacters);
+        
+        
+        // ArmoredGuard NPC Sprites
+        
+        public static Sprite armoredGuardNPC_back = new Sprite(32, 7, 4, SpriteSheet.moreCharacters);
+        public static Sprite armoredGuardNPC_back1 = new Sprite(32, 6, 4, SpriteSheet.moreCharacters);
+        public static Sprite armoredGuardNPC_back2 = new Sprite(32, 8, 4, SpriteSheet.moreCharacters);
+        
+        public static Sprite armoredGuardNPC_left = new Sprite(32, 7, 5, SpriteSheet.moreCharacters);
+	public static Sprite armoredGuardNPC_left1 = new Sprite(32, 6, 5, SpriteSheet.moreCharacters);
+        public static Sprite armoredGuardNPC_left2 = new Sprite(32, 8, 5, SpriteSheet.moreCharacters);
+        
+        public static Sprite armoredGuardNPC_right = new Sprite(32, 7, 6, SpriteSheet.moreCharacters);
+        public static Sprite armoredGuardNPC_right1 = new Sprite(32, 6, 6, SpriteSheet.moreCharacters);
+        public static Sprite armoredGuardNPC_right2 = new Sprite(32, 8, 6, SpriteSheet.moreCharacters);
+        
+        public static Sprite armoredGuardNPC_forward = new Sprite(32, 7, 7, SpriteSheet.moreCharacters);
+        public static Sprite armoredGuardNPC_forward1 = new Sprite(32, 6, 7, SpriteSheet.moreCharacters);
+        public static Sprite armoredGuardNPC_forward2 = new Sprite(32, 8, 7, SpriteSheet.moreCharacters);
+        
+        
+        // Male4 NPC Sprites
+        
+        public static Sprite male4NPC_back = new Sprite(32, 7, 0, SpriteSheet.moreCharacters);
+        public static Sprite male4NPC_back1 = new Sprite(32, 6, 0, SpriteSheet.moreCharacters);
+        public static Sprite male4NPC_back2 = new Sprite(32, 8, 0, SpriteSheet.moreCharacters);
+        
+        public static Sprite male4NPC_left = new Sprite(32, 7, 1, SpriteSheet.moreCharacters);
+	public static Sprite male4NPC_left1 = new Sprite(32, 6, 1, SpriteSheet.moreCharacters);
+        public static Sprite male4NPC_left2 = new Sprite(32, 8, 1, SpriteSheet.moreCharacters);
+        
+        public static Sprite male4NPC_right = new Sprite(32, 7, 2, SpriteSheet.moreCharacters);
+        public static Sprite male4NPC_right1 = new Sprite(32, 6, 2, SpriteSheet.moreCharacters);
+        public static Sprite male4NPC_right2 = new Sprite(32, 8, 2, SpriteSheet.moreCharacters);
+        
+        public static Sprite male4NPC_forward = new Sprite(32, 7, 3, SpriteSheet.moreCharacters);
+        public static Sprite male4NPC_forward1 = new Sprite(32, 6, 3, SpriteSheet.moreCharacters);
+        public static Sprite male4NPC_forward2 = new Sprite(32, 8, 3, SpriteSheet.moreCharacters);
+        
+        // Female4 NPC Sprites
+        
+        public static Sprite female4NPC_back = new Sprite(32, 10, 0, SpriteSheet.moreCharacters);
+        public static Sprite female4NPC_back1 = new Sprite(32, 9, 0, SpriteSheet.moreCharacters);
+        public static Sprite female4NPC_back2 = new Sprite(32, 11, 0, SpriteSheet.moreCharacters);
+        
+        public static Sprite female4NPC_left = new Sprite(32, 10, 1, SpriteSheet.moreCharacters);
+	public static Sprite female4NPC_left1 = new Sprite(32, 9, 1, SpriteSheet.moreCharacters);
+        public static Sprite female4NPC_left2 = new Sprite(32, 11, 1, SpriteSheet.moreCharacters);
+        
+        public static Sprite female4NPC_right = new Sprite(32, 10, 2, SpriteSheet.moreCharacters);
+        public static Sprite female4NPC_right1 = new Sprite(32, 9, 2, SpriteSheet.moreCharacters);
+        public static Sprite female4NPC_right2 = new Sprite(32, 11, 2, SpriteSheet.moreCharacters);
+        
+        public static Sprite female4NPC_forward = new Sprite(32, 10, 3, SpriteSheet.moreCharacters);
+        public static Sprite female4NPC_forward1 = new Sprite(32, 9, 3, SpriteSheet.moreCharacters);
+        public static Sprite female4NPC_forward2 = new Sprite(32, 11, 3, SpriteSheet.moreCharacters);
+        
         // Male NPC Sprites
         
         public static Sprite maleNPC_back = new Sprite(32, 7, 0, SpriteSheet.characters);
