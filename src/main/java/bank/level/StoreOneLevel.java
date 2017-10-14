@@ -38,9 +38,9 @@ class StoreOneLevel extends Level {
         npcs.add(new Npc(54, 79, 1, "/dialogs/storeOneLevel/helpfulMan.txt"));
         npcs.add(new Npc(104, 66, 2, "/dialogs/storeOneLevel/toughGirl.txt"));
         
-        for (int i = 0; i < npcs.size(); i++) {
-            npcs.get(i).init(this);
-        }
+//        for (int i = 0; i < npcs.size(); i++) {
+//            npcs.get(i).init(this);
+//        }
     }
     
     private void addFurniture() {
